@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sorteio ao Vivo | CONMEBOL Sul-Americana</title>
-    <link rel="stylesheet" href="assets/css/sul-americana.css">
+    <!-- CACHE BUSTER ?v=6 -->
+    <link rel="stylesheet" href="assets/css/sul-americana.css?v=6">
 </head>
 <body>
 
@@ -31,7 +32,6 @@
                 <div class="card-pote" id="pote-1-painel">
                     <div class="cabecalho-pote">
                         <h3>Pote 1</h3>
-                        <span id="badge-pote1">8 restantes</span>
                     </div>
                     <ul id="lista-pote-1" class="lista-times-pote"></ul>
                 </div>
@@ -40,7 +40,6 @@
                 <div class="card-pote" id="pote-2-painel">
                     <div class="cabecalho-pote">
                         <h3>Pote 2</h3>
-                        <span id="badge-pote2">8 restantes</span>
                     </div>
                     <ul id="lista-pote-2" class="lista-times-pote"></ul>
                 </div>
@@ -50,7 +49,6 @@
             <section class="coluna-confrontos">
                 <div class="cabecalho-confrontos">
                     <h2>Oitavas de Final</h2>
-                    <span id="status-confrontos">Definindo Confronto A...</span>
                 </div>
 
                 <div class="grid-confrontos-oitavas">
@@ -129,19 +127,23 @@
             </section>
         </div>
 
-        <!-- ÁREA INFERIOR: DOIS POTES + PAPEL ABRINDO COM 2s -->
+        <!-- ÁREA INFERIOR: URNAS DE CRISTAL + PAPEL + BOTÕES -->
         <section id="area-sorteio-animado">
             <div class="mesa-bolilleros">
                 
-                <!-- POTE 2 (AZUL) -->
+                <!-- POTE 2 (URNA DE CRISTAL SULA) -->
                 <div class="bolillero-box" id="bolillero-pote2">
                     <span class="label-bolillero">Pote 2</span>
                     <div class="redoma-vidro">
+                        <div class="anel-topo-urna"></div>
                         <div class="bolinha-giratoria b1"></div>
                         <div class="bolinha-giratoria b2"></div>
                         <div class="bolinha-giratoria b3"></div>
                         <div class="bolinha-giratoria b4"></div>
+                        <div class="bolinha-giratoria b5"></div>
+                        <div class="bolinha-giratoria b6"></div>
                     </div>
+                    <div class="pedestal-urna"></div>
                 </div>
 
                 <!-- CENTRO: TIRA DE PAPEL ABRINDO -->
@@ -157,9 +159,13 @@
                         </div>
                     </div>
 
+                    <!-- BOTÕES DE SORTEIO -->
                     <div class="botoes-palco">
                         <button type="button" id="btn-sortear" class="btn-sortear-principal">
-                            Sortear Pote 2 (Chave A)
+                            Sortear Pote 2
+                        </button>
+                        <button type="button" id="btn-sortear-tudo" class="btn-sortear-tudo">
+                            ⚡ Sortear Tudo
                         </button>
                         <a href="chaveamento-sulamericana.html" id="btn-ir-chaveamento" class="btn-chaveamento-link oculto">
                             Ver Chaveamento Completo &rarr;
@@ -167,15 +173,19 @@
                     </div>
                 </div>
 
-                <!-- POTE 1 (PRATA/AZUL) -->
+                <!-- POTE 1 (URNA DE CRISTAL SULA) -->
                 <div class="bolillero-box" id="bolillero-pote1">
                     <span class="label-bolillero">Pote 1</span>
                     <div class="redoma-vidro">
+                        <div class="anel-topo-urna"></div>
                         <div class="bolinha-giratoria b1"></div>
                         <div class="bolinha-giratoria b2"></div>
                         <div class="bolinha-giratoria b3"></div>
                         <div class="bolinha-giratoria b4"></div>
+                        <div class="bolinha-giratoria b5"></div>
+                        <div class="bolinha-giratoria b6"></div>
                     </div>
+                    <div class="pedestal-urna"></div>
                 </div>
 
             </div>
@@ -186,6 +196,7 @@
         <p>CONMEBOL Sul-Americana &copy; Sorteio Oficial PES</p>
     </footer>
 
-    <script src="assets/js/sul-americana.js"></script>
+    <!-- SCRIPT COM CACHE BUSTER -->
+    <script src="assets/js/sul-americana.js?v=6"></script>
 </body>
 </html>

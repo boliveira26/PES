@@ -1,5 +1,5 @@
 // ==========================================================================
-// assets/js/libertadores.js - SORTEIO BLINDADO COM "SORTEAR TUDO" FUNCIONAL
+// assets/js/libertadores.js - SORTEIO OFICIAL CONMEBOL LIBERTADORES
 // ==========================================================================
 
 const chaves = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -35,15 +35,13 @@ let estado = {
     confrontoIndex: 0,
     etapa: 'POTE2',
     timePote2Atual: null,
-    confrontosFinalizados: []
+    confrontosFinalizados: [],
+    sorteando: false
 };
 
 // ELEMENTOS DO DOM COM SELEÇÃO SEGURA
 const listaPote1 = document.getElementById('lista-pote-1');
 const listaPote2 = document.getElementById('lista-pote-2');
-const badgePote1 = document.getElementById('badge-pote1');
-const badgePote2 = document.getElementById('badge-pote2');
-const statusConfrontos = document.getElementById('status-confrontos');
 
 const bolilleroPote2 = document.getElementById('bolillero-pote2');
 const bolilleroPote1 = document.getElementById('bolillero-pote1');
@@ -55,7 +53,7 @@ const btnSortearTudo = document.getElementById('btn-sortear-tudo');
 const btnIrChaveamento = document.getElementById('btn-ir-chaveamento');
 const btnReiniciarSorteio = document.getElementById('btn-reiniciar-sorteio');
 
-// 1. INICIALIZAÇÃO
+// 1. INICIALIZAÇÃO DO PALCO
 function inicializarPalco() {
     const dadosSalvos = localStorage.getItem('dados_sorteio_libertadores');
     const dados = dadosSalvos ? JSON.parse(dadosSalvos) : timesPadraoLibertadores;
@@ -68,12 +66,13 @@ function inicializarPalco() {
     estado.etapa = 'POTE2';
     estado.timePote2Atual = null;
     estado.confrontosFinalizados = [];
+    estado.sorteando = false;
 
     renderizarListasPotes();
     atualizarConfrontoAtivo();
 }
 
-// 2. RENDERIZA OS POTES NA ESQUERDA
+// 2. RENDERIZA OS POTES LATERAIS
 function renderizarListasPotes() {
     if (listaPote1) {
         listaPote1.innerHTML = '';
@@ -102,12 +101,9 @@ function renderizarListasPotes() {
             listaPote2.appendChild(li);
         });
     }
-
-    if (badgePote1) badgePote1.textContent = `${estado.pote1Restantes.length} restantes`;
-    if (badgePote2) badgePote2.textContent = `${estado.pote2Restantes.length} restantes`;
 }
 
-// 3. ATUALIZA DESTAQUES E BOTÕES
+// 3. ATUALIZA DESTAQUES DOS CONFRONTOS E BOTÕES
 function atualizarConfrontoAtivo() {
     chaves.forEach((chave, index) => {
         const card = document.getElementById(`confronto-${chave}`);
@@ -122,15 +118,14 @@ function atualizarConfrontoAtivo() {
 
     if (estado.confrontoIndex < 8) {
         const chaveAtual = chaves[estado.confrontoIndex];
-        if (statusConfrontos) statusConfrontos.textContent = `Definindo Confronto ${chaveAtual}...`;
 
         if (estado.etapa === 'POTE2') {
-            if (btnSortear) btnSortear.textContent = `Sortear Pote 2 (Chave ${chaveAtual})`;
-            if (etapaSorteioTexto) etapaSorteioTexto.textContent = `Sorteando Mandante do Confronto ${chaveAtual}`;
+            if (btnSortear) btnSortear.textContent = 'Sortear Pote 2';
+            if (etapaSorteioTexto) etapaSorteioTexto.textContent = `Sorteando Mandante da Chave ${chaveAtual}`;
             if (bolilleroPote2) bolilleroPote2.classList.add('ativo');
             if (bolilleroPote1) bolilleroPote1.classList.remove('ativo');
         } else {
-            if (btnSortear) btnSortear.textContent = `Sortear Pote 1 (Chave ${chaveAtual})`;
+            if (btnSortear) btnSortear.textContent = 'Sortear Pote 1';
             if (etapaSorteioTexto) etapaSorteioTexto.textContent = `Adversário do ${estado.timePote2Atual} (Decide em Casa)`;
             if (bolilleroPote1) bolilleroPote1.classList.add('ativo');
             if (bolilleroPote2) bolilleroPote2.classList.remove('ativo');
@@ -138,9 +133,30 @@ function atualizarConfrontoAtivo() {
     }
 }
 
-// 4. SORTEIO MANUAL (PASSO A PASSO COM 2s)
+// 4. EFEITO DE ROLETA / SUSPENSE NA TIRA DE PAPEL
+function animarRoletaSuspense(poteAlvo, callbackFinal) {
+    let duracao = 1800;
+    let intervaloTempo = 75;
+    let tempoDecorrido = 0;
+
+    const intervalId = setInterval(() => {
+        const timeAleatorio = poteAlvo[Math.floor(Math.random() * poteAlvo.length)];
+        if (textoTimePapel) textoTimePapel.textContent = timeAleatorio;
+        tempoDecorrido += intervaloTempo;
+
+        if (tempoDecorrido >= duracao) {
+            clearInterval(intervalId);
+            callbackFinal();
+        }
+    }, intervaloTempo);
+}
+
+// 5. SORTEIO MANUAL COM ANIMAÇÃO
 if (btnSortear) {
     btnSortear.addEventListener('click', () => {
+        if (estado.sorteando || estado.confrontoIndex >= 8) return;
+
+        estado.sorteando = true;
         btnSortear.disabled = true;
         if (btnSortearTudo) btnSortearTudo.disabled = true;
 
@@ -149,24 +165,29 @@ if (btnSortear) {
             void papelSorteio.offsetWidth;
             papelSorteio.classList.add('abrindo');
         }
-        if (textoTimePapel) textoTimePapel.textContent = 'ABRINDO...';
 
-        setTimeout(() => {
+        const poteAtual = estado.etapa === 'POTE2' ? estado.pote2Restantes : estado.pote1Restantes;
+
+        animarRoletaSuspense(poteAtual, () => {
             executarSorteioAlgoritmo();
-            if (btnSortear) btnSortear.disabled = false;
+            estado.sorteando = false;
+            if (btnSortear && estado.confrontoIndex < 8) btnSortear.disabled = false;
             if (btnSortearTudo && estado.confrontoIndex < 8) btnSortearTudo.disabled = false;
-        }, 2000);
+        });
     });
 }
 
-// 5. ⚡ SORTEAR TUDO AUTOMÁTICO (GARANTIDO E SEGURO)
+// 6. SORTEAR TUDO AUTOMÁTICO
 if (btnSortearTudo) {
     btnSortearTudo.addEventListener('click', () => {
-        // Embaralha aleatoriamente o que resta de cada pote
+        if (estado.sorteando) return;
+
+        btnSortearTudo.disabled = true;
+        if (btnSortear) btnSortear.disabled = true;
+
         const p2Restantes = [...estado.pote2Restantes].sort(() => Math.random() - 0.5);
         const p1Restantes = [...estado.pote1Restantes].sort(() => Math.random() - 0.5);
 
-        // Se já havia sorteado o Pote 2 da chave atual
         if (estado.timePote2Atual && p1Restantes.length > 0) {
             const timeP1 = p1Restantes.pop();
             const chave = chaves[estado.confrontoIndex];
@@ -176,7 +197,6 @@ if (btnSortearTudo) {
             estado.timePote2Atual = null;
         }
 
-        // Preenche todas as chaves que faltam até a H
         while (estado.confrontoIndex < 8 && p2Restantes.length > 0 && p1Restantes.length > 0) {
             const timeP2 = p2Restantes.pop();
             const timeP1 = p1Restantes.pop();
@@ -187,7 +207,6 @@ if (btnSortearTudo) {
             estado.confrontoIndex++;
         }
 
-        // Zera os potes
         estado.pote2Restantes = [];
         estado.pote1Restantes = [];
         renderizarListasPotes();
@@ -200,14 +219,20 @@ function preencherConfrontoNaTela(chave, timeP2, timeP1) {
     if (card) {
         const spanT2 = card.querySelector('.time-pote2');
         const spanT1 = card.querySelector('.time-pote1');
-        if (spanT2) { spanT2.textContent = timeP2; spanT2.classList.add('preenchido'); }
-        if (spanT1) { spanT1.textContent = timeP1; spanT1.classList.add('preenchido'); }
+        if (spanT2) { 
+            spanT2.textContent = timeP2; 
+            spanT2.classList.add('preenchido'); 
+        }
+        if (spanT1) { 
+            spanT1.textContent = timeP1; 
+            spanT1.classList.add('preenchido'); 
+        }
         card.classList.remove('ativo');
         card.classList.add('preenchido');
     }
 }
 
-// 6. LÓGICA DO SORTEIO PASSO A PASSO
+// 7. LÓGICA DO SORTEIO PASSO A PASSO
 function executarSorteioAlgoritmo() {
     const chaveAtual = chaves[estado.confrontoIndex];
     const cardConfronto = document.getElementById(`confronto-${chaveAtual}`);
@@ -228,7 +253,6 @@ function executarSorteioAlgoritmo() {
         }
 
         destacarTimeSorteado(listaPote2, timeSorteado);
-        if (badgePote2) badgePote2.textContent = `${estado.pote2Restantes.length} restantes`;
 
         estado.etapa = 'POTE1';
         atualizarConfrontoAtivo();
@@ -250,7 +274,6 @@ function executarSorteioAlgoritmo() {
         }
 
         destacarTimeSorteado(listaPote1, timeSorteado);
-        if (badgePote1) badgePote1.textContent = `${estado.pote1Restantes.length} restantes`;
 
         estado.confrontosFinalizados.push({
             chave: chaveAtual,
@@ -278,13 +301,12 @@ function destacarTimeSorteado(containerUl, nomeTime) {
         setTimeout(() => {
             item.classList.remove('recem-sorteado');
             item.classList.add('sorteado');
-        }, 1500);
+        }, 1200);
     }
 }
 
-// 7. FINALIZAÇÃO
+// 8. FINALIZAÇÃO DO SORTEIO
 function finalizarSorteioGeral() {
-    if (statusConfrontos) statusConfrontos.textContent = 'Sorteio Oficial Concluído!';
     if (etapaSorteioTexto) etapaSorteioTexto.textContent = 'Oitavas de Final Definidas';
     if (textoTimePapel) textoTimePapel.textContent = 'CAMINHO DEFINIDO 🏆';
 
@@ -297,7 +319,7 @@ function finalizarSorteioGeral() {
     if (bolilleroPote2) bolilleroPote2.classList.remove('ativo');
 }
 
-// 8. REINICIAR
+// 9. REINICIAR SORTEIO
 if (btnReiniciarSorteio) {
     btnReiniciarSorteio.addEventListener('click', () => {
         if (confirm('Deseja reiniciar este sorteio do início?')) {
@@ -312,7 +334,10 @@ if (btnReiniciarSorteio) {
                 }
             });
 
-            if (btnSortear) btnSortear.classList.remove('oculto');
+            if (btnSortear) {
+                btnSortear.classList.remove('oculto');
+                btnSortear.disabled = false;
+            }
             if (btnSortearTudo) {
                 btnSortearTudo.classList.remove('oculto');
                 btnSortearTudo.disabled = false;
@@ -326,6 +351,7 @@ if (btnReiniciarSorteio) {
             estado.etapa = 'POTE2';
             estado.timePote2Atual = null;
             estado.confrontosFinalizados = [];
+            estado.sorteando = false;
 
             renderizarListasPotes();
             atualizarConfrontoAtivo();

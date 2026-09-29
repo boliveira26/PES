@@ -1,0 +1,437 @@
+/* ==========================================================================
+   TIPOGRAFIA OFICIAL CONMEBOL BRANDING
+   ========================================================================== */
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Semibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+:root {
+    --tv-black-base: #07090c;
+    --tv-black-panel: #0e1218;
+    --tv-black-slot: #06080b;
+    
+    --gold-bright: #fff3c4;
+    --gold-main: #d4af37;
+    --gold-metal: #a8832a;
+    --gold-dark: #4a3810;
+    --gold-bar: linear-gradient(90deg, #3d2e0f 0%, #a8832a 20%, #fff0b8 50%, #a8832a 80%, #3d2e0f 100%);
+    --gold-badge: linear-gradient(180deg, #fff2c2 0%, #d8b04a 40%, #a37c22 85%, #5a420f 100%);
+    
+    --border-card: rgba(212, 175, 55, 0.28);
+    --border-hover: rgba(255, 240, 180, 0.85);
+    
+    --text-pure-white: #ffffff;
+    --text-silver: #c8d1de;
+    --text-muted: #6a788c;
+    
+    --font-main: 'Branding', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-main);
+}
+
+body.tema-libertadores {
+    background-color: var(--tv-black-base);
+    background-image: 
+        radial-gradient(ellipse at 50% -10%, rgba(212, 175, 55, 0.18) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(7, 9, 12, 0.8) 0%, rgba(3, 4, 6, 0.98) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.3) 3px, rgba(0, 0, 0, 0.3) 6px);
+    color: var(--text-pure-white);
+    min-height: 100vh;
+    padding: 2rem 1.5rem 3rem 1.5rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body.tema-libertadores::before,
+body.tema-libertadores::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 15vw;
+    pointer-events: none;
+    z-index: 1;
+}
+
+body.tema-libertadores::before {
+    left: 0;
+    background: radial-gradient(circle at left, rgba(212, 175, 55, 0.1) 0%, transparent 75%);
+}
+
+body.tema-libertadores::after {
+    right: 0;
+    background: radial-gradient(circle at right, rgba(212, 175, 55, 0.1) 0%, transparent 75%);
+}
+
+/* CABEÇALHO */
+.cabecalho-torneio {
+    text-align: center;
+    margin-bottom: 2.8rem;
+    position: relative;
+    z-index: 2;
+}
+
+.nav-links-tabela {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-nav-tabela {
+    background: linear-gradient(180deg, #18202b 0%, #0a0d13 100%);
+    border: 1px solid var(--gold-metal);
+    color: var(--gold-bright);
+    padding: 0.6rem 1.4rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.btn-nav-tabela:hover {
+    border-color: var(--gold-bright);
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.emblema-topo-tabela img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.9));
+    margin-bottom: 0.4rem;
+}
+
+.cabecalho-torneio h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.cabecalho-torneio h2 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: var(--gold-main);
+    text-transform: uppercase;
+}
+
+/* QUADRO GERAL */
+.quadro-competicao {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.8rem;
+    position: relative;
+    z-index: 2;
+}
+
+.secao-fase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.divisor-fase-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1.4rem;
+    width: 100%;
+}
+
+.marcador-dourado {
+    flex: 1;
+    max-width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.6) 100%);
+}
+
+.divisor-fase-header .marcador-dourado:last-child {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.6) 0%, transparent 100%);
+}
+
+.titulo-fase {
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 3.5px;
+    color: var(--gold-bright);
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.container-linhas-confronto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    width: 100%;
+}
+
+.linha-duelo-duplo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.8rem;
+    width: 100%;
+}
+
+/* CARD DO JOGO */
+.card-jogo {
+    background: linear-gradient(180deg, #131720 0%, #090b0f 100%);
+    border: 1px solid var(--border-card);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.85);
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.card-jogo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.6) 50%, transparent 100%);
+}
+
+.card-jogo:hover {
+    border-color: var(--gold-bright);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+    transform: translateY(-1px);
+}
+
+.info-jogo {
+    background: linear-gradient(180deg, #1b222d 0%, #10141a 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold-bright);
+    text-align: center;
+}
+
+.placar-jogo {
+    padding: 0.65rem 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.time {
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-pure-white);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: linear-gradient(180deg, #0d1016 0%, #05070a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 0.6rem;
+    border-radius: 2px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.time.mandante { text-align: center; }
+.time.visitante { text-align: center; }
+
+.gols {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #0b0e14;
+    background: var(--gold-badge);
+    border: 1px solid #ffeaa3;
+    border-radius: 2px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    flex-shrink: 0;
+}
+
+.divisor-x {
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: var(--gold-bright);
+    padding: 0 0.15rem;
+    flex-shrink: 0;
+    opacity: 0.75;
+}
+
+/* GRANDE FINAL */
+.bloco-final-unica {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.card-final-destaque {
+    border: 2px solid;
+    border-image: var(--gold-badge) 1;
+    background: linear-gradient(180deg, #181d26 0%, #080a0e 100%);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.35), 0 10px 30px rgba(0, 0, 0, 0.9);
+}
+
+.card-final-destaque .info-jogo {
+    padding: 0.65rem 1.2rem;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffffff;
+    background: linear-gradient(180deg, #222a36 0%, #121620 100%);
+}
+
+.card-final-destaque .placar-jogo {
+    padding: 1.2rem 1.6rem;
+    gap: 0.8rem;
+}
+
+.card-final-destaque .time {
+    font-size: 1.15rem;
+    font-weight: 900;
+    padding: 0.8rem 1.2rem;
+    border-color: rgba(212, 175, 55, 0.4);
+    border-top: 1px solid rgba(255, 240, 180, 0.5);
+}
+
+.card-final-destaque .gols {
+    width: 44px;
+    height: 44px;
+    font-size: 1.35rem;
+}
+
+.card-final-destaque .final-vs {
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: var(--gold-bright);
+    opacity: 1;
+}
+
+#rodape {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: 3.5rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.5rem;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 900px) {
+    body.tema-libertadores {
+        padding: 1.2rem 0.8rem 2rem 0.8rem;
+    }
+
+    .cabecalho-torneio h1 {
+        font-size: 1.4rem;
+        letter-spacing: 3px;
+    }
+
+    .cabecalho-torneio h2 {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+    }
+
+    .linha-duelo-duplo {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .time {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.3rem;
+        letter-spacing: 0.5px;
+    }
+
+    .gols {
+        width: 30px;
+        height: 30px;
+        font-size: 0.95rem;
+    }
+
+    .card-final-destaque .placar-jogo {
+        padding: 0.8rem 0.6rem;
+        gap: 0.4rem;
+    }
+
+    .card-final-destaque .time {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.4rem;
+    }
+
+    .card-final-destaque .gols {
+        width: 34px;
+        height: 34px;
+        font-size: 1.05rem;
+    }
+}

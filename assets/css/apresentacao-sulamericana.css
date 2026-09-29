@@ -1,0 +1,838 @@
+/* ==========================================================================
+   assets/css/apresentacao-sulamericana.css - CERIMÔNIA SUL-AMERICANA BROADCAST
+   ========================================================================== */
+
+/* TIPOGRAFIA OFICIAL CONMEBOL BRANDING */
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Semibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Branding';
+    src: url('/sitezin/assets/fonts/Branding%20Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+:root {
+    --tv-navy-base: #030711;
+    --tv-navy-panel: #09101d;
+    --tv-navy-slot: #050a12;
+    
+    /* PRATA E PLATINA METÁLICA */
+    --silver-bright: #ffffff;
+    --silver-main: #d0dce8;
+    --silver-metal: #7a8fa6;
+    --silver-dark: #222e3d;
+    --silver-bar: linear-gradient(90deg, #152336 0%, #7697be 25%, #ffffff 50%, #7697be 75%, #152336 100%);
+    --silver-badge: linear-gradient(180deg, #ffffff 0%, #c4d7ed 35%, #7592b5 85%, #2c425e 100%);
+    
+    /* AZUL SUL-AMERICANA */
+    --sula-blue-neon: #0088ff;
+    --sula-blue-light: #60a5fa;
+    --sula-blue-dark: #1d4ed8;
+    
+    --border-sula: rgba(96, 165, 250, 0.3);
+    --border-sula-glow: rgba(96, 165, 250, 0.9);
+    
+    --text-pure-white: #ffffff;
+    --text-silver: #c5d3e3;
+    --text-muted: #5e738c;
+    
+    --font-main: 'Branding', sans-serif;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-main);
+}
+
+body {
+    background-color: var(--tv-navy-base);
+    background-image: 
+        radial-gradient(ellipse at 50% -10%, rgba(0, 136, 255, 0.22) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(3, 7, 17, 0.75) 0%, rgba(1, 4, 10, 0.98) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.35) 3px, rgba(0, 0, 0, 0.35) 6px);
+    color: var(--text-pure-white);
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 15vw;
+    pointer-events: none;
+    z-index: 1;
+}
+
+body::before {
+    left: 0;
+    background: radial-gradient(circle at left, rgba(0, 136, 255, 0.12) 0%, transparent 75%);
+}
+
+body::after {
+    right: 0;
+    background: radial-gradient(circle at right, rgba(0, 136, 255, 0.12) 0%, transparent 75%);
+}
+
+/* PAINEL SUPERIOR */
+.painel-cerimonia-topo {
+    position: relative;
+    z-index: 20;
+    padding: 0.8rem 2.5rem;
+    background: linear-gradient(180deg, #0f1929 0%, #060b14 100%);
+    border-bottom: 2px solid;
+    border-image: var(--silver-bar) 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9);
+}
+
+.bloco-marca-topo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.selo-oficial {
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #060b14;
+    background: var(--silver-badge);
+    padding: 0.2rem 0.65rem;
+    border-radius: 2px;
+    border: 1px solid #e0ebf8;
+}
+
+.nome-torneio-topo {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--sula-blue-light);
+}
+
+.indicadores-cenas {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.item-indicador {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.num-ind {
+    color: var(--text-muted);
+    font-weight: 900;
+}
+
+.item-indicador.ativo {
+    background: linear-gradient(180deg, #152438 0%, #0a1322 100%);
+    border-color: var(--silver-bright);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 136, 255, 0.35);
+}
+
+.item-indicador.ativo .num-ind {
+    color: var(--sula-blue-light);
+}
+
+/* PALCO DE CENAS */
+.palco-apresentacao {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    max-width: 1350px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    z-index: 2;
+}
+
+.cena {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.97) translateY(15px);
+    transition: all 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+    pointer-events: none;
+}
+
+.cena.ativa {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    pointer-events: all;
+}
+
+.conteudo-cena {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+    z-index: 2;
+}
+
+.centro-impacto {
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.cabecalho-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.6rem;
+    gap: 0.2rem;
+}
+
+.titulo-slide {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    background: linear-gradient(180deg, #ffffff 0%, #d4e3f5 45%, #7ea3cc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
+.subtitulo-slide {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--sula-blue-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* CENA 1: ABERTURA */
+.halo-azul-abertura {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(0, 136, 255, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulsarHalo 3.5s infinite ease-in-out;
+}
+
+@keyframes pulsarHalo {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.35); opacity: 0.85; }
+}
+
+.emblema-abertura-3d img {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 35px rgba(0, 136, 255, 0.45));
+    animation: flutuarLogo 4s infinite ease-in-out;
+    margin-bottom: 0.4rem;
+}
+
+@keyframes flutuarLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.titulo-abertura {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(180deg, #ffffff 0%, #d4e3f5 45%, #7ea3cc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
+}
+
+.slogan-abertura {
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: var(--sula-blue-light);
+    text-shadow: 0 0 25px rgba(0, 136, 255, 0.6);
+    text-transform: uppercase;
+}
+
+.subtitulo-seco {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+}
+
+/* CENA 2: SEDE */
+.card-estadio-cinematografico {
+    width: 100%;
+    max-width: 860px;
+    background: linear-gradient(180deg, #0e1726 0%, #060c15 100%);
+    border: 1px solid var(--border-sula);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
+    position: relative;
+}
+
+.card-estadio-cinematografico::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--silver-bar);
+    z-index: 5;
+}
+
+.moldura-foto-estadio {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.moldura-foto-estadio img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    animation: zoomEstadio 15s infinite alternate ease-in-out;
+}
+
+@keyframes zoomEstadio {
+    0% { transform: scale(1.02); }
+    100% { transform: scale(1.08); }
+}
+
+.gradiente-sombra-estadio {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(9, 16, 29, 0.95) 100%);
+}
+
+.selo-final-unica {
+    position: absolute;
+    bottom: 12px;
+    left: 15px;
+    background: var(--silver-badge);
+    color: #060b14;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    border: 1px solid #e0ebf8;
+}
+
+.grid-ficha-estadio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1.2rem 1.5rem;
+    background: #060b14;
+    border-top: 1px solid rgba(96, 165, 250, 0.2);
+    gap: 1.5rem;
+}
+
+.item-ficha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.4rem;
+}
+
+.label-ficha {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+}
+
+.valor-ficha {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.item-ficha.destaque-prata .valor-ficha {
+    color: var(--silver-bright);
+    text-shadow: 0 0 10px rgba(0, 136, 255, 0.4);
+}
+
+/* CENA 3: REGRAS */
+.grid-cards-regras {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    width: 100%;
+    max-width: 960px;
+}
+
+.card-regra-info {
+    background: linear-gradient(180deg, #0e1726 0%, #060c15 100%);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    border-radius: 3px;
+    padding: 1.2rem 1.4rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.85);
+    text-align: left;
+    position: relative;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.card-regra-info::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.5) 50%, transparent 100%);
+}
+
+.card-regra-info.revelado {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.topo-card-regra {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.15);
+    padding-bottom: 0.5rem;
+}
+
+.badge-regra {
+    background: var(--silver-badge);
+    color: #060b14;
+    font-size: 0.75rem;
+    font-weight: 900;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    border: 1px solid #e0ebf8;
+}
+
+.topo-card-regra h4 {
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--sula-blue-light);
+    text-transform: uppercase;
+}
+
+.card-regra-info p {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-silver);
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   CENA 4: SPOTLIGHT SOLO COM ESCUDO SULA
+   ========================================================================== */
+#palco-cena-potes {
+    width: 100%;
+    min-height: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-spotlight-solo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 700px;
+    gap: 1.2rem;
+}
+
+.tag-pote-solo {
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--sula-blue-light);
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid var(--border-sula);
+    padding: 0.35rem 1.6rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+.card-time-solo {
+    background: linear-gradient(180deg, #101c2e 0%, #060a12 100%);
+    border: 2px solid;
+    border-image: var(--silver-badge) 1;
+    border-radius: 4px;
+    padding: 2.2rem 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 136, 255, 0.25);
+    opacity: 0;
+    transform: scale(0.92) translateY(15px);
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.card-time-solo.visivel {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 136, 255, 0.5);
+}
+
+.card-time-solo.saindo {
+    opacity: 0;
+    transform: scale(1.05) translateY(-15px);
+}
+
+.moldura-escudo-solo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.95) 80%);
+    border: 2px solid var(--silver-bright);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    box-shadow: 0 0 25px rgba(0, 136, 255, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.9);
+}
+
+.moldura-escudo-solo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.9));
+}
+
+.nome-time-solo {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
+/* VISÃO GERAL LADO A LADO */
+.container-potes-visao-geral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1050px;
+    animation: fadeInGeral 0.6s ease forwards;
+}
+
+@keyframes fadeInGeral {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.grid-potes-duplo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    width: 100%;
+}
+
+.coluna-pote-quadro {
+    background: linear-gradient(180deg, #0e1726 0%, #060c15 100%);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 4px;
+    padding: 1.2rem 1.4rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+    position: relative;
+}
+
+.coluna-pote-quadro::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 2px;
+    background: var(--silver-bar);
+}
+
+.barra-titulo-pote {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.9rem;
+}
+
+.insignia-pote {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--silver-bright);
+}
+
+.status-pote {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+.lista-times-quadro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.item-time-quadro {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.45rem 0.8rem;
+    background: linear-gradient(180deg, #09101d 0%, #03070f 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-left: 3px solid rgba(96, 165, 250, 0.4);
+    border-radius: 2px;
+}
+
+.mini-escudo-quadro {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.nome-clube-quadro {
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* CENA 5: CLÍMAX */
+.titulo-pronto {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: 6px;
+    background: linear-gradient(180deg, #ffffff 0%, #d4e3f5 45%, #7ea3cc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+.descricao-pronto {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-silver);
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.btn-iniciar-sorteio-live {
+    background: var(--silver-badge);
+    color: #060b14;
+    border: 1px solid #e0ebf8;
+    padding: 1.1rem 3.2rem;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    display: inline-block;
+    box-shadow: 0 0 30px rgba(0, 136, 255, 0.7);
+    transition: all 0.25s ease;
+}
+
+.btn-iniciar-sorteio-live:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 45px rgba(0, 136, 255, 0.95);
+    color: #000000;
+}
+
+/* CONTROLES INFERIORES */
+.controles-cerimonia {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 0.9rem;
+    background: linear-gradient(0deg, rgba(3, 7, 17, 0.95) 0%, transparent 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-ctrl {
+    background: linear-gradient(180deg, #142236 0%, #08101c 100%);
+    border: 1px solid var(--silver-metal);
+    color: var(--sula-blue-light);
+    width: 38px; height: 38px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-ctrl:hover {
+    border-color: var(--silver-bright);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 136, 255, 0.4);
+}
+
+.btn-ctrl-texto {
+    background: linear-gradient(180deg, #142236 0%, #08101c 100%);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    color: var(--text-silver);
+    padding: 0.6rem 1.4rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-ctrl-texto.ativo {
+    background: rgba(0, 136, 255, 0.2);
+    border-color: var(--sula-blue-light);
+    color: var(--silver-bright);
+}
+
+.btn-ctrl-destaque {
+    background: var(--silver-badge);
+    color: #060b14;
+    border: 1px solid #e0ebf8;
+    padding: 0.6rem 1.8rem;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(0, 136, 255, 0.5);
+    transition: all 0.2s ease;
+}
+
+.btn-ctrl-destaque:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 25px rgba(0, 136, 255, 0.8);
+}
+
+.link-pular-intro {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.2s ease;
+    margin-left: 0.5rem;
+}
+
+.link-pular-intro:hover {
+    color: #ffffff;
+}
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 860px) {
+    .painel-cerimonia-topo {
+        padding: 0.6rem 1rem;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .indicadores-cenas { display: none; }
+    .titulo-abertura { font-size: 1.8rem; letter-spacing: 4px; }
+    .slogan-abertura { font-size: 1rem; letter-spacing: 4px; }
+    .titulo-slide { font-size: 1.3rem; letter-spacing: 3px; }
+    
+    .moldura-foto-estadio { height: 160px; }
+    .grid-ficha-estadio { grid-template-columns: 1fr; gap: 0.6rem; padding: 0.8rem; }
+    
+    .grid-cards-regras { grid-template-columns: 1fr; gap: 0.8rem; }
+    
+    .card-time-solo { padding: 1.5rem 1rem; }
+    .moldura-escudo-solo { width: 90px; height: 90px; }
+    .nome-time-solo { font-size: 1.4rem; letter-spacing: 2px; }
+    
+    .grid-potes-duplo { grid-template-columns: 1fr; gap: 1rem; }
+    
+    .titulo-pronto { font-size: 1.6rem; }
+    .btn-iniciar-sorteio-live { padding: 0.9rem 1.8rem; font-size: 0.8rem; width: 100%; }
+}
