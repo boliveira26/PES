@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chaveamento Oficial | CONMEBOL Sul-Americana</title>
-    <link rel="stylesheet" href="assets/css/chaveamento-sulamericana.css">
+    <!-- CACHE BUSTER ?v=2 -->
+    <link rel="stylesheet" href="assets/css/chaveamento-sulamericana.css?v=2">
 </head>
 <body>
 
@@ -15,7 +16,12 @@
         <div class="espacador"></div>
     </header>
 
-    <!-- ÁRVORE VISUAL DO MATA-MATA (BRACKET) -->
+    <!-- DICA DE NAVEGAÇÃO NO CELULAR -->
+    <div class="dica-mobile">
+        <span>⟵ Deslize para navegar na árvore ⟶</span>
+    </div>
+
+    <!-- ÁRVORE VISUAL DO MATA-MATA (BRACKET DESLIZÁVEL) -->
     <main id="conteudo-principal">
         <div class="bracket-container">
 
@@ -75,7 +81,7 @@
 
             </div>
 
-            <!-- ================= CENTRO: A GRANDE FINAL (MONTEVIDEO 2026) ================= -->
+            <!-- ================= CENTRO: A GRANDE FINAL ================= -->
             <div class="centro-final">
                 <div class="arena-final">
                     <div class="slot-finalista" id="finalista-lado-a">N/D</div>
