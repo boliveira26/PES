@@ -1,5 +1,5 @@
 /* ==========================================================================
-   assets/css/simulador-sulamericana.css - DESIGN AZUL CÓSMICO / PRATA
+   assets/css/simulador-sulamericana.css - SIMULADOR SULA (MOBILE POLIDO)
    ========================================================================== */
 
 @font-face {
@@ -51,7 +51,7 @@ body {
 #cabecalho {
     position: relative;
     z-index: 2;
-    padding: 1rem 2.5rem;
+    padding: 1rem 2rem;
     border-bottom: 1px solid var(--border-sula);
     background: rgba(5, 15, 30, 0.9);
     display: flex;
@@ -94,7 +94,7 @@ body {
 }
 
 .bloco-titulo h1 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 4px;
@@ -114,10 +114,9 @@ body {
     display: flex;
     justify-content: center;
     gap: 0.8rem;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     background: rgba(0, 0, 0, 0.5);
     border-bottom: 1px solid rgba(0, 136, 255, 0.15);
-    flex-wrap: wrap;
 }
 
 .tab-fase {
@@ -132,6 +131,7 @@ body {
     cursor: pointer;
     border-radius: 3px;
     transition: all 0.25s ease;
+    text-align: center;
 }
 
 .tab-fase:hover {
@@ -191,19 +191,20 @@ body {
 
 .grid-jogos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
 .card-duelo-simulador {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(0, 136, 255, 0.2);
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(0, 136, 255, 0.25);
     border-radius: 4px;
-    padding: 1.2rem;
+    padding: 1rem 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.8rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
     transition: all 0.3s ease;
 }
 
@@ -223,7 +224,7 @@ body {
 .badge-confronto-letra {
     background: var(--sula-gradient);
     color: #030a16;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 900;
     padding: 0.15rem 0.6rem;
     border-radius: 2px;
@@ -240,18 +241,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.8rem;
+    gap: 0.5rem;
     background: rgba(255, 255, 255, 0.02);
-    padding: 0.5rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 0.5rem 0.6rem;
     border-radius: 3px;
 }
 
 .label-jogo {
     font-size: 0.65rem;
-    font-weight: 800;
+    font-weight: 900;
     color: var(--text-muted);
     text-transform: uppercase;
-    width: 45px;
+    width: 36px;
+    flex-shrink: 0;
 }
 
 .time-nome-input {
@@ -266,13 +269,13 @@ body {
     text-overflow: ellipsis;
 }
 
-.time-nome-input.mandante { text-align: right; }
-.time-nome-input.visitante { text-align: left; }
+.time-nome-input.mandante { text-align: right; padding-right: 0.4rem; }
+.time-nome-input.visitante { text-align: left; padding-left: 0.4rem; }
 
 .input-gol {
-    width: 45px;
-    height: 38px;
-    background: rgba(0, 0, 0, 0.8);
+    width: 42px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.85);
     border: 1px solid rgba(0, 136, 255, 0.4);
     border-radius: 3px;
     color: #ffffff;
@@ -280,6 +283,7 @@ body {
     font-weight: 900;
     text-align: center;
     outline: none;
+    flex-shrink: 0;
     transition: all 0.25s ease;
 }
 
@@ -293,31 +297,33 @@ body {
     font-size: 0.75rem;
     font-weight: 900;
     color: var(--sula-blue-bright);
+    flex-shrink: 0;
 }
 
 .linha-penaltis {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.8rem;
+    gap: 0.5rem;
     background: rgba(0, 136, 255, 0.08);
     border: 1px dashed rgba(0, 136, 255, 0.5);
-    padding: 0.5rem 0.8rem;
+    padding: 0.45rem 0.6rem;
     border-radius: 3px;
 }
 
 .linha-penaltis.oculto { display: none; }
 
 .label-penalti {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 900;
     color: var(--sula-blue-bright);
     letter-spacing: 1px;
+    flex-shrink: 0;
 }
 
 .input-penalti {
-    width: 40px;
-    height: 32px;
+    width: 36px;
+    height: 30px;
     background: rgba(0, 0, 0, 0.9);
     border: 1px solid var(--sula-blue);
     color: #fff;
@@ -326,6 +332,7 @@ body {
     text-align: center;
     outline: none;
     border-radius: 2px;
+    flex-shrink: 0;
 }
 
 .acoes-simulador {
@@ -341,7 +348,7 @@ body {
     padding: 1rem 3rem;
     font-size: 0.9rem;
     font-weight: 900;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 3px;
@@ -356,11 +363,8 @@ body {
 
 .modal-campeao {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.9);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.92);
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
@@ -373,9 +377,9 @@ body {
     background: radial-gradient(circle at center, #0e1e36 0%, #030a16 100%);
     border: 2px solid var(--sula-blue-bright);
     border-radius: 8px;
-    padding: 3rem 2rem;
+    padding: 2.5rem 1.5rem;
     text-align: center;
-    max-width: 500px;
+    max-width: 480px;
     width: 100%;
     box-shadow: 0 0 50px rgba(0, 136, 255, 0.6);
     display: flex;
@@ -389,16 +393,16 @@ body {
 .card-campeao-conteudo h2 {
     font-size: 1.8rem;
     font-weight: 900;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     background: var(--sula-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .destaque-campeao {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 900;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     color: #ffffff;
     text-shadow: 0 0 25px rgba(0, 136, 255, 0.9);
 }
@@ -429,9 +433,76 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-@media (max-width: 600px) {
-    .grid-jogos { grid-template-columns: 1fr; }
-    .card-duelo-simulador { padding: 0.8rem; }
-    .time-nome-input { font-size: 0.75rem; }
-    .input-gol { width: 38px; height: 34px; font-size: 1rem; }
+/* RESPONSIVIDADE POLIDA MOBILE */
+@media (max-width: 768px) {
+    #cabecalho {
+        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .bloco-titulo { order: 1; width: 100%; margin-bottom: 0.3rem; }
+    .link-voltar { order: 2; font-size: 0.7rem; padding: 0.4rem 0.8rem; }
+    .btn-reiniciar { order: 3; font-size: 0.7rem; padding: 0.4rem 0.8rem; }
+
+    .nav-fases {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+
+    .tab-fase {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.72rem;
+        letter-spacing: 1px;
+    }
+
+    #conteudo-principal {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .secao-jogos {
+        padding: 1rem 0.6rem;
+    }
+
+    .topo-fase h2 {
+        font-size: 1rem;
+        letter-spacing: 1.5px;
+    }
+
+    .grid-jogos {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .card-duelo-simulador {
+        padding: 0.7rem 0.6rem;
+    }
+
+    .linha-jogo-input {
+        gap: 0.3rem;
+        padding: 0.4rem 0.4rem;
+    }
+
+    .time-nome-input {
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+
+    .input-gol {
+        width: 36px;
+        height: 32px;
+        font-size: 0.95rem;
+    }
+
+    .divisor-x {
+        font-size: 0.65rem;
+    }
+
+    .btn-avancar-fase {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.8rem;
+    }
 }
