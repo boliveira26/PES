@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro dos Potes | CONMEBOL Sul-Americana</title>
+    <link rel="stylesheet" href="assets/css/cadastro-sulamericana.css">
+</head>
+<body>
+
+    <header id="cabecalho">
+        <a href="index.html" class="link-voltar">&larr; Voltar para Escolha de Torneio</a>
+        <h1>CONMEBOL Sul-Americana</h1>
+        <p id="descricao-torneio">3ºs Colocados (Pote 1) vs 4ºs Colocados (Pote 2) da Libertadores</p>
+    </header>
+
+    <main id="conteudo-principal">
+        <section class="card-cadastro">
+            <div class="topo-secao">
+                <h2>Definição dos Potes</h2>
+                <button type="button" id="btn-preencher-teste">Preencher times de teste</button>
+            </div>
+
+            <form id="form-potes">
+                <div class="grid-potes">
+                    <!-- Pote 1 -->
+                    <div class="coluna-pote">
+                        <div class="cabecalho-pote">
+                            <h3>Pote 1</h3>
+                            <span>3ºs da Liberta (Decidem em Casa)</span>
+                        </div>
+                        <div class="lista-inputs" id="inputs-pote-1">
+                            <input type="text" placeholder="3º Colocado (Time 1)" required>
+                            <input type="text" placeholder="3º Colocado (Time 2)" required>
+                            <input type="text" placeholder="3º Colocado (Time 3)" required>
+                            <input type="text" placeholder="3º Colocado (Time 4)" required>
+                            <input type="text" placeholder="3º Colocado (Time 5)" required>
+                            <input type="text" placeholder="3º Colocado (Time 6)" required>
+                            <input type="text" placeholder="3º Colocado (Time 7)" required>
+                            <input type="text" placeholder="3º Colocado (Time 8)" required>
+                        </div>
+                    </div>
+
+                    <!-- Pote 2 -->
+                    <div class="coluna-pote">
+                        <div class="cabecalho-pote">
+                            <h3>Pote 2</h3>
+                            <span>4ºs da Liberta (1º Jogo em Casa)</span>
+                        </div>
+                        <div class="lista-inputs" id="inputs-pote-2">
+                            <input type="text" placeholder="4º Colocado (Time 1)" required>
+                            <input type="text" placeholder="4º Colocado (Time 2)" required>
+                            <input type="text" placeholder="4º Colocado (Time 3)" required>
+                            <input type="text" placeholder="4º Colocado (Time 4)" required>
+                            <input type="text" placeholder="4º Colocado (Time 5)" required>
+                            <input type="text" placeholder="4º Colocado (Time 6)" required>
+                            <input type="text" placeholder="4º Colocado (Time 7)" required>
+                            <input type="text" placeholder="4º Colocado (Time 8)" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acoes-formulario">
+                    <button type="submit" id="btn-iniciar-sorteio">Salvar e Ir para o Sorteio &rarr;</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer id="rodape">
+        <p>CONMEBOL Sul-Americana &copy; Gerenciador PES</p>
+    </footer>
+
+    <script src="assets/js/cadastro-sulamericana.js"></script>
+</body>
+</html>

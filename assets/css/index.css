@@ -1,0 +1,324 @@
+/* ==========================================================================
+   assets/css/index.css - TELA DE SELEÇÃO DE TORNEIO (CONMEBOL PES)
+   ========================================================================== */
+
+/* FONTE OFICIAL CONMEBOL */
+@font-face {
+    font-family: 'Branding';
+    src: url('assets/fonts/Branding-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
+
+:root {
+    --bg-black: #050505;
+    --card-bg: radial-gradient(circle at center, #141414 0%, #080808 100%);
+    
+    /* Libertadores (Dourado Oficial) */
+    --gold-primary: #d4af37;
+    --gold-light: #fff2be;
+    --gold-gradient: linear-gradient(180deg, #fff2be 0%, #d4af37 60%, #9a781b 100%);
+    --border-gold: rgba(212, 175, 55, 0.4);
+    
+    /* Sul-Americana (Azul Cósmico / Prata) */
+    --sula-blue: #0088ff;
+    --sula-gradient: linear-gradient(180deg, #ffffff 0%, #60a5fa 50%, #1d4ed8 100%);
+    --border-sula: rgba(0, 136, 255, 0.4);
+    
+    --text-white: #ffffff;
+    --text-muted: #8e8e8e;
+    --font-main: 'Branding', 'Montserrat', sans-serif;
+}
+
+/* RESET E BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-main);
+}
+
+body {
+    background-color: var(--bg-black);
+    background-image: 
+        radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.8) 0%, #000 100%);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow-x: hidden;
+    transition: background 0.5s ease-in-out;
+}
+
+/* ARCOS LUMINOSOS LATERAIS DA CONMEBOL */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 15vw;
+    pointer-events: none;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+body::before {
+    left: 0;
+    background: radial-gradient(circle at left, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+
+body::after {
+    right: 0;
+    background: radial-gradient(circle at right, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+
+/* ==========================================================================
+   MUDANÇA GLOBAL AO PASSAR O MOUSE NA SUL-AMERICANA
+   ========================================================================== */
+body:has(.card-copa.sulamericana:hover) {
+    background-color: #020813;
+    background-image: 
+        radial-gradient(circle at 50% 15%, rgba(0, 102, 255, 0.25) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(2, 8, 19, 0.9) 0%, #010409 100%);
+}
+
+body:has(.card-copa.sulamericana:hover)::before,
+body:has(.card-copa.sulamericana:hover)::after {
+    background: radial-gradient(circle, rgba(0, 140, 255, 0.25) 0%, transparent 70%);
+}
+
+body:has(.card-copa.sulamericana:hover) #cabecalho h1 {
+    background: var(--sula-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 25px rgba(0, 140, 255, 0.5);
+}
+
+body:has(.card-copa.sulamericana:hover) .card-copa.libertadores {
+    opacity: 0.45;
+    transform: scale(0.98);
+    filter: grayscale(0.4);
+}
+
+body:has(.card-copa.libertadores:hover) .card-copa.sulamericana {
+    opacity: 0.45;
+    transform: scale(0.98);
+    filter: grayscale(0.4);
+}
+
+/* ==========================================================================
+   CABEÇALHO
+   ========================================================================== */
+#cabecalho {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 1rem 1rem;
+    text-align: center;
+}
+
+#cabecalho h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+    transition: all 0.4s ease;
+}
+
+#descricao-torneio {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL / CARDS
+   ========================================================================== */
+#conteudo-principal {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-selecao-copa {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+}
+
+.card-copa {
+    width: 380px;
+    min-height: 500px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-gold);
+    border-radius: 4px;
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 1.5rem 2.2rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+    transition: all 0.35s ease;
+}
+
+.card-copa::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    opacity: 0.5;
+}
+
+.card-copa.libertadores:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold-primary);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(212, 175, 55, 0.3);
+}
+
+.card-copa.sulamericana {
+    border-color: var(--border-sula);
+}
+
+.card-copa.sulamericana::before {
+    background: linear-gradient(90deg, transparent, var(--sula-blue), transparent);
+}
+
+.card-copa.sulamericana:hover {
+    transform: translateY(-8px);
+    border-color: var(--sula-blue);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 136, 255, 0.35);
+}
+
+/* ÁREA DO EMBLEMA */
+.emblema-copa {
+    width: 100%;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.card-copa img,
+.emblema-copa img {
+    max-width: 200px !important;
+    max-height: 170px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.9));
+    transition: transform 0.35s ease;
+}
+
+.card-copa:hover img {
+    transform: scale(1.08);
+}
+
+/* TÍTULOS */
+a.card-copa h2,
+.card-copa h2 {
+    font-size: 1.55rem !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffffff !important;
+    text-align: center;
+    margin: 1.2rem 0;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    line-height: 1.3;
+}
+
+.card-copa.libertadores:hover h2 {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.card-copa.sulamericana:hover h2 {
+    text-shadow: 0 0 20px rgba(0, 136, 255, 0.7);
+}
+
+/* BOTÃO DE ACESSO */
+.btn-acessar {
+    background: var(--gold-gradient);
+    color: #000;
+    padding: 0.8rem 2.2rem;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.card-copa.libertadores:hover .btn-acessar {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+    transform: scale(1.04);
+}
+
+.card-copa.sulamericana .btn-acessar {
+    background: var(--sula-gradient);
+    color: #040d1a;
+}
+
+.card-copa.sulamericana:hover .btn-acessar {
+    box-shadow: 0 0 25px rgba(0, 136, 255, 0.8);
+    transform: scale(1.04);
+}
+
+/* RODAPÉ */
+#rodape {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: #333;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 860px) {
+    .container-selecao-copa {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .card-copa {
+        width: 100%;
+        max-width: 340px;
+        min-height: 460px;
+    }
+}

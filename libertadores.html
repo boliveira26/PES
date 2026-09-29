@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio ao Vivo | CONMEBOL Libertadores</title>
+    <link rel="stylesheet" href="assets/css/libertadores.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header id="cabecalho">
+        <a href="cadastro-libertadores.html" class="link-voltar">&larr; Editar Potes</a>
+        <div class="bloco-titulo">
+            <div class="emblema-topo">
+                <img src="https://www.ogol.com.br/img/logos/edicoes/130437_imgbank_.png" alt="Logo Libertadores">
+            </div>
+            <h1>CONMEBOL Libertadores</h1>
+            <p>Sorteio Oficial das Oitavas de Final</p>
+        </div>
+        <button type="button" id="btn-reiniciar-sorteio" class="btn-reiniciar">Reiniciar</button>
+    </header>
+
+    <!-- PALCO PRINCIPAL DO SORTEIO -->
+    <main id="conteudo-principal">
+        <div class="palco-transmissao">
+            
+            <!-- COLUNA DA ESQUERDA: OS DOIS POTES COMPLETOS -->
+            <aside class="coluna-potes">
+                <!-- Pote 1 -->
+                <div class="card-pote" id="pote-1-painel">
+                    <div class="cabecalho-pote">
+                        <h3>Pote 1</h3>
+                        <span id="badge-pote1">8 restantes</span>
+                    </div>
+                    <ul id="lista-pote-1" class="lista-times-pote"></ul>
+                </div>
+
+                <!-- Pote 2 -->
+                <div class="card-pote" id="pote-2-painel">
+                    <div class="cabecalho-pote">
+                        <h3>Pote 2</h3>
+                        <span id="badge-pote2">8 restantes</span>
+                    </div>
+                    <ul id="lista-pote-2" class="lista-times-pote"></ul>
+                </div>
+            </aside>
+
+            <!-- COLUNA DO CENTRO: OS 8 CONFRONTOS ROBUSTOS -->
+            <section class="coluna-confrontos">
+                <div class="cabecalho-confrontos">
+                    <h2>Oitavas de Final</h2>
+                    <span id="status-confrontos">Definindo Confronto A...</span>
+                </div>
+
+                <div class="grid-confrontos-oitavas">
+                    <div class="item-confronto" id="confronto-A">
+                        <span class="letra-chave">A</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+
+                    <div class="item-confronto" id="confronto-B">
+                        <span class="letra-chave">B</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+
+                    <div class="item-confronto" id="confronto-C">
+                        <span class="letra-chave">C</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+
+                    <div class="item-confronto" id="confronto-D">
+                        <span class="letra-chave">D</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+
+                    <div class="item-confronto" id="confronto-E">
+                        <span class="letra-chave">E</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+
+                    <div class="item-confronto" id="confronto-F">
+                        <span class="letra-chave">F</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+
+                    <div class="item-confronto" id="confronto-G">
+                        <span class="letra-chave">G</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+
+                    <div class="item-confronto" id="confronto-H">
+                        <span class="letra-chave">H</span>
+                        <div class="linha-duelo">
+                            <span class="time time-pote2">Aguardando...</span>
+                            <span class="vs">VS</span>
+                            <span class="time time-pote1">Aguardando...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ÁREA INFERIOR: OS DOIS POTES COM BOLINHAS GIRANDO E PAPEL ABRINDO -->
+        <section id="area-sorteio-animado">
+            <div class="mesa-bolilleros">
+                
+                <!-- POTE 2 (BOLILLERO ESQUERDA) -->
+                <div class="bolillero-box" id="bolillero-pote2">
+                    <span class="label-bolillero">Pote 2</span>
+                    <div class="redoma-vidro">
+                        <div class="bolinha-giratoria b1"></div>
+                        <div class="bolinha-giratoria b2"></div>
+                        <div class="bolinha-giratoria b3"></div>
+                        <div class="bolinha-giratoria b4"></div>
+                    </div>
+                </div>
+
+                <!-- CENTRO: PAPEL ABRINDO E STATUS -->
+                <div class="palco-revelacao-papel">
+                    <span id="etapa-sorteio-texto">Pronto para o Sorteio</span>
+                    
+                    <!-- O PAPEL DESENROLANDO -->
+                    <div class="container-papel">
+                        <div id="papel-sorteio" class="tira-papel">
+                            <div class="papel-conteudo">
+                                <span class="marca-dagua-papel">CONMEBOL</span>
+                                <span id="texto-time-papel" class="nome-time-papel">---</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOTÃO DE AÇÃO -->
+                    <div class="botoes-palco">
+                        <button type="button" id="btn-sortear" class="btn-sortear-principal">
+                            Sortear Pote 2 (Chave A)
+                        </button>
+                        <a href="chaveamento-libertadores.html" id="btn-ir-chaveamento" class="btn-chaveamento-link oculto">
+                            Ver Chaveamento Completo &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- POTE 1 (BOLILLERO DIREITA) -->
+                <div class="bolillero-box" id="bolillero-pote1">
+                    <span class="label-bolillero">Pote 1</span>
+                    <div class="redoma-vidro">
+                        <div class="bolinha-giratoria b1"></div>
+                        <div class="bolinha-giratoria b2"></div>
+                        <div class="bolinha-giratoria b3"></div>
+                        <div class="bolinha-giratoria b4"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer id="rodape">
+        <p>CONMEBOL Libertadores &copy; Sorteio Oficial PES</p>
+    </footer>
+
+    <script src="assets/js/libertadores.js"></script>
+</body>
+</html>

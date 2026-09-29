@@ -1,0 +1,298 @@
+/* ==========================================================================
+   assets/css/cadastro.css - CADASTRO DOS POTES COM FONTE BRANDING
+   ========================================================================== */
+
+/* FONTE OFICIAL CONMEBOL */
+@font-face {
+    font-family: 'Branding';
+    src: url('assets/fonts/Branding-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
+
+:root {
+    --bg-black: #050505;
+    --card-bg: radial-gradient(circle at center, #141414 0%, #090909 100%);
+    --gold-primary: #d4af37;
+    --gold-light: #fff2be;
+    --gold-gradient: linear-gradient(180deg, #fff2be 0%, #d4af37 60%, #9a781b 100%);
+    --border-gold: rgba(212, 175, 55, 0.35);
+    --border-gold-focus: rgba(212, 175, 55, 0.9);
+    --text-white: #ffffff;
+    --text-muted: #8e8e8e;
+    --font-main: 'Branding', 'Montserrat', sans-serif;
+}
+
+/* RESET E BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-main);
+}
+
+body {
+    background-color: var(--bg-black);
+    background-image: 
+        radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.8) 0%, #000 100%);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ARCOS LUMINOSOS LATERAIS DA CONMEBOL */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 15vw;
+    pointer-events: none;
+    z-index: 1;
+}
+
+body::before {
+    left: 0;
+    background: radial-gradient(circle at left, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+
+body::after {
+    right: 0;
+    background: radial-gradient(circle at right, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+
+/* CABEÇALHO */
+#cabecalho {
+    position: relative;
+    z-index: 2;
+    padding: 2.5rem 1rem 1rem;
+    text-align: center;
+}
+
+.link-voltar {
+    display: inline-block;
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.link-voltar:hover {
+    color: #fff;
+    letter-spacing: 3px;
+}
+
+#cabecalho h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+}
+
+#descricao-torneio {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* CONTEÚDO PRINCIPAL */
+#conteudo-principal {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 3rem;
+}
+
+.card-cadastro {
+    background: var(--card-bg);
+    border: 1px solid var(--border-gold);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+}
+
+.topo-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding-bottom: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.topo-secao h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--text-white);
+}
+
+#btn-preencher-teste {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-gold);
+    color: var(--gold-light);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+#btn-preencher-teste:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+/* GRID DOS DOIS POTES */
+.grid-potes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+.coluna-pote {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 1.8rem;
+    border-radius: 4px;
+}
+
+.cabecalho-pote {
+    text-align: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cabecalho-pote h3 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--gold-primary);
+    margin-bottom: 0.3rem;
+}
+
+.cabecalho-pote span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* LISTA DE INPUTS */
+.lista-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.lista-inputs input[type="text"] {
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    color: var(--text-white);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-radius: 2px 2px 0 0;
+}
+
+.lista-inputs input[type="text"]:focus {
+    outline: none;
+    background: rgba(212, 175, 55, 0.08);
+    border-bottom: 1px solid var(--border-gold-focus);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+}
+
+.lista-inputs input[type="text"]::placeholder {
+    color: #4a4a4a;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: none;
+}
+
+/* BOTÃO PRINCIPAL */
+.acoes-formulario {
+    display: flex;
+    justify-content: center;
+}
+
+#btn-iniciar-sorteio {
+    background: var(--gold-gradient);
+    color: #000;
+    border: none;
+    padding: 0.95rem 2.8rem;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+}
+
+#btn-iniciar-sorteio:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
+}
+
+/* RODAPÉ */
+#rodape {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: #333;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .grid-potes {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .topo-secao {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
