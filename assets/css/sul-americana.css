@@ -1,7 +1,8 @@
 /* ==========================================================================
-   assets/css/sul-americana.css - PALCO OFICIAL SUL-AMERICANA (AZUL / PRATA)
+   assets/css/sul-americana.css - PALCO OFICIAL SUL-AMERICANA (MOBILE POLIDO)
    ========================================================================== */
 
+/* FONTE OFICIAL CONMEBOL */
 @font-face {
     font-family: 'Branding';
     src: url('../fonts/Branding-Bold.otf') format('opentype'),
@@ -72,12 +73,13 @@ body::after {
 #cabecalho {
     position: relative;
     z-index: 2;
-    padding: 1rem 2.5rem;
+    padding: 1rem 2rem;
     border-bottom: 1px solid var(--border-sula);
     background: rgba(5, 15, 30, 0.9);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .link-voltar, .btn-reiniciar {
@@ -93,6 +95,7 @@ body::after {
     cursor: pointer;
     border-radius: 3px;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .link-voltar:hover, .btn-reiniciar:hover {
@@ -204,6 +207,9 @@ body::after {
     border-bottom: 1px solid rgba(0, 136, 255, 0.2);
     text-align: center;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .item-time-pote.sorteado {
@@ -332,6 +338,9 @@ body::after {
     letter-spacing: 2px;
     color: var(--text-muted);
     transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .linha-duelo .time.preenchido {
@@ -483,7 +492,7 @@ body::after {
     justify-content: center;
     position: relative;
     width: 100%;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
 }
 
 .marca-dagua-papel {
@@ -496,12 +505,16 @@ body::after {
 }
 
 .nome-time-papel {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     color: #030a16;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .botoes-palco {
@@ -570,7 +583,134 @@ body::after {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-@media (max-width: 1024px) {
-    .palco-transmissao { grid-template-columns: 1fr; }
-    .mesa-bolilleros { flex-direction: column; gap: 1.5rem; }
+/* ==========================================================================
+   RESPONSIVIDADE POLIDA PARA MOBILE (SUL-AMERICANA)
+   ========================================================================== */
+@media (max-width: 860px) {
+    #cabecalho {
+        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .bloco-titulo {
+        order: 1;
+        width: 100%;
+    }
+
+    .link-voltar {
+        order: 2;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .btn-reiniciar {
+        order: 3;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    #conteudo-principal {
+        padding: 1rem 0.8rem;
+        gap: 1.2rem;
+    }
+
+    .palco-transmissao {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .coluna-potes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+    }
+
+    .card-pote {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .cabecalho-pote h3 {
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+    }
+
+    .cabecalho-pote span {
+        display: none;
+    }
+
+    .item-time-pote {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.2rem;
+        letter-spacing: 0.5px;
+    }
+
+    .coluna-confrontos {
+        padding: 1rem 0.8rem;
+    }
+
+    .cabecalho-confrontos h2 {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
+    .grid-confrontos-oitavas {
+        gap: 0.5rem;
+    }
+
+    .item-confronto {
+        padding: 0.45rem 0.6rem;
+        min-height: 44px;
+        gap: 0.5rem;
+    }
+
+    .letra-chave {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .linha-duelo {
+        gap: 0.4rem;
+    }
+
+    .linha-duelo .time {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.4rem;
+        letter-spacing: 1px;
+    }
+
+    .linha-duelo .vs {
+        font-size: 0.65rem;
+        padding: 0.25rem 0.45rem;
+    }
+
+    #area-sorteio-animado {
+        padding: 1rem 0.8rem;
+    }
+
+    .mesa-bolilleros {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .bolillero-box {
+        display: none;
+    }
+
+    .container-papel {
+        height: 48px;
+    }
+
+    .nome-time-papel {
+        font-size: 1.1rem;
+        letter-spacing: 1.5px;
+    }
+
+    .btn-sortear-principal, .btn-chaveamento-link {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.8rem;
+    }
 }

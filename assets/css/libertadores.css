@@ -1,5 +1,5 @@
 /* ==========================================================================
-   assets/css/libertadores.css - PALCO OFICIAL COM POTES E PAPEL ABRINDO (2s)
+   assets/css/libertadores.css - PALCO OFICIAL CONMEBOL (DESKTOP & MOBILE POLIDO)
    ========================================================================== */
 
 /* FONTE OFICIAL CONMEBOL */
@@ -51,7 +51,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ARCOS LUMINOSOS LATERAIS */
+/* ARCOS LUMINOSOS LATERAIS (DESKTOP) */
 body::before,
 body::after {
     content: '';
@@ -79,12 +79,13 @@ body::after {
 #cabecalho {
     position: relative;
     z-index: 2;
-    padding: 1rem 2.5rem;
+    padding: 1rem 2rem;
     border-bottom: 1px solid var(--border-gold);
     background: rgba(10, 10, 10, 0.9);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .link-voltar, .btn-reiniciar {
@@ -100,6 +101,7 @@ body::after {
     cursor: pointer;
     border-radius: 3px;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .link-voltar:hover, .btn-reiniciar:hover {
@@ -145,7 +147,7 @@ body::after {
     max-width: 1400px;
     width: 100%;
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+    padding: 1.2rem 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -217,6 +219,9 @@ body::after {
     border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     text-align: center;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .item-time-pote.sorteado {
@@ -234,7 +239,7 @@ body::after {
 }
 
 /* ==========================================================================
-   COLUNA DO CENTRO: OS 8 CONFRONTOS ENCORPADOS
+   COLUNA DO CENTRO: OS 8 CONFRONTOS
    ========================================================================== */
 .coluna-confrontos {
     background: var(--card-bg);
@@ -348,6 +353,9 @@ body::after {
     letter-spacing: 2px;
     color: var(--text-muted);
     transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .linha-duelo .time.preenchido {
@@ -376,7 +384,7 @@ body::after {
 }
 
 /* ==========================================================================
-   ÁREA INFERIOR: DOIS POTES + PAPEL ABRINDO COM SUSPENSE (2 SEGUNDOS)
+   ÁREA INFERIOR: DOIS POTES + PAPEL ABRINDO
    ========================================================================== */
 #area-sorteio-animado {
     background: rgba(0, 0, 0, 0.92);
@@ -393,7 +401,6 @@ body::after {
     gap: 2rem;
 }
 
-/* POTES DE VIDRO COM BOLINHAS GIRANDO */
 .bolillero-box {
     display: flex;
     flex-direction: column;
@@ -449,7 +456,6 @@ body::after {
 @keyframes girarPote3 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -24px); } }
 @keyframes girarPote4 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-20px, 22px); } }
 
-/* PALCO CENTRAL: PAPEL DESENROLANDO */
 .palco-revelacao-papel {
     flex: 1;
     display: flex;
@@ -490,27 +496,12 @@ body::after {
     transform-origin: center;
 }
 
-/* ANIMAÇÃO COM DURAÇÃO DE 2 SEGUNDOS */
 @keyframes desenrolarPapel2s {
-    0% {
-        transform: scaleX(0.04) scaleY(0.4);
-        opacity: 0;
-    }
-    30% {
-        transform: scaleX(0.08) scaleY(1.15);
-        opacity: 0.7;
-    }
-    65% {
-        transform: scaleX(0.45) scaleY(1.05);
-        opacity: 0.9;
-    }
-    85% {
-        transform: scaleX(1.03) scaleY(0.97);
-    }
-    100% {
-        transform: scaleX(1) scaleY(1);
-        opacity: 1;
-    }
+    0% { transform: scaleX(0.04) scaleY(0.4); opacity: 0; }
+    30% { transform: scaleX(0.08) scaleY(1.15); opacity: 0.7; }
+    65% { transform: scaleX(0.45) scaleY(1.05); opacity: 0.9; }
+    85% { transform: scaleX(1.03) scaleY(0.97); }
+    100% { transform: scaleX(1) scaleY(1); opacity: 1; }
 }
 
 .tira-papel.abrindo {
@@ -523,7 +514,7 @@ body::after {
     justify-content: center;
     position: relative;
     width: 100%;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
 }
 
 .marca-dagua-papel {
@@ -536,15 +527,18 @@ body::after {
 }
 
 .nome-time-papel {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     color: #000000;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
-/* BOTÕES DE AÇÃO */
 .botoes-palco {
     display: flex;
     gap: 1rem;
@@ -612,14 +606,138 @@ body::after {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 1024px) {
+/* ==========================================================================
+   RESPONSIVIDADE POLIDA PARA MOBILE (AQUI ESTÁ A CORREÇÃO DEFINITIVA)
+   ========================================================================== */
+@media (max-width: 860px) {
+    #cabecalho {
+        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .bloco-titulo {
+        order: 1;
+        width: 100%;
+    }
+
+    .link-voltar {
+        order: 2;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .btn-reiniciar {
+        order: 3;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    #conteudo-principal {
+        padding: 1rem 0.8rem;
+        gap: 1.2rem;
+    }
+
     .palco-transmissao {
         grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    /* POTES COMPACTOS LADO A LADO NO MOBILE */
+    .coluna-potes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+    }
+
+    .card-pote {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .cabecalho-pote h3 {
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+    }
+
+    .cabecalho-pote span {
+        display: none; /* Oculta subtexto para economizar espaço */
+    }
+
+    .item-time-pote {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.2rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* PLACARES COMPACTOS E POLIDOS */
+    .coluna-confrontos {
+        padding: 1rem 0.8rem;
+    }
+
+    .cabecalho-confrontos h2 {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
+    .grid-confrontos-oitavas {
+        gap: 0.5rem;
+    }
+
+    .item-confronto {
+        padding: 0.45rem 0.6rem;
+        min-height: 44px;
+        gap: 0.5rem;
+    }
+
+    .letra-chave {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .linha-duelo {
+        gap: 0.4rem;
+    }
+
+    .linha-duelo .time {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.4rem;
+        letter-spacing: 1px;
+    }
+
+    .linha-duelo .vs {
+        font-size: 0.65rem;
+        padding: 0.25rem 0.45rem;
+    }
+
+    /* MESA DE SORTEIO NO MOBILE */
+    #area-sorteio-animado {
+        padding: 1rem 0.8rem;
     }
 
     .mesa-bolilleros {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
+    }
+
+    /* Potes de vidro compactos no mobile */
+    .bolillero-box {
+        display: none; /* Foca o mobile no papel e no botão de ação */
+    }
+
+    .container-papel {
+        height: 48px;
+    }
+
+    .nome-time-papel {
+        font-size: 1.1rem;
+        letter-spacing: 1.5px;
+    }
+
+    .btn-sortear-principal, .btn-chaveamento-link {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.8rem;
     }
 }

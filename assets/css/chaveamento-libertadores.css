@@ -294,3 +294,17 @@ body {
         gap: 1rem;
     }
 }
+
+/* AJUSTE PARA O CHAVEAMENTO NÃO ESMAGAR NO CELULAR */
+@media (max-width: 900px) {
+    #conteudo-principal {
+        padding: 1rem 0.5rem;
+        overflow-x: auto; /* Permite rolar para o lado no celular */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .bracket-container {
+        min-width: 850px; /* Garante que a árvore mantenha o formato lindo sem amassar */
+        padding: 0 1rem;
+    }
+}
