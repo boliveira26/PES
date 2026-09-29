@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Simulador de Placares | CONMEBOL Sul-Americana</title>
+    <link rel="stylesheet" href="assets/css/simulador-sulamericana.css?v=1">
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header id="cabecalho">
+        <a href="chaveamento-sulamericana.html" class="link-voltar">&larr; Ver Chaveamento</a>
+        <div class="bloco-titulo">
+            <div class="emblema-topo">
+                <img src="https://www.ogol.com.br/img/logos/competicoes/269_imgbank_cs_20250311124354.png" alt="Logo Sul-Americana">
+            </div>
+            <h1>SIMULADOR DE JOGOS</h1>
+            <p>CONMEBOL Sul-Americana 2026</p>
+        </div>
+        <button type="button" id="btn-reset-simulacao" class="btn-reiniciar">Reiniciar Placares</button>
+    </header>
+
+    <!-- ABAS DE NAVEGAÇÃO -->
+    <nav class="nav-fases">
+        <button type="button" class="tab-fase ativa" data-fase="oitavas">Oitavas de Final</button>
+        <button type="button" class="tab-fase" data-fase="quartas">Quartas de Final</button>
+        <button type="button" class="tab-fase" data-fase="semis">Semifinais</button>
+        <button type="button" class="tab-fase" data-fase="final">Grande Final</button>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main id="conteudo-principal">
+        <section class="secao-jogos">
+            <div class="topo-fase">
+                <h2 id="titulo-fase-ativa">Oitavas de Final (Ida e Volta)</h2>
+                <span class="regra-aviso">Sem gol fora. Empate no agregado vai aos pênaltis.</span>
+            </div>
+
+            <form id="form-simulador">
+                <div id="container-confrontos-fase" class="grid-jogos"></div>
+
+                <div class="acoes-simulador">
+                    <button type="submit" id="btn-avancar-fase" class="btn-avancar-fase">
+                        Confirmar Resultados e Avançar &rarr;
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- MODAL DE CAMPEÃO -->
+        <div id="modal-campeao" class="modal-campeao oculto">
+            <div class="card-campeao-conteudo">
+                <span class="confetes">🎉 🥈 🎉</span>
+                <h2>LA GRAN CONQUISTA!</h2>
+                <p>O Grande Campeão da CONMEBOL Sul-Americana é:</p>
+                <div id="nome-time-campeao" class="destaque-campeao">CORINTHIANS</div>
+                <div class="botoes-modal">
+                    <a href="chaveamento-sulamericana.html" class="btn-ver-chave-final">Ver Chaveamento Campeão &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="rodape">
+        <p>CONMEBOL Sul-Americana &copy; Simulador de Placares PES</p>
+    </footer>
+
+    <script src="assets/js/simulador-sulamericana.js"></script>
+</body>
+</html>
