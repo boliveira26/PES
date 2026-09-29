@@ -2,12 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <!-- ESSENCIAL PARA MOBILE: Controla a escala no celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sorteio ao Vivo | CONMEBOL Libertadores</title>
-    
-    <!-- O ?v=2 OBRIGA O CELULAR E O GITHUB A LIMPAREM O CACHE NA HORA -->
-    <link rel="stylesheet" href="assets/css/libertadores.css?v=2">
+    <!-- CACHE BUSTER ?v=4 -->
+    <link rel="stylesheet" href="assets/css/libertadores.css?v=4">
 </head>
 <body>
 
@@ -132,7 +130,7 @@
             </section>
         </div>
 
-        <!-- ÁREA INFERIOR: DOIS POTES + PAPEL ABRINDO COM 2s -->
+        <!-- ÁREA INFERIOR: DOIS POTES + PAPEL ABRINDO + BOTÕES -->
         <section id="area-sorteio-animado">
             <div class="mesa-bolilleros">
                 
@@ -160,9 +158,13 @@
                         </div>
                     </div>
 
+                    <!-- BOTÕES DE SORTEIO -->
                     <div class="botoes-palco">
                         <button type="button" id="btn-sortear" class="btn-sortear-principal">
                             Sortear Pote 2 (Chave A)
+                        </button>
+                        <button type="button" id="btn-sortear-tudo" class="btn-sortear-tudo">
+                            ⚡ Sortear Tudo
                         </button>
                         <a href="chaveamento-libertadores.html" id="btn-ir-chaveamento" class="btn-chaveamento-link oculto">
                             Ver Chaveamento Completo &rarr;
@@ -189,6 +191,7 @@
         <p>CONMEBOL Libertadores &copy; Sorteio Oficial PES</p>
     </footer>
 
-    <script src="assets/js/libertadores.js"></script>
+    <!-- SCRIPT COM CACHE BUSTER -->
+    <script src="assets/js/libertadores.js?v=4"></script>
 </body>
 </html>

@@ -1,8 +1,7 @@
 /* ==========================================================================
-   assets/css/chaveamento.css - ÁRVORE CONMEBOL (COM DESLIZE NATIVO MOBILE)
+   assets/css/chaveamento.css - ÁRVORE CONMEBOL (COM BOTÃO DO SIMULADOR)
    ========================================================================== */
 
-/* FONTE OFICIAL CONMEBOL */
 @font-face {
     font-family: 'Branding';
     src: url('../fonts/Branding-Bold.otf') format('opentype'),
@@ -46,9 +45,8 @@ body {
     overflow-x: hidden;
 }
 
-/* CABEÇALHO */
 #cabecalho {
-    padding: 1.2rem 2rem;
+    padding: 1.2rem 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,7 +59,7 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-gold);
     color: var(--gold-light);
-    padding: 0.5rem 1.2rem;
+    padding: 0.55rem 1.2rem;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -78,6 +76,27 @@ body {
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
+/* BOTÃO DOURADO DO SIMULADOR NO TOPO */
+.btn-simulador {
+    background: var(--gold-gradient);
+    color: #000000;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border-radius: 3px;
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.5);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.btn-simulador:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
+}
+
 .titulo-pagina {
     font-size: 1.8rem;
     font-weight: 900;
@@ -88,11 +107,6 @@ body {
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-.espacador {
-    width: 140px;
-}
-
-/* DICA DE SWIPE PARA MOBILE */
 .dica-mobile {
     display: none;
     text-align: center;
@@ -106,7 +120,6 @@ body {
     color: var(--gold-light);
 }
 
-/* CONTAINER PRINCIPAL (COM ROLAGEM HORIZONTAL SUAVE) */
 #conteudo-principal {
     flex: 1;
     display: flex;
@@ -119,17 +132,15 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* A ÁRVORE NUNCA SE DEFORMA OU ESMAGA */
 .bracket-container {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     gap: 2.5rem;
-    min-width: 1150px; /* LARGURA MÍNIMA QUE MANTÉM A ÁRVORE PERFEITA */
+    min-width: 1150px;
     margin: 0 auto;
 }
 
-/* LADOS DA ÁRVORE */
 .lado-bracket {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -145,7 +156,6 @@ body {
     height: 600px;
 }
 
-/* CARDS DE CADA DUELO */
 .card-chave {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -198,7 +208,6 @@ body {
     color: #555555;
 }
 
-/* CENTRO: A FINAL */
 .centro-final {
     display: flex;
     flex-direction: column;
@@ -266,36 +275,26 @@ body {
     text-align: center;
 }
 
-/* ==========================================================================
-   MOBILE AJUSTADO
-   ========================================================================== */
 @media (max-width: 860px) {
     #cabecalho {
         padding: 0.8rem 1rem;
-        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
         gap: 0.5rem;
     }
 
     .titulo-pagina {
-        font-size: 1.4rem;
-        letter-spacing: 4px;
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+        order: 1;
+        width: 100%;
+        margin-bottom: 0.2rem;
     }
 
-    .espacador {
-        display: none;
-    }
+    .link-voltar { order: 2; font-size: 0.7rem; padding: 0.4rem 0.8rem; }
+    .btn-simulador { order: 3; font-size: 0.7rem; padding: 0.4rem 0.9rem; }
 
-    /* MOSTRA A DICA DE DESLIZAR NO CELULAR */
-    .dica-mobile {
-        display: block;
-    }
-
-    #conteudo-principal {
-        justify-content: flex-start; /* Permite rolar desde o início da esquerda */
-        padding: 1rem 0.5rem 2rem;
-    }
-
-    .bracket-container {
-        padding: 0 1rem;
-    }
+    .dica-mobile { display: block; }
+    #conteudo-principal { justify-content: flex-start; padding: 1rem 0.5rem 2rem; }
+    .bracket-container { padding: 0 1rem; }
 }

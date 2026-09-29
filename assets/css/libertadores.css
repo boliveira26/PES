@@ -1,5 +1,5 @@
 /* ==========================================================================
-   assets/css/libertadores.css - PALCO OFICIAL LIBERTADORES (MOBILE POLIDO)
+   assets/css/libertadores.css - PALCO OFICIAL COM BOTÃO SORTEAR TUDO
    ========================================================================== */
 
 /* FONTE OFICIAL CONMEBOL */
@@ -370,6 +370,9 @@ body::after {
     box-shadow: none;
 }
 
+/* ==========================================================================
+   ÁREA INFERIOR: DOIS POTES + PAPEL ABRINDO + BOTÕES
+   ========================================================================== */
 #area-sorteio-animado {
     background: rgba(0, 0, 0, 0.92);
     border: 1px solid var(--border-gold);
@@ -519,16 +522,19 @@ body::after {
     max-width: 100%;
 }
 
+/* BOTÕES DE AÇÃO */
 .botoes-palco {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .btn-sortear-principal {
     background: var(--gold-gradient);
     color: #000;
     border: none;
-    padding: 0.85rem 2.5rem;
+    padding: 0.85rem 2rem;
     font-size: 0.85rem;
     font-weight: 900;
     letter-spacing: 2px;
@@ -546,6 +552,33 @@ body::after {
 
 .btn-sortear-principal:disabled {
     opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* BOTÃO NOVO: ⚡ SORTEAR TUDO AUTOMÁTICO */
+.btn-sortear-tudo {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--gold-light);
+    border: 1px solid var(--border-gold);
+    padding: 0.85rem 1.6rem;
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.25s ease;
+}
+
+.btn-sortear-tudo:hover:not(:disabled) {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    color: #ffffff;
+}
+
+.btn-sortear-tudo:disabled {
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
@@ -586,7 +619,7 @@ body::after {
 }
 
 /* ==========================================================================
-   RESPONSIVIDADE POLIDA PARA MOBILE (LIBERTADORES)
+   RESPONSIVIDADE POLIDA PARA MOBILE
    ========================================================================== */
 @media (max-width: 860px) {
     #cabecalho {
@@ -623,7 +656,6 @@ body::after {
         gap: 1.2rem;
     }
 
-    /* POTES LADO A LADO NO MOBILE */
     .coluna-potes {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -711,7 +743,12 @@ body::after {
         letter-spacing: 1.5px;
     }
 
-    .btn-sortear-principal, .btn-chaveamento-link {
+    .botoes-palco {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-sortear-principal, .btn-sortear-tudo, .btn-chaveamento-link {
         width: 100%;
         padding: 0.85rem 1rem;
         font-size: 0.8rem;
