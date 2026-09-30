@@ -1,10 +1,13 @@
 // ==========================================================================
-// assets/js/chaveamento-sulamericana.js - RENDERIZAÇÃO DO CHAVEAMENTO SULA
+// assets/js/chaveamento-sulamericana-simulador.js - MOTOR CHAVE SIMULADA SULA
 // ==========================================================================
 
-function carregarChaveamentoSulamericana() {
-    // 1. CARREGA AS OITAVAS DE FINAL DO SORTEIO ATUAL DA SULA
-    const sorteioSalvo = localStorage.getItem('resultado_sorteio_sulamericana');
+const CHAVE_SORTEIO_SULA = 'resultado_sorteio_sulamericana';
+const CHAVE_SIMULACAO_SULA = 'simulacao_sulamericana';
+
+function carregarChaveamentoSimuladoSulamericana() {
+    // 1. CARREGA AS OITAVAS DE FINAL DO SORTEIO DA SULA
+    const sorteioSalvo = localStorage.getItem(CHAVE_SORTEIO_SULA);
 
     if (sorteioSalvo) {
         const confrontos = JSON.parse(sorteioSalvo);
@@ -15,27 +18,16 @@ function carregarChaveamentoSulamericana() {
                 const slotT1 = card.querySelector(`#oitavas-${item.chave}-t1`);
                 const slotT2 = card.querySelector(`#oitavas-${item.chave}-t2`);
 
-                if (slotT1) slotT1.textContent = item.pote2; // 4ºs da Liberta (Ida em casa)
-                if (slotT2) slotT2.textContent = item.pote1; // 3ºs da Liberta (Decide em casa)
+                if (slotT1) slotT1.textContent = item.pote2;
+                if (slotT2) slotT2.textContent = item.pote1;
 
                 card.classList.add('preenchido');
             }
         });
-    } else {
-        ['A','B','C','D','E','F','G','H'].forEach(l => {
-            const card = document.getElementById(`chave-oitavas-${l}`);
-            if (card) {
-                const t1 = card.querySelector(`#oitavas-${l}-t1`);
-                const t2 = card.querySelector(`#oitavas-${l}-t2`);
-                if (t1) t1.textContent = 'N/D';
-                if (t2) t2.textContent = 'N/D';
-                card.classList.remove('preenchido');
-            }
-        });
     }
 
-    // 2. CARREGA FASES SEGUINTES DA SULA
-    const simulacaoSalva = localStorage.getItem('simulacao_sulamericana');
+    // 2. CARREGA PROJEÇÕES DO SIMULADOR DA SULA
+    const simulacaoSalva = localStorage.getItem(CHAVE_SIMULACAO_SULA);
 
     if (simulacaoSalva) {
         const dados = JSON.parse(simulacaoSalva);
@@ -64,7 +56,7 @@ function carregarChaveamentoSulamericana() {
             resetSlotsSemisSula();
         }
 
-        // FINAL E CAMPEÃO
+        // FINAL
         if (dados.final) {
             setSlotSula('finalista-lado-a', dados.final.f1);
             setSlotSula('finalista-lado-b', dados.final.f2);
@@ -72,10 +64,11 @@ function carregarChaveamentoSulamericana() {
             resetSlotsFinalSula();
         }
 
+        // CAMPEÃO PROJETADO SULA
         const sloganEl = document.getElementById('slogan-final');
         if (sloganEl) {
             if (dados.campeao) {
-                sloganEl.innerHTML = `CAMPEÃO: <span style="color: #ffffff; text-shadow: 0 0 20px rgba(96, 165, 250, 0.9);">${dados.campeao}</span>`;
+                sloganEl.innerHTML = `CAMPEÃO SIMULADO: <span style="color: #ffffff; text-shadow: 0 0 20px rgba(96, 165, 250, 0.9);">${dados.campeao}</span>`;
             } else {
                 sloganEl.textContent = 'LA GRAN CONQUISTA';
             }
@@ -123,6 +116,18 @@ function resetSlotsFinalSula() {
     setSlotSula('finalista-lado-b', 'N/D');
 }
 
-// Inicialização automática ao carregar a página
-document.addEventListener('DOMContentLoaded', carregarChaveamentoSulamericana);
-carregarChaveamentoSulamericana();
+// 3. BOTÃO DE LIMPEZA DIRETA DA SIMULAÇÃO SULA
+document.addEventListener('DOMContentLoaded', () => {
+    carregarChaveamentoSimuladoSulamericana();
+
+    const btnLimpar = document.getElementById('btn-limpar-sim-chave-sula');
+    if (btnLimpar) {
+        btnLimpar.addEventListener('click', () => {
+            if (confirm('Deseja limpar todos os resultados simulados da Sul-Americana?')) {
+                localStorage.removeItem('simulacao_sulamericana');
+                localStorage.removeItem('simulacao_sulamericana_motor_v5');
+                carregarChaveamentoSimuladoSulamericana();
+            }
+        });
+    }
+});

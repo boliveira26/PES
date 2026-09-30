@@ -1,6 +1,8 @@
 /* ==========================================================================
-   TIPOGRAFIA OFICIAL CONMEBOL BRANDING
+   pagina-oficial/css/libertadores-oficial.css - BROADCAST OFICIAL CONMEBOL
    ========================================================================== */
+
+/* TIPOGRAFIA OFICIAL CONMEBOL BRANDING */
 @font-face {
     font-family: 'Branding';
     src: url('/sitezin/assets/fonts/Branding%20Thin.otf') format('opentype');
@@ -43,6 +45,7 @@
     --tv-black-panel: #0e1218;
     --tv-black-slot: #06080b;
     
+    /* OURO METÁLICO MULTICAMADAS */
     --gold-bright: #fff3c4;
     --gold-main: #d4af37;
     --gold-metal: #a8832a;
@@ -253,19 +256,33 @@ body.tema-libertadores::after {
 .card-jogo:hover {
     border-color: var(--gold-bright);
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
-    transform: translateY(-1px);
 }
 
+/* TARJA DE INFORMAÇÃO EDITÁVEL */
 .info-jogo {
     background: linear-gradient(180deg, #1b222d 0%, #10141a 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 0.4rem 0.8rem;
+    padding: 0.45rem 0.8rem;
     font-size: 0.68rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--gold-bright);
     text-align: center;
+    cursor: text;
+    outline: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.info-jogo:hover {
+    background: linear-gradient(180deg, #242e3d 0%, #151b24 100%);
+}
+
+.info-jogo:focus {
+    background: #000000;
+    color: #ffffff;
+    border-bottom-color: var(--gold-bright);
+    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 .placar-jogo {
@@ -298,9 +315,10 @@ body.tema-libertadores::after {
 .time.mandante { text-align: center; }
 .time.visitante { text-align: center; }
 
-.gols {
-    width: 36px;
-    height: 36px;
+/* INPUT DE GOLS INLINE (SEM PROMPT, DIGITAÇÃO DIRETA) */
+input.gols {
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -312,6 +330,28 @@ body.tema-libertadores::after {
     border-radius: 2px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.9);
     flex-shrink: 0;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input.gols::placeholder {
+    color: rgba(11, 14, 20, 0.6);
+    opacity: 1;
+}
+
+input.gols:hover {
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+}
+
+input.gols:focus {
+    background: #ffffff;
+    color: #000000;
+    border-color: var(--gold-bright);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.9);
+    cursor: text;
 }
 
 .divisor-x {
@@ -359,9 +399,9 @@ body.tema-libertadores::after {
     border-top: 1px solid rgba(255, 240, 180, 0.5);
 }
 
-.card-final-destaque .gols {
-    width: 44px;
-    height: 44px;
+.card-final-destaque input.gols {
+    width: 46px;
+    height: 46px;
     font-size: 1.35rem;
 }
 
@@ -413,9 +453,9 @@ body.tema-libertadores::after {
         letter-spacing: 0.5px;
     }
 
-    .gols {
-        width: 30px;
-        height: 30px;
+    input.gols {
+        width: 32px;
+        height: 32px;
         font-size: 0.95rem;
     }
 
@@ -429,9 +469,9 @@ body.tema-libertadores::after {
         padding: 0.5rem 0.4rem;
     }
 
-    .card-final-destaque .gols {
-        width: 34px;
-        height: 34px;
+    .card-final-destaque input.gols {
+        width: 36px;
+        height: 36px;
         font-size: 1.05rem;
     }
 }

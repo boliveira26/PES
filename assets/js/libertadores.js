@@ -305,12 +305,21 @@ function destacarTimeSorteado(containerUl, nomeTime) {
     }
 }
 
-// 8. FINALIZAÇÃO DO SORTEIO
+// 8. FINALIZAÇÃO DO SORTEIO (LIMPA SIMULAÇÕES ANTIGAS PARA NÃO POLUIR)
 function finalizarSorteioGeral() {
     if (etapaSorteioTexto) etapaSorteioTexto.textContent = 'Oitavas de Final Definidas';
     if (textoTimePapel) textoTimePapel.textContent = 'CAMINHO DEFINIDO 🏆';
 
+    // Salva o novo sorteio
     localStorage.setItem('resultado_sorteio_libertadores', JSON.stringify(estado.confrontosFinalizados));
+
+    // LIMPA DADOS DE SIMULAÇÕES E JOGOS ANTERIORES PARA RESETAR O CHAVEAMENTO
+    localStorage.removeItem('simulacao_libertadores');
+    localStorage.removeItem('simulacao_libertadores_motor_v4');
+    localStorage.removeItem('simulacao_libertadores_motor_v3');
+    localStorage.removeItem('simulacao_libertadores_motor_v2');
+    localStorage.removeItem('simulacao_libertadores_motor');
+    localStorage.removeItem('jogos_oficial_libertadores');
 
     if (btnSortear) btnSortear.classList.add('oculto');
     if (btnSortearTudo) btnSortearTudo.classList.add('oculto');
@@ -352,6 +361,12 @@ if (btnReiniciarSorteio) {
             estado.timePote2Atual = null;
             estado.confrontosFinalizados = [];
             estado.sorteando = false;
+
+            // Limpa chaveamento anterior
+            localStorage.removeItem('resultado_sorteio_libertadores');
+            localStorage.removeItem('simulacao_libertadores');
+            localStorage.removeItem('simulacao_libertadores_motor_v4');
+            localStorage.removeItem('jogos_oficial_libertadores');
 
             renderizarListasPotes();
             atualizarConfrontoAtivo();

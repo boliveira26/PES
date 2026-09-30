@@ -1,6 +1,8 @@
 /* ==========================================================================
-   TIPOGRAFIA OFICIAL CONMEBOL BRANDING
+   assets/css/chaveamento-libertadores.css - BROADCAST BRACKET OFICIAL
    ========================================================================== */
+
+/* TIPOGRAFIA OFICIAL CONMEBOL BRANDING */
 @font-face {
     font-family: 'Branding';
     src: url('/sitezin/assets/fonts/Branding%20Thin.otf') format('opentype');
@@ -37,7 +39,6 @@
     font-weight: 900;
     font-style: normal;
 }
-
 
 :root {
     --tv-black-base: #07090b;
@@ -316,10 +317,6 @@ body::after {
     overflow: hidden;
     text-overflow: ellipsis;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
-}
-
-.slot-time.vazio {
-    color: var(--text-muted);
 }
 
 /* CENTRO: FINAL */

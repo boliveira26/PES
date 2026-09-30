@@ -39,7 +39,7 @@ let estado = {
     sorteando: false
 };
 
-// ELEMENTOS DO DOM COM SELEÇÃO SEGURA
+// ELEMENTOS DO DOM
 const listaPote1 = document.getElementById('lista-pote-1');
 const listaPote2 = document.getElementById('lista-pote-2');
 
@@ -103,7 +103,7 @@ function renderizarListasPotes() {
     }
 }
 
-// 3. ATUALIZA DESTAQUES DOS CONFRONTOS E BOTÕES
+// 3. ATUALIZA DESTAQUES
 function atualizarConfrontoAtivo() {
     chaves.forEach((chave, index) => {
         const card = document.getElementById(`confronto-${chave}`);
@@ -133,7 +133,7 @@ function atualizarConfrontoAtivo() {
     }
 }
 
-// 4. EFEITO DE ROLETA / SUSPENSE NA TIRA DE PAPEL
+// 4. SUSPENSE NA TIRA DE PAPEL
 function animarRoletaSuspense(poteAlvo, callbackFinal) {
     let duracao = 1800;
     let intervaloTempo = 75;
@@ -151,7 +151,7 @@ function animarRoletaSuspense(poteAlvo, callbackFinal) {
     }, intervaloTempo);
 }
 
-// 5. SORTEIO MANUAL COM ANIMAÇÃO
+// 5. SORTEIO MANUAL
 if (btnSortear) {
     btnSortear.addEventListener('click', () => {
         if (estado.sorteando || estado.confrontoIndex >= 8) return;
@@ -177,7 +177,7 @@ if (btnSortear) {
     });
 }
 
-// 6. SORTEAR TUDO AUTOMÁTICO
+// 6. SORTEAR TUDO
 if (btnSortearTudo) {
     btnSortearTudo.addEventListener('click', () => {
         if (estado.sorteando) return;
@@ -232,7 +232,6 @@ function preencherConfrontoNaTela(chave, timeP2, timeP1) {
     }
 }
 
-// 7. LÓGICA DO SORTEIO PASSO A PASSO
 function executarSorteioAlgoritmo() {
     const chaveAtual = chaves[estado.confrontoIndex];
     const cardConfronto = document.getElementById(`confronto-${chaveAtual}`);
@@ -305,12 +304,21 @@ function destacarTimeSorteado(containerUl, nomeTime) {
     }
 }
 
-// 8. FINALIZAÇÃO DO SORTEIO
+// 8. FINALIZAÇÃO DO SORTEIO DA SULA (LIMPA SIMULAÇÕES ANTIGAS)
 function finalizarSorteioGeral() {
     if (etapaSorteioTexto) etapaSorteioTexto.textContent = 'Oitavas de Final Definidas';
     if (textoTimePapel) textoTimePapel.textContent = 'CAMINHO DEFINIDO 🥈';
 
+    // Salva o novo sorteio
     localStorage.setItem('resultado_sorteio_sulamericana', JSON.stringify(estado.confrontosFinalizados));
+
+    // LIMPA MEMÓRIA DE SIMULAÇÕES E JOGOS ANTERIORES DA SULA
+    localStorage.removeItem('simulacao_sulamericana');
+    localStorage.removeItem('simulacao_sulamericana_motor_v4');
+    localStorage.removeItem('simulacao_sulamericana_motor_v3');
+    localStorage.removeItem('simulacao_sulamericana_motor_v2');
+    localStorage.removeItem('simulacao_sulamericana_motor');
+    localStorage.removeItem('jogos_oficial_sulamericana');
 
     if (btnSortear) btnSortear.classList.add('oculto');
     if (btnSortearTudo) btnSortearTudo.classList.add('oculto');
@@ -352,6 +360,11 @@ if (btnReiniciarSorteio) {
             estado.timePote2Atual = null;
             estado.confrontosFinalizados = [];
             estado.sorteando = false;
+
+            localStorage.removeItem('resultado_sorteio_sulamericana');
+            localStorage.removeItem('simulacao_sulamericana');
+            localStorage.removeItem('simulacao_sulamericana_motor_v4');
+            localStorage.removeItem('jogos_oficial_sulamericana');
 
             renderizarListasPotes();
             atualizarConfrontoAtivo();

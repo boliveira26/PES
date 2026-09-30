@@ -1,500 +1,508 @@
 // ==========================================================================
-// assets/js/simulador-libertadores.js - MOTOR DE SIMULAÇÃO E AVANÇO DE FASES
+// assets/js/simulador-libertadores.js - MOTOR BLINDADO LIBERTADORES
 // ==========================================================================
 
+const CHAVE_SORTEIO = 'resultado_sorteio_libertadores';
+const CHAVE_SIMULACAO_MOTOR = 'simulacao_libertadores_motor_v5';
+const CHAVE_SIMULACAO_CHAVEAMENTO = 'simulacao_libertadores';
+
+const sorteioPadraoLibertadores = [
+    { chave: 'A', pote2: 'Botafogo', pote1: 'Palmeiras' },
+    { chave: 'B', pote2: 'Nacional', pote1: 'São Paulo' },
+    { chave: 'C', pote2: 'Peñarol', pote1: 'Flamengo' },
+    { chave: 'D', pote2: 'Talleres', pote1: 'River Plate' },
+    { chave: 'E', pote2: 'San Lorenzo', pote1: 'Atlético-MG' },
+    { chave: 'F', pote2: 'Colo-Colo', pote1: 'Fluminense' },
+    { chave: 'G', pote2: 'Junior Barranquilla', pote1: 'Grêmio' },
+    { chave: 'H', pote2: 'The Strongest', pote1: 'Bolívar' }
+];
+
 let estadoSimulador = {
-    faseAtual: 'oitavas', // 'oitavas', 'quartas', 'semis', 'final'
-    oitavas: [],          // [{ chave, t1_ida (p2), t2_volta (p1), g1_ida, g2_ida, g2_volta, g1_volta, pen1, pen2, vencedor }]
-    quartas: [],          // [{ id, t1, t2, ... }]
-    semis: [],            // [{ id, t1, t2, ... }]
-    final: null,          // { t1, t2, g1, g2, pen1, pen2, campeao }
-    campeao: null
+    sorteioAssinatura: '',
+    placares: {},
+    penaltis: {}
 };
 
-// ELEMENTOS DO DOM
-const tituloFaseAtiva = document.getElementById('titulo-fase-ativa');
-const containerConfrontosFase = document.getElementById('container-confrontos-fase');
-const formSimulador = document.getElementById('form-simulador');
-const btnAvancarFase = document.getElementById('btn-avancar-fase');
-const tabsFases = document.querySelectorAll('.tab-fase');
-const btnResetSimulacao = document.getElementById('btn-reset-simulacao');
+const placaresPES = [
+    [1, 0], [2, 1], [2, 0], [1, 1], [0, 0], [3, 1], [1, 2], [0, 1], [2, 2], [3, 2]
+];
 
-const modalCampeao = document.getElementById('modal-campeao');
-const nomeTimeCampeao = document.getElementById('nome-time-campeao');
+function sortearPlacarPES() {
+    return placaresPES[Math.floor(Math.random() * placaresPES.length)];
+}
 
-// 1. INICIALIZAÇÃO DO SIMULADOR
+// 1. INICIALIZAÇÃO BLINDADA
 function inicializarSimulador() {
-    const sorteioSalvo = localStorage.getItem('resultado_sorteio_libertadores');
-
-    if (!sorteioSalvo) {
-        alert('Você precisa realizar o Sorteio das Oitavas primeiro!');
-        window.location.href = 'libertadores.html';
-        return;
-    }
-
-    const confrontosSorteados = JSON.parse(sorteioSalvo);
-
-    // Carrega simulação existente ou inicia do zero
-    const simulacaoSalva = localStorage.getItem('simulacao_libertadores_motor');
-    if (simulacaoSalva) {
-        estadoSimulador = JSON.parse(simulacaoSalva);
-    } else {
-        // Monta as 8 Oitavas a partir do sorteio
-        estadoSimulador.oitavas = confrontosSorteados.map(item => ({
-            chave: item.chave,
-            timeIdaCasa: item.pote2,   // 1º jogo em casa
-            timeVoltaCasa: item.pote1, // decide em casa
-            golsIdaCasa: '',
-            golsIdaFora: '',
-            golsVoltaCasa: '',
-            golsVoltaFora: '',
-            penIdaCasa: '',
-            penVoltaCasa: '',
-            vencedor: null
-        }));
-    }
-
-    configurarAbas();
-    renderizarFaseAtual();
+    verificarESincronizarNovoSorteio();
+    carregarEstruturaOitavas();
+    configurarInputsGols();
+    configurarInputsPenaltis();
+    configurarBotoesAcao();
+    calcularMataMataCompleto(false); // false = não abrir modal no carregamento
 }
 
-// 2. CONTROLE DAS ABAS DE FASES
-function configurarAbas() {
-    tabsFases.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const fase = tab.dataset.fase;
-            
-            // Valida se a fase anterior já foi concluída
-            if (fase === 'quartas' && estadoSimulador.quartas.length === 0) {
-                alert('Conclua as Oitavas de Final primeiro!');
-                return;
-            }
-            if (fase === 'semis' && estadoSimulador.semis.length === 0) {
-                alert('Conclua as Quartas de Final primeiro!');
-                return;
-            }
-            if (fase === 'final' && !estadoSimulador.final) {
-                alert('Conclua as Semifinais primeiro!');
-                return;
-            }
+// 2. DETECTA SE O SORTEIO MUDOU E LIMPA PLACARES ANTIGOS
+function verificarESincronizarNovoSorteio() {
+    const sorteioSalvo = localStorage.getItem(CHAVE_SORTEIO);
+    const sorteioAtualStr = sorteioSalvo || JSON.stringify(sorteioPadraoLibertadores);
 
-            estadoSimulador.faseAtual = fase;
-            tabsFases.forEach(t => t.classList.remove('ativa'));
-            tab.classList.add('ativa');
-            renderizarFaseAtual();
-        });
-    });
-}
-
-function atualizarAbaAtiva() {
-    tabsFases.forEach(tab => {
-        if (tab.dataset.fase === estadoSimulador.faseAtual) {
-            tab.classList.add('ativa');
+    const salvos = localStorage.getItem(CHAVE_SIMULACAO_MOTOR);
+    if (salvos) {
+        const dadosSalvos = JSON.parse(salvos);
+        
+        // Se o sorteio atual for diferente do sorteio da simulação anterior, RESETA TUDO
+        if (dadosSalvos.sorteioAssinatura !== sorteioAtualStr) {
+            estadoSimulador = {
+                sorteioAssinatura: sorteioAtualStr,
+                placares: {},
+                penaltis: {}
+            };
+            localStorage.removeItem(CHAVE_SIMULACAO_MOTOR);
+            localStorage.removeItem(CHAVE_SIMULACAO_CHAVEAMENTO);
+            limparCamposNaTela();
         } else {
-            tab.classList.remove('ativa');
+            estadoSimulador = dadosSalvos;
+            restaurarValoresNaTela();
+        }
+    } else {
+        estadoSimulador = {
+            sorteioAssinatura: sorteioAtualStr,
+            placares: {},
+            penaltis: {}
+        };
+    }
+}
+
+function limparCamposNaTela() {
+    document.querySelectorAll('input.gols').forEach(inp => inp.value = '');
+    document.querySelectorAll('input.gols-penalti').forEach(inp => inp.value = '');
+    document.querySelectorAll('.linha-penaltis-jogo').forEach(el => el.classList.add('oculto'));
+    const modal = document.getElementById('modal-campeao');
+    if (modal) modal.classList.add('oculto');
+}
+
+function restaurarValoresNaTela() {
+    document.querySelectorAll('.card-jogo').forEach(card => {
+        const id = card.id;
+        const inputM = card.querySelector('input.gols-mandante');
+        const inputV = card.querySelector('input.gols-visitante');
+
+        if (estadoSimulador.placares && estadoSimulador.placares[id]) {
+            if (inputM && estadoSimulador.placares[id].m !== null) inputM.value = estadoSimulador.placares[id].m;
+            if (inputV && estadoSimulador.placares[id].v !== null) inputV.value = estadoSimulador.placares[id].v;
+        }
+    });
+
+    document.querySelectorAll('.linha-penaltis-jogo').forEach(linhaPen => {
+        const id = linhaPen.id;
+        const inputPenM = linhaPen.querySelector('input.pen-mandante');
+        const inputPenV = linhaPen.querySelector('input.pen-visitante');
+
+        if (estadoSimulador.penaltis && estadoSimulador.penaltis[id]) {
+            if (inputPenM && estadoSimulador.penaltis[id].m !== null) inputPenM.value = estadoSimulador.penaltis[id].m;
+            if (inputPenV && estadoSimulador.penaltis[id].v !== null) inputPenV.value = estadoSimulador.penaltis[id].v;
         }
     });
 }
 
-// 3. RENDERIZAR JOGOS DA FASE ATIVA
-function renderizarFaseAtual() {
-    atualizarAbaAtiva();
-    containerConfrontosFase.innerHTML = '';
+// 3. CARREGA OS CONFRONTOS DAS OITAVAS
+function carregarEstruturaOitavas() {
+    const sorteioSalvo = localStorage.getItem(CHAVE_SORTEIO);
+    const confrontos = sorteioSalvo ? JSON.parse(sorteioSalvo) : sorteioPadraoLibertadores;
 
-    if (estadoSimulador.faseAtual === 'oitavas') {
-        tituloFaseAtiva.textContent = 'Oitavas de Final (Ida e Volta)';
-        btnAvancarFase.textContent = 'Confirmar e Gerar Quartas de Final →';
-        renderizarJogosIdaVolta(estadoSimulador.oitavas, 'Oitavas');
-    } else if (estadoSimulador.faseAtual === 'quartas') {
-        tituloFaseAtiva.textContent = 'Quartas de Final (Ida e Volta)';
-        btnAvancarFase.textContent = 'Confirmar e Gerar Semifinais →';
-        renderizarJogosIdaVolta(estadoSimulador.quartas, 'Quartas');
-    } else if (estadoSimulador.faseAtual === 'semis') {
-        tituloFaseAtiva.textContent = 'Semifinais (Ida e Volta)';
-        btnAvancarFase.textContent = 'Confirmar e Ir para a Grande Final →';
-        renderizarJogosIdaVolta(estadoSimulador.semis, 'Semi');
-    } else if (estadoSimulador.faseAtual === 'final') {
-        tituloFaseAtiva.textContent = 'Grande Final (Jogo Único - Córdoba 2026)';
-        btnAvancarFase.textContent = 'Declarar Campeão da América 🏆';
-        renderizarJogoFinal();
-    }
+    confrontos.forEach(confronto => {
+        const letra = confronto.chave;
+        const timeP2 = confronto.pote2;
+        const timeP1 = confronto.pote1;
+
+        const cardIda = document.getElementById(`oitavas-${letra}-ida`);
+        if (cardIda) {
+            cardIda.querySelector('.time.mandante').textContent = timeP2;
+            cardIda.querySelector('.time.visitante').textContent = timeP1;
+        }
+
+        const cardVolta = document.getElementById(`oitavas-${letra}-volta`);
+        if (cardVolta) {
+            cardVolta.querySelector('.time.mandante').textContent = timeP1;
+            cardVolta.querySelector('.time.visitante').textContent = timeP2;
+        }
+    });
 }
 
-// 4. RENDERIZAÇÃO DE CONFRONTOS DE IDA E VOLTA
-function renderizarJogosIdaVolta(listaConfrontos, prefixo) {
-    listaConfrontos.forEach((duelo, index) => {
-        const card = document.createElement('div');
-        card.className = 'card-duelo-simulador';
+// 4. CONFIGURA DIGITAÇÃO DIRETA
+function configurarInputsGols() {
+    document.querySelectorAll('.card-jogo').forEach(card => {
+        const idJogo = card.id;
+        const inputM = card.querySelector('input.gols-mandante');
+        const inputV = card.querySelector('input.gols-visitante');
 
-        const labelChave = duelo.chave ? `Chave ${duelo.chave}` : `${prefixo} ${index + 1}`;
+        if (inputM) {
+            inputM.addEventListener('focus', () => inputM.select());
+            inputM.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                const valor = e.target.value.trim() === '' ? null : parseInt(e.target.value.trim(), 10);
+                salvarPlacar(idJogo, 'm', valor);
+                calcularMataMataCompleto(true);
+            });
+        }
 
-        card.innerHTML = `
-            <div class="cabecalho-duelo-card">
-                <span class="badge-confronto-letra">${labelChave}</span>
-                <span class="status-agregado" id="agr-txt-${index}">AGR: - x -</span>
-            </div>
+        if (inputV) {
+            inputV.addEventListener('focus', () => inputV.select());
+            inputV.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                const valor = e.target.value.trim() === '' ? null : parseInt(e.target.value.trim(), 10);
+                salvarPlacar(idJogo, 'v', valor);
+                calcularMataMataCompleto(true);
+            });
+        }
+    });
+}
 
-            <!-- JOGO DE IDA -->
-            <div class="linha-jogo-input">
-                <span class="label-jogo">IDA:</span>
-                <span class="time-nome-input mandante">${duelo.timeIdaCasa}</span>
-                <input type="number" min="0" max="20" class="input-gol" id="ida-g1-${index}" value="${duelo.golsIdaCasa}" required>
-                <span class="divisor-x">x</span>
-                <input type="number" min="0" max="20" class="input-gol" id="ida-g2-${index}" value="${duelo.golsIdaFora}" required>
-                <span class="time-nome-input visitante">${duelo.timeVoltaCasa}</span>
-            </div>
+function salvarPlacar(idJogo, tipo, valor) {
+    if (!estadoSimulador.placares) estadoSimulador.placares = {};
+    if (!estadoSimulador.placares[idJogo]) estadoSimulador.placares[idJogo] = { m: null, v: null };
 
-            <!-- JOGO DE VOLTA -->
-            <div class="linha-jogo-input">
-                <span class="label-jogo">VOLTA:</span>
-                <span class="time-nome-input mandante">${duelo.timeVoltaCasa}</span>
-                <input type="number" min="0" max="20" class="input-gol" id="volta-g2-${index}" value="${duelo.golsVoltaCasa}" required>
-                <span class="divisor-x">x</span>
-                <input type="number" min="0" max="20" class="input-gol" id="volta-g1-${index}" value="${duelo.golsVoltaFora}" required>
-                <span class="time-nome-input visitante">${duelo.timeIdaCasa}</span>
-            </div>
+    estadoSimulador.placares[idJogo][tipo] = valor;
+    localStorage.setItem(CHAVE_SIMULACAO_MOTOR, JSON.stringify(estadoSimulador));
+}
 
-            <!-- PÊNALTIS (SE EMPATAR NO AGREGADO) -->
-            <div class="linha-penaltis ${duelo.precisaPenaltis ? '' : 'oculto'}" id="pen-box-${index}">
-                <span class="label-penalti">PÊNALTIS:</span>
-                <span class="time-nome-input mandante">${duelo.timeIdaCasa}</span>
-                <input type="number" min="0" max="20" class="input-penalti" id="pen-p1-${index}" value="${duelo.penIdaCasa}">
-                <span class="divisor-x">x</span>
-                <input type="number" min="0" max="20" class="input-penalti" id="pen-p2-${index}" value="${duelo.penVoltaCasa}">
-                <span class="time-nome-input visitante">${duelo.timeVoltaCasa}</span>
-            </div>
-        `;
+// 5. CONFIGURA DIGITAÇÃO DOS PÊNALTIS
+function configurarInputsPenaltis() {
+    document.querySelectorAll('.linha-penaltis-jogo').forEach(linhaPen => {
+        const idPen = linhaPen.id;
+        const inputPenM = linhaPen.querySelector('input.pen-mandante');
+        const inputPenV = linhaPen.querySelector('input.pen-visitante');
 
-        containerConfrontosFase.appendChild(card);
+        if (inputPenM) {
+            inputPenM.addEventListener('focus', () => inputPenM.select());
+            inputPenM.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                const valor = e.target.value.trim() === '' ? null : parseInt(e.target.value.trim(), 10);
+                salvarPenalti(idPen, 'm', valor);
+                calcularMataMataCompleto(true);
+            });
+        }
 
-        // Ouvintes de input para cálculo de agregado em tempo real
-        const inIda1 = card.querySelector(`#ida-g1-${index}`);
-        const inIda2 = card.querySelector(`#ida-g2-${index}`);
-        const inVolta2 = card.querySelector(`#volta-g2-${index}`);
-        const inVolta1 = card.querySelector(`#volta-g1-${index}`);
+        if (inputPenV) {
+            inputPenV.addEventListener('focus', () => inputPenV.select());
+            inputPenV.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                const valor = e.target.value.trim() === '' ? null : parseInt(e.target.value.trim(), 10);
+                salvarPenalti(idPen, 'v', valor);
+                calcularMataMataCompleto(true);
+            });
+        }
+    });
+}
 
-        const atualizarAgregado = () => {
-            const gIda1 = parseInt(inIda1.value) || 0;
-            const gIda2 = parseInt(inIda2.value) || 0;
-            const gVolta2 = parseInt(inVolta2.value) || 0;
-            const gVolta1 = parseInt(inVolta1.value) || 0;
+function salvarPenalti(idPen, tipo, valor) {
+    if (!estadoSimulador.penaltis) estadoSimulador.penaltis = {};
+    if (!estadoSimulador.penaltis[idPen]) estadoSimulador.penaltis[idPen] = { m: null, v: null };
 
-            const totalTime1 = gIda1 + gVolta1;
-            const totalTime2 = gIda2 + gVolta2;
+    estadoSimulador.penaltis[idPen][tipo] = valor;
+    localStorage.setItem(CHAVE_SIMULACAO_MOTOR, JSON.stringify(estadoSimulador));
+}
 
-            const txtAgr = card.querySelector(`#agr-txt-${index}`);
-            const penBox = card.querySelector(`#pen-box-${index}`);
+// 6. CÁLCULO GERAL DO MATA-MATA
+function calcularMataMataCompleto(permitirModal = true) {
+    const chaves = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const oit = {};
 
-            if (inIda1.value !== '' && inIda2.value !== '' && inVolta2.value !== '' && inVolta1.value !== '') {
-                txtAgr.textContent = `AGR: ${totalTime1} x ${totalTime2}`;
+    // 1. Oitavas
+    chaves.forEach(letra => {
+        const pIda = estadoSimulador.placares[`oitavas-${letra}-ida`];
+        const pVolta = estadoSimulador.placares[`oitavas-${letra}-volta`];
 
-                // Se empatou no agregado, abre os pênaltis
-                if (totalTime1 === totalTime2) {
-                    penBox.classList.remove('oculto');
+        const cardIda = document.getElementById(`oitavas-${letra}-ida`);
+        const cardVolta = document.getElementById(`oitavas-${letra}-volta`);
+        const linhaPen = document.getElementById(`pen-oitavas-${letra}`);
+        if (!cardIda || !cardVolta) return;
+
+        const timeP2 = cardIda.querySelector('.time.mandante').textContent;
+        const timeP1 = cardIda.querySelector('.time.visitante').textContent;
+
+        if (pIda && pVolta && pIda.m !== null && pIda.v !== null && pVolta.m !== null && pVolta.v !== null) {
+            const golsP2 = pIda.m + pVolta.v;
+            const golsP1 = pIda.v + pVolta.m;
+
+            if (golsP1 > golsP2) {
+                if (linhaPen) linhaPen.classList.add('oculto');
+                oit[letra] = timeP1;
+            } else if (golsP2 > golsP1) {
+                if (linhaPen) linhaPen.classList.add('oculto');
+                oit[letra] = timeP2;
+            } else {
+                if (linhaPen) linhaPen.classList.remove('oculto');
+
+                const penData = estadoSimulador.penaltis[`pen-oitavas-${letra}`];
+                if (penData && penData.m !== null && penData.v !== null && penData.m !== penData.v) {
+                    oit[letra] = penData.m > penData.v ? timeP1 : timeP2;
                 } else {
-                    penBox.classList.add('oculto');
+                    oit[letra] = null;
                 }
             }
-        };
-
-        inIda1.oninput = atualizarAgregado;
-        inIda2.oninput = atualizarAgregado;
-        inVolta2.oninput = atualizarAgregado;
-        inVolta1.oninput = atualizarAgregado;
-        atualizarAgregado();
+        } else {
+            if (linhaPen) linhaPen.classList.add('oculto');
+        }
     });
-}
 
-// 5. RENDERIZAÇÃO DA GRANDE FINAL (JOGO ÚNICO)
-function renderizarJogoFinal() {
-    const final = estadoSimulador.final;
-    const card = document.createElement('div');
-    card.className = 'card-duelo-simulador';
+    // 2. Quartas
+    atualizarCardDuelo('quartas-1', oit['A'] || 'Venc. A', oit['C'] || 'Venc. C');
+    atualizarCardDuelo('quartas-2', oit['E'] || 'Venc. E', oit['G'] || 'Venc. G');
+    atualizarCardDuelo('quartas-3', oit['B'] || 'Venc. B', oit['D'] || 'Venc. D');
+    atualizarCardDuelo('quartas-4', oit['F'] || 'Venc. F', oit['H'] || 'Venc. H');
 
-    card.innerHTML = `
-        <div class="cabecalho-duelo-card">
-            <span class="badge-confronto-letra">FINAL</span>
-            <span class="status-agregado">ESTÁDIO MÁRIO KEMPES (CÓRDOBA)</span>
-        </div>
+    const q1 = calcularVencedorMataMata('quartas-1');
+    const q2 = calcularVencedorMataMata('quartas-2');
+    const q3 = calcularVencedorMataMata('quartas-3');
+    const q4 = calcularVencedorMataMata('quartas-4');
 
-        <div class="linha-jogo-input" style="padding: 1.2rem 1rem;">
-            <span class="time-nome-input mandante" style="font-size: 1.1rem;">${final.time1}</span>
-            <input type="number" min="0" max="20" class="input-gol" id="final-g1" value="${final.g1}" required>
-            <span class="divisor-x">x</span>
-            <input type="number" min="0" max="20" class="input-gol" id="final-g2" value="${final.g2}" required>
-            <span class="time-nome-input visitante" style="font-size: 1.1rem;">${final.time2}</span>
-        </div>
+    // 3. Semis
+    atualizarCardDuelo('semi-1', q1 || 'Venc. Q1', q2 || 'Venc. Q2');
+    atualizarCardDuelo('semi-2', q3 || 'Venc. Q3', q4 || 'Venc. Q4');
 
-        <div class="linha-penaltis ${final.g1 === final.g2 && final.g1 !== '' ? '' : 'oculto'}" id="final-pen-box">
-            <span class="label-penalti">PÊNALTIS / PRORROGAÇÃO:</span>
-            <span class="time-nome-input mandante">${final.time1}</span>
-            <input type="number" min="0" max="20" class="input-penalti" id="final-pen-1" value="${final.pen1}">
-            <span class="divisor-x">x</span>
-            <input type="number" min="0" max="20" class="input-penalti" id="final-pen-2" value="${final.pen2}">
-            <span class="time-nome-input visitante">${final.time2}</span>
-        </div>
-    `;
+    const s1 = calcularVencedorMataMata('semi-1');
+    const s2 = calcularVencedorMataMata('semi-2');
 
-    containerConfrontosFase.appendChild(card);
-
-    const fG1 = card.querySelector('#final-g1');
-    const fG2 = card.querySelector('#final-g2');
-    const penBox = card.querySelector('#final-pen-box');
-
-    const checkFinalEmpate = () => {
-        if (fG1.value !== '' && fG2.value !== '' && fG1.value === fG2.value) {
-            penBox.classList.remove('oculto');
-        } else {
-            penBox.classList.add('oculto');
-        }
-    };
-
-    fG1.oninput = checkFinalEmpate;
-    fG2.oninput = checkFinalEmpate;
-}
-
-// 6. ENVIO E PROCESSAMENTO DO FORMULÁRIO (AVANÇO DAS FASES)
-formSimulador.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    if (estadoSimulador.faseAtual === 'oitavas') {
-        processarOitavas();
-    } else if (estadoSimulador.faseAtual === 'quartas') {
-        processarQuartas();
-    } else if (estadoSimulador.faseAtual === 'semis') {
-        processarSemis();
-    } else if (estadoSimulador.faseAtual === 'final') {
-        processarFinal();
+    // 4. Final Única
+    const cardFinal = document.getElementById('final-jogo');
+    if (cardFinal) {
+        cardFinal.querySelector('.time.mandante').textContent = s1 || 'Venc. Semifinal 1';
+        cardFinal.querySelector('.time.visitante').textContent = s2 || 'Venc. Semifinal 2';
     }
-});
 
-// PROCESSAR OITAVAS -> GERA QUARTAS
-function processarOitavas() {
-    const vencedores = {};
+    const campeao = calcularCampeaoFinal(cardFinal, s1, s2, permitirModal);
 
-    for (let i = 0; i < estadoSimulador.oitavas.length; i++) {
-        const duelo = estadoSimulador.oitavas[i];
-        const gIda1 = parseInt(document.getElementById(`ida-g1-${i}`).value);
-        const gIda2 = parseInt(document.getElementById(`ida-g2-${i}`).value);
-        const gVolta2 = parseInt(document.getElementById(`volta-g2-${i}`).value);
-        const gVolta1 = parseInt(document.getElementById(`volta-g1-${i}`).value);
+    sincronizarComChaveamento(oit, q1, q2, q3, q4, s1, s2, campeao);
+}
 
-        duelo.golsIdaCasa = gIda1;
-        duelo.golsIdaFora = gIda2;
-        duelo.golsVoltaCasa = gVolta2;
-        duelo.golsVoltaFora = gVolta1;
+function atualizarCardDuelo(prefixo, t1, t2) {
+    const cardIda = document.getElementById(`${prefixo}-ida`);
+    const cardVolta = document.getElementById(`${prefixo}-volta`);
 
-        const total1 = gIda1 + gVolta1;
-        const total2 = gIda2 + gVolta2;
+    if (cardIda) {
+        cardIda.querySelector('.time.mandante').textContent = t1;
+        cardIda.querySelector('.time.visitante').textContent = t2;
+    }
+    if (cardVolta) {
+        cardVolta.querySelector('.time.mandante').textContent = t2;
+        cardVolta.querySelector('.time.visitante').textContent = t1;
+    }
+}
 
-        if (total1 > total2) {
-            duelo.vencedor = duelo.timeIdaCasa;
-        } else if (total2 > total1) {
-            duelo.vencedor = duelo.timeVoltaCasa;
+function calcularVencedorMataMata(prefixo) {
+    const pIda = estadoSimulador.placares[`${prefixo}-ida`];
+    const pVolta = estadoSimulador.placares[`${prefixo}-volta`];
+
+    const cardIda = document.getElementById(`${prefixo}-ida`);
+    const cardVolta = document.getElementById(`${prefixo}-volta`);
+    const linhaPen = document.getElementById(`pen-${prefixo}`);
+    if (!cardIda || !cardVolta) return null;
+
+    const t1 = cardIda.querySelector('.time.mandante').textContent;
+    const t2 = cardIda.querySelector('.time.visitante').textContent;
+
+    if (t1.startsWith('Venc.') || t2.startsWith('Venc.') || t1 === 'N/D' || t2 === 'N/D') return null;
+
+    if (pIda && pVolta && pIda.m !== null && pIda.v !== null && pVolta.m !== null && pVolta.v !== null) {
+        const golsT1 = pIda.m + pVolta.v;
+        const golsT2 = pIda.v + pVolta.m;
+
+        if (golsT1 > golsT2) {
+            if (linhaPen) linhaPen.classList.add('oculto');
+            return t1;
+        } else if (golsT2 > golsT1) {
+            if (linhaPen) linhaPen.classList.add('oculto');
+            return t2;
         } else {
-            // Decisão nos Pênaltis
-            const p1 = parseInt(document.getElementById(`pen-p1-${i}`).value);
-            const p2 = parseInt(document.getElementById(`pen-p2-${i}`).value);
+            if (linhaPen) linhaPen.classList.remove('oculto');
 
-            if (isNaN(p1) || isNaN(p2) || p1 === p2) {
-                alert(`Preencha o vencedor dos pênaltis no confronto da Chave ${duelo.chave}!`);
-                return;
+            const penData = estadoSimulador.penaltis[`pen-${prefixo}`];
+            if (penData && penData.m !== null && penData.v !== null && penData.m !== penData.v) {
+                return penData.m > penData.v ? t2 : t1;
             }
-
-            duelo.penIdaCasa = p1;
-            duelo.penVoltaCasa = p2;
-            duelo.vencedor = p1 > p2 ? duelo.timeIdaCasa : duelo.timeVoltaCasa;
+            return null;
         }
-
-        vencedores[duelo.chave] = duelo.vencedor;
-    }
-
-    // Monta as Quartas com a regra oficial alternada (A vs C, E vs G, B vs D, F vs H)
-    estadoSimulador.quartas = [
-        { chave: 'Q1', timeIdaCasa: vencedores['A'], timeVoltaCasa: vencedores['C'], golsIdaCasa: '', golsIdaFora: '', golsVoltaCasa: '', golsVoltaFora: '', penIdaCasa: '', penVoltaCasa: '', vencedor: null },
-        { chave: 'Q2', timeIdaCasa: vencedores['E'], timeVoltaCasa: vencedores['G'], golsIdaCasa: '', golsIdaFora: '', golsVoltaCasa: '', golsVoltaFora: '', penIdaCasa: '', penVoltaCasa: '', vencedor: null },
-        { chave: 'Q3', timeIdaCasa: vencedores['B'], timeVoltaCasa: vencedores['D'], golsIdaCasa: '', golsIdaFora: '', golsVoltaCasa: '', golsVoltaFora: '', penIdaCasa: '', penVoltaCasa: '', vencedor: null },
-        { chave: 'Q4', timeIdaCasa: vencedores['F'], timeVoltaCasa: vencedores['H'], golsIdaCasa: '', golsIdaFora: '', golsVoltaCasa: '', golsVoltaFora: '', penIdaCasa: '', penVoltaCasa: '', vencedor: null }
-    ];
-
-    salvarEAtualizarChaveamento('quartas');
-}
-
-// PROCESSAR QUARTAS -> GERA SEMIS
-function processarQuartas() {
-    const v = [];
-
-    for (let i = 0; i < 4; i++) {
-        const duelo = estadoSimulador.quartas[i];
-        const gIda1 = parseInt(document.getElementById(`ida-g1-${i}`).value);
-        const gIda2 = parseInt(document.getElementById(`ida-g2-${i}`).value);
-        const gVolta2 = parseInt(document.getElementById(`volta-g2-${i}`).value);
-        const gVolta1 = parseInt(document.getElementById(`volta-g1-${i}`).value);
-
-        duelo.golsIdaCasa = gIda1;
-        duelo.golsIdaFora = gIda2;
-        duelo.golsVoltaCasa = gVolta2;
-        duelo.golsVoltaFora = gVolta1;
-
-        const total1 = gIda1 + gVolta1;
-        const total2 = gIda2 + gVolta2;
-
-        if (total1 > total2) {
-            duelo.vencedor = duelo.timeIdaCasa;
-        } else if (total2 > total1) {
-            duelo.vencedor = duelo.timeVoltaCasa;
-        } else {
-            const p1 = parseInt(document.getElementById(`pen-p1-${i}`).value);
-            const p2 = parseInt(document.getElementById(`pen-p2-${i}`).value);
-            if (isNaN(p1) || isNaN(p2) || p1 === p2) {
-                alert(`Preencha o vencedor dos pênaltis nas Quartas ${i + 1}!`);
-                return;
-            }
-            duelo.penIdaCasa = p1;
-            duelo.penVoltaCasa = p2;
-            duelo.vencedor = p1 > p2 ? duelo.timeIdaCasa : duelo.timeVoltaCasa;
-        }
-        v.push(duelo.vencedor);
-    }
-
-    // Semis: Q1 vs Q2 | Q3 vs Q4
-    estadoSimulador.semis = [
-        { chave: 'S1', timeIdaCasa: v[0], timeVoltaCasa: v[1], golsIdaCasa: '', golsIdaFora: '', golsVoltaCasa: '', golsVoltaFora: '', penIdaCasa: '', penVoltaCasa: '', vencedor: null },
-        { chave: 'S2', timeIdaCasa: v[2], timeVoltaCasa: v[3], golsIdaCasa: '', golsIdaFora: '', golsVoltaCasa: '', golsVoltaFora: '', penIdaCasa: '', penVoltaCasa: '', vencedor: null }
-    ];
-
-    salvarEAtualizarChaveamento('semis');
-}
-
-// PROCESSAR SEMIS -> GERA A GRANDE FINAL
-function processarSemis() {
-    const v = [];
-
-    for (let i = 0; i < 2; i++) {
-        const duelo = estadoSimulador.semis[i];
-        const gIda1 = parseInt(document.getElementById(`ida-g1-${i}`).value);
-        const gIda2 = parseInt(document.getElementById(`ida-g2-${i}`).value);
-        const gVolta2 = parseInt(document.getElementById(`volta-g2-${i}`).value);
-        const gVolta1 = parseInt(document.getElementById(`volta-g1-${i}`).value);
-
-        duelo.golsIdaCasa = gIda1;
-        duelo.golsIdaFora = gIda2;
-        duelo.golsVoltaCasa = gVolta2;
-        duelo.golsVoltaFora = gVolta1;
-
-        const total1 = gIda1 + gVolta1;
-        const total2 = gIda2 + gVolta2;
-
-        if (total1 > total2) {
-            duelo.vencedor = duelo.timeIdaCasa;
-        } else if (total2 > total1) {
-            duelo.vencedor = duelo.timeVoltaCasa;
-        } else {
-            const p1 = parseInt(document.getElementById(`pen-p1-${i}`).value);
-            const p2 = parseInt(document.getElementById(`pen-p2-${i}`).value);
-            if (isNaN(p1) || isNaN(p2) || p1 === p2) {
-                alert(`Preencha o vencedor dos pênaltis na Semifinal ${i + 1}!`);
-                return;
-            }
-            duelo.penIdaCasa = p1;
-            duelo.penVoltaCasa = p2;
-            duelo.vencedor = p1 > p2 ? duelo.timeIdaCasa : duelo.timeVoltaCasa;
-        }
-        v.push(duelo.vencedor);
-    }
-
-    estadoSimulador.final = {
-        time1: v[0], // Campeão Lado A
-        time2: v[1], // Campeão Lado B
-        g1: '',
-        g2: '',
-        pen1: '',
-        pen2: '',
-        campeao: null
-    };
-
-    salvarEAtualizarChaveamento('final');
-}
-
-// PROCESSAR FINAL -> DECLARA CAMPEÃO
-function processarFinal() {
-    const f = estadoSimulador.final;
-    const g1 = parseInt(document.getElementById('final-g1').value);
-    const g2 = parseInt(document.getElementById('final-g2').value);
-
-    f.g1 = g1;
-    f.g2 = g2;
-
-    if (g1 > g2) {
-        f.campeao = f.time1;
-    } else if (g2 > g1) {
-        f.campeao = f.time2;
     } else {
-        const p1 = parseInt(document.getElementById('final-pen-1').value);
-        const p2 = parseInt(document.getElementById('final-pen-2').value);
-        if (isNaN(p1) || isNaN(p2) || p1 === p2) {
-            alert('A Final terminou empatada! Preencha o placar dos Pênaltis.');
-            return;
-        }
-        f.pen1 = p1;
-        f.pen2 = p2;
-        f.campeao = p1 > p2 ? f.time1 : f.time2;
+        if (linhaPen) linhaPen.classList.add('oculto');
     }
-
-    estadoSimulador.campeao = f.campeao;
-
-    // Salva tudo
-    salvarEAtualizarChaveamento('final');
-
-    // Exibe celebração do Campeão
-    nomeTimeCampeao.textContent = f.campeao;
-    modalCampeao.classList.remove('oculto');
+    return null;
 }
 
-// 7. SALVAMENTO GLOBAL E INTEGRAÇÃO COM O CHAVEAMENTO
-function salvarEAtualizarChaveamento(proximaFase) {
-    estadoSimulador.faseAtual = proximaFase;
+function calcularCampeaoFinal(cardFinal, s1, s2, permitirModal) {
+    if (!cardFinal || !s1 || !s2 || s1.startsWith('Venc.') || s2.startsWith('Venc.') || s1 === 'N/D' || s2 === 'N/D') return null;
 
-    // 1. Salva o motor interno
-    localStorage.setItem('simulacao_libertadores_motor', JSON.stringify(estadoSimulador));
+    const pFinal = estadoSimulador.placares['final-jogo'];
+    const linhaPenFinal = document.getElementById('pen-final-jogo');
 
-    // 2. Salva o formato que o chaveamento-libertadores.js lê para preencher os "N/D"
-    const dadosParaChaveamento = {
-        quartas: estadoSimulador.quartas.length ? {
-            q1_t1: estadoSimulador.quartas[0].timeIdaCasa,
-            q1_t2: estadoSimulador.quartas[0].timeVoltaCasa,
-            q2_t1: estadoSimulador.quartas[1].timeIdaCasa,
-            q2_t2: estadoSimulador.quartas[1].timeVoltaCasa,
-            q3_t1: estadoSimulador.quartas[2].timeIdaCasa,
-            q3_t2: estadoSimulador.quartas[2].timeVoltaCasa,
-            q4_t1: estadoSimulador.quartas[3].timeIdaCasa,
-            q4_t2: estadoSimulador.quartas[3].timeVoltaCasa
+    if (pFinal && pFinal.m !== null && pFinal.v !== null) {
+        let campeao = null;
+        if (pFinal.m > pFinal.v) {
+            if (linhaPenFinal) linhaPenFinal.classList.add('oculto');
+            campeao = s1;
+        } else if (pFinal.v > pFinal.m) {
+            if (linhaPenFinal) linhaPenFinal.classList.add('oculto');
+            campeao = s2;
+        } else {
+            if (linhaPenFinal) linhaPenFinal.classList.remove('oculto');
+
+            const penData = estadoSimulador.penaltis['pen-final-jogo'];
+            if (penData && penData.m !== null && penData.v !== null && penData.m !== penData.v) {
+                campeao = penData.m > penData.v ? s1 : s2;
+            }
+        }
+
+        if (campeao && permitirModal) {
+            const modal = document.getElementById('modal-campeao');
+            const nomeEl = document.getElementById('nome-time-campeao');
+            if (modal && nomeEl) {
+                nomeEl.textContent = campeao;
+                modal.classList.remove('oculto');
+            }
+        }
+        return campeao;
+    } else {
+        if (linhaPenFinal) linhaPenFinal.classList.add('oculto');
+    }
+    return null;
+}
+
+// 7. SINCRONIZA COM CHAVEAMENTO
+function sincronizarComChaveamento(oit, q1, q2, q3, q4, s1, s2, campeao) {
+    const dados = {
+        quartas: (oit['A'] || oit['C']) ? {
+            q1_t1: oit['A'] || 'N/D', q1_t2: oit['C'] || 'N/D',
+            q2_t1: oit['E'] || 'N/D', q2_t2: oit['G'] || 'N/D',
+            q3_t1: oit['B'] || 'N/D', q3_t2: oit['D'] || 'N/D',
+            q4_t1: oit['F'] || 'N/D', q4_t2: oit['H'] || 'N/D'
         } : null,
-        semis: estadoSimulador.semis.length ? {
-            s1_t1: estadoSimulador.semis[0].timeIdaCasa,
-            s1_t2: estadoSimulador.semis[0].timeVoltaCasa,
-            s2_t1: estadoSimulador.semis[1].timeIdaCasa,
-            s2_t2: estadoSimulador.semis[1].timeVoltaCasa
+        semis: (q1 || q2 || q3 || q4) ? {
+            s1_t1: q1 || 'N/D', s1_t2: q2 || 'N/D',
+            s2_t1: q3 || 'N/D', s2_t2: q4 || 'N/D'
         } : null,
-        final: estadoSimulador.final ? {
-            f1: estadoSimulador.final.time1,
-            f2: estadoSimulador.final.time2
+        final: (s1 || s2) ? {
+            f1: s1 || 'N/D',
+            f2: s2 || 'N/D'
         } : null,
-        campeao: estadoSimulador.campeao
+        campeao: campeao || null
     };
 
-    localStorage.setItem('simulacao_libertadores', JSON.stringify(dadosParaChaveamento));
-
-    renderizarFaseAtual();
+    localStorage.setItem(CHAVE_SIMULACAO_CHAVEAMENTO, JSON.stringify(dados));
 }
 
-// 8. REINICIAR PLACARES
-btnResetSimulacao.addEventListener('click', () => {
-    if (confirm('Deseja apagar todos os placares simulados e recomeçar das Oitavas?')) {
-        localStorage.removeItem('simulacao_libertadores_motor');
-        localStorage.removeItem('simulacao_libertadores');
-        inicializarSimulador();
-    }
-});
+// 8. BOTÕES DE SIMULAÇÃO
+function configurarBotoesAcao() {
+    const btnOitavas = document.getElementById('btn-simular-oitavas');
+    const btnTudo = document.getElementById('btn-simular-tudo');
+    const btnReset = document.getElementById('btn-reset-sim');
 
+    if (btnOitavas) {
+        btnOitavas.addEventListener('click', () => {
+            const chaves = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+            chaves.forEach(l => {
+                const pIda = sortearPlacarPES();
+                const pVolta = sortearPlacarPES();
+                setPlacar(`oitavas-${l}-ida`, pIda[0], pIda[1]);
+                setPlacar(`oitavas-${l}-volta`, pVolta[0], pVolta[1]);
+
+                if (pIda[0] + pVolta[1] === pIda[1] + pVolta[0]) {
+                    setPenalti(`pen-oitavas-${l}`, 5, 4);
+                }
+            });
+            calcularMataMataCompleto(false);
+        });
+    }
+
+    if (btnTudo) {
+        btnTudo.addEventListener('click', () => {
+            // 1. Oitavas
+            const chaves = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+            chaves.forEach(l => {
+                const pIda = sortearPlacarPES();
+                const pVolta = sortearPlacarPES();
+                setPlacar(`oitavas-${l}-ida`, pIda[0], pIda[1]);
+                setPlacar(`oitavas-${l}-volta`, pVolta[0], pVolta[1]);
+                if (pIda[0] + pVolta[1] === pIda[1] + pVolta[0]) {
+                    setPenalti(`pen-oitavas-${l}`, 5, 4);
+                }
+            });
+            calcularMataMataCompleto(false);
+
+            // 2. Quartas
+            for (let i = 1; i <= 4; i++) {
+                const pIda = sortearPlacarPES();
+                const pVolta = sortearPlacarPES();
+                setPlacar(`quartas-${i}-ida`, pIda[0], pIda[1]);
+                setPlacar(`quartas-${i}-volta`, pVolta[0], pVolta[1]);
+                if (pIda[0] + pVolta[1] === pIda[1] + pVolta[0]) {
+                    setPenalti(`pen-quartas-${i}`, 4, 3);
+                }
+            }
+            calcularMataMataCompleto(false);
+
+            // 3. Semis
+            for (let i = 1; i <= 2; i++) {
+                const pIda = sortearPlacarPES();
+                const pVolta = sortearPlacarPES();
+                setPlacar(`semi-${i}-ida`, pIda[0], pIda[1]);
+                setPlacar(`semi-${i}-volta`, pVolta[0], pVolta[1]);
+                if (pIda[0] + pVolta[1] === pIda[1] + pVolta[0]) {
+                    setPenalti(`pen-semi-${i}`, 5, 3);
+                }
+            }
+            calcularMataMataCompleto(false);
+
+            // 4. Final
+            const pFin = sortearPlacarPES();
+            const g1 = pFin[0] === pFin[1] ? pFin[0] + 1 : pFin[0];
+            setPlacar('final-jogo', g1, pFin[1]);
+            calcularMataMataCompleto(true); // Exibe o modal do campeão
+        });
+    }
+
+    if (btnReset) {
+        btnReset.addEventListener('click', () => {
+            if (confirm('Deseja limpar todos os placares e pênaltis simulados?')) {
+                localStorage.removeItem(CHAVE_SIMULACAO_MOTOR);
+                localStorage.removeItem(CHAVE_SIMULACAO_CHAVEAMENTO);
+                estadoSimulador.placares = {};
+                estadoSimulador.penaltis = {};
+
+                limparCamposNaTela();
+                inicializarSimulador();
+            }
+        });
+    }
+}
+
+function setPlacar(idCard, m, v) {
+    const card = document.getElementById(idCard);
+    if (!card) return;
+
+    const inM = card.querySelector('input.gols-mandante');
+    const inV = card.querySelector('input.gols-visitante');
+
+    if (inM) inM.value = m;
+    if (inV) inV.value = v;
+
+    salvarPlacar(idCard, 'm', m);
+    salvarPlacar(idCard, 'v', v);
+}
+
+function setPenalti(idPen, m, v) {
+    const linhaPen = document.getElementById(idPen);
+    if (!linhaPen) return;
+
+    linhaPen.classList.remove('oculto');
+    const inM = linhaPen.querySelector('input.pen-mandante');
+    const inV = linhaPen.querySelector('input.pen-visitante');
+
+    if (inM) inM.value = m;
+    if (inV) inV.value = v;
+
+    salvarPenalti(idPen, 'm', m);
+    salvarPenalti(idPen, 'v', v);
+}
+
+// Inicialização automática
 inicializarSimulador();

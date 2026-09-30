@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chaveamento Oficial | CONMEBOL Libertadores</title>
-    <!-- CACHE BUSTER ?v=20 -->
-    <link rel="stylesheet" href="assets/css/chaveamento-libertadores.css?v=20">
+    <title>Chaveamento Simulado | CONMEBOL Sudamericana</title>
+    <!-- CACHE BUSTER ?v=1 -->
+    <link rel="stylesheet" href="assets/css/chaveamento-sulamericana-simulador.css?v=1">
 </head>
 <body>
 
-    <!-- CABEÇALHO COM BOTÕES DE NAVEGAÇÃO -->
+    <!-- CABEÇALHO DO SIMULADOR SULA -->
     <header id="cabecalho">
-        <a href="libertadores.html" class="link-voltar">&larr; Sorteio</a>
-        <h1 class="titulo-pagina">CHAVEAMENTO OFICIAL</h1>
+        <a href="simulador-sulamericana.html" class="link-voltar">&larr; Voltar ao Simulador</a>
+        <div class="bloco-titulo-chave">
+            <h1 class="titulo-pagina">CHAVEAMENTO SIMULADO</h1>
+            <span class="subtitulo-pagina">PROJEÇÃO DE CENÁRIOS &bull; CONMEBOL SUDAMERICANA</span>
+        </div>
         <div class="botoes-cabecalho-chave">
-            <a href="pagina-oficial/libertadores-oficial.html" class="btn-tabela-link">📊 TABELA OFICIAL</a>
-            <a href="simulador-libertadores.html" class="btn-simulador">🎮 SIMULADOR &rarr;</a>
+            <a href="chaveamento-sulamericana.html" class="btn-tabela-link">🏆 CHAVEAMENTO OFICIAL</a>
+            <button type="button" id="btn-limpar-sim-chave-sula" class="btn-simulador">🔄 Limpar Projeção</button>
         </div>
     </header>
 
     <!-- DICA DE NAVEGAÇÃO NO CELULAR -->
     <div class="dica-mobile">
-        <span>⟵ Deslize para navegar no chaveamento ⟶</span>
+        <span>⟵ Deslize para navegar na árvore simulada ⟶</span>
     </div>
 
-    <!-- ÁRVORE VISUAL DO MATA-MATA (BRACKET) -->
+    <!-- ÁRVORE VISUAL DO MATA-MATA SIMULADO -->
     <main id="conteudo-principal">
         <div class="bracket-container">
 
@@ -84,21 +87,21 @@
 
             </div>
 
-            <!-- ================= CENTRO: A GRANDE FINAL ================= -->
+            <!-- ================= CENTRO: A GRANDE FINAL SIMULADA ================= -->
             <div class="centro-final">
                 <div class="arena-final">
                     <div class="slot-finalista" id="finalista-lado-a">N/D</div>
 
                     <div class="emblema-final">
-                        <img src="https://www.ogol.com.br/img/logos/edicoes/130437_imgbank_.png" alt="Taça Libertadores">
-                        <span class="texto-sede-final">FINAL CÓRDOBA 2026</span>
+                        <img src="https://www.ogol.com.br/img/logos/competicoes/269_imgbank_cs_20250311124354.png" alt="Taça Sul-Americana">
+                        <span class="texto-sede-final">FINAL MONTEVIDEO 2026</span>
                     </div>
 
                     <div class="slot-finalista" id="finalista-lado-b">N/D</div>
                 </div>
 
                 <div class="slogan-gloria" id="slogan-final">
-                    A GLÓRIA ETERNA
+                    LA GRAN CONQUISTA
                 </div>
             </div>
 
@@ -162,10 +165,10 @@
     </main>
 
     <footer id="rodape">
-        <p>CONMEBOL Libertadores &copy; Chaveamento Oficial PES</p>
+        <p>CONMEBOL Sul-Americana &copy; Simulador Oficial de Chaveamento PES</p>
     </footer>
 
-    <script src="assets/js/chaveamento-libertadores.js?v=20"></script>
+    <script src="assets/js/chaveamento-sulamericana-simulador.js?v=1"></script>
     <script src="assets/js/audio-player.js"></script>
 </body>
 </html>

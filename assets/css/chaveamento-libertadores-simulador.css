@@ -1,5 +1,5 @@
 /* ==========================================================================
-   assets/css/chaveamento-sulamericana.css - BROADCAST BRACKET SULA OFICIAL
+   assets/css/chaveamento-libertadores-simulador.css - BRACKET SIMULADO
    ========================================================================== */
 
 /* TIPOGRAFIA OFICIAL CONMEBOL BRANDING */
@@ -41,27 +41,23 @@
 }
 
 :root {
-    --tv-navy-base: #030711;
-    --tv-navy-panel: #0a1220;
-    --tv-navy-slot: #050a12;
+    --tv-black-base: #07090b;
+    --tv-black-panel: #0d1015;
+    --tv-black-slot: #080a0d;
     
-    --silver-bright: #ffffff;
-    --silver-main: #d0dce8;
-    --silver-metal: #7a8fa6;
-    --silver-dark: #222e3d;
-    --silver-bar: linear-gradient(90deg, #152336 0%, #7697be 25%, #ffffff 50%, #7697be 75%, #152336 100%);
-    --silver-badge: linear-gradient(180deg, #ffffff 0%, #c4d7ed 35%, #7592b5 85%, #2c425e 100%);
+    --gold-bright: #fff3c4;
+    --gold-main: #d4af37;
+    --gold-metal: #aa8428;
+    --gold-dark: #4e3b12;
+    --gold-bar: linear-gradient(90deg, #3d2e0f 0%, #a8832a 20%, #fff0b8 50%, #a8832a 80%, #3d2e0f 100%);
+    --gold-badge: linear-gradient(180deg, #fff2c2 0%, #d8b04a 40%, #a37c22 85%, #5a420f 100%);
     
-    --sula-blue-neon: #0088ff;
-    --sula-blue-light: #60a5fa;
-    --sula-blue-dark: #1d4ed8;
-    
-    --border-sula-subtle: rgba(96, 165, 250, 0.3);
-    --border-sula-glow: rgba(96, 165, 250, 0.9);
+    --border-gold-subtle: rgba(212, 175, 55, 0.3);
+    --border-gold-glow: rgba(255, 220, 115, 0.9);
     
     --text-pure-white: #ffffff;
-    --text-silver: #c5d3e3;
-    --text-muted: #5e738c;
+    --text-silver: #c2c9d6;
+    --text-muted: #6b778a;
     
     --font-main: 'Branding', sans-serif;
 }
@@ -75,11 +71,11 @@
 }
 
 body {
-    background-color: var(--tv-navy-base);
+    background-color: var(--tv-black-base);
     background-image: 
-        radial-gradient(ellipse at 50% -10%, rgba(0, 136, 255, 0.22) 0%, transparent 55%),
-        linear-gradient(180deg, rgba(3, 7, 17, 0.75) 0%, rgba(1, 4, 10, 0.98) 100%),
-        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.35) 3px, rgba(0, 0, 0, 0.35) 6px);
+        radial-gradient(ellipse at 50% -10%, rgba(212, 175, 55, 0.22) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(7, 9, 11, 0.75) 0%, rgba(3, 4, 6, 0.98) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.3) 3px, rgba(0, 0, 0, 0.3) 6px);
     color: var(--text-pure-white);
     min-height: 100vh;
     display: flex;
@@ -102,12 +98,12 @@ body::after {
 
 body::before {
     left: 0;
-    background: radial-gradient(circle at left, rgba(0, 136, 255, 0.12) 0%, transparent 75%);
+    background: radial-gradient(circle at left, rgba(212, 175, 55, 0.12) 0%, transparent 75%);
 }
 
 body::after {
     right: 0;
-    background: radial-gradient(circle at right, rgba(0, 136, 255, 0.12) 0%, transparent 75%);
+    background: radial-gradient(circle at right, rgba(212, 175, 55, 0.12) 0%, transparent 75%);
 }
 
 /* CABEÇALHO */
@@ -115,9 +111,9 @@ body::after {
     position: relative;
     z-index: 10;
     padding: 0.9rem 2.5rem;
-    background: linear-gradient(180deg, #0f1929 0%, #060b14 100%);
+    background: linear-gradient(180deg, #131720 0%, #080a0e 100%);
     border-bottom: 2px solid;
-    border-image: var(--silver-bar) 1;
+    border-image: var(--gold-bar) 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -126,9 +122,9 @@ body::after {
 }
 
 .link-voltar {
-    background: linear-gradient(180deg, #142236 0%, #08101c 100%);
-    border: 1px solid var(--silver-metal);
-    color: var(--sula-blue-light);
+    background: linear-gradient(180deg, #1c222b 0%, #0b0e13 100%);
+    border: 1px solid var(--gold-metal);
+    color: var(--gold-bright);
     padding: 0.55rem 1.3rem;
     font-size: 0.72rem;
     font-weight: 800;
@@ -142,22 +138,37 @@ body::after {
 }
 
 .link-voltar:hover {
-    border-color: var(--silver-bright);
+    border-color: var(--gold-bright);
     color: #ffffff;
-    box-shadow: 0 0 15px rgba(0, 136, 255, 0.5);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
     transform: translateY(-1px);
 }
 
+.bloco-titulo-chave {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.15rem;
+}
+
 .titulo-pagina {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     font-weight: 900;
     letter-spacing: 5px;
-    background: linear-gradient(180deg, #ffffff 0%, #d4e3f5 45%, #7ea3cc 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #94a3b8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
-    text-align: center;
+}
+
+.subtitulo-pagina {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--gold-main);
+    letter-spacing: 3px;
+    text-transform: uppercase;
 }
 
 .botoes-cabecalho-chave {
@@ -167,9 +178,9 @@ body::after {
 }
 
 .btn-tabela-link {
-    background: linear-gradient(180deg, #142236 0%, #08101c 100%);
-    border: 1px solid var(--silver-metal);
-    color: var(--sula-blue-light);
+    background: linear-gradient(180deg, #1c222b 0%, #0b0e13 100%);
+    border: 1px solid var(--gold-metal);
+    color: var(--gold-bright);
     padding: 0.55rem 1.2rem;
     font-size: 0.75rem;
     font-weight: 800;
@@ -182,44 +193,45 @@ body::after {
 }
 
 .btn-tabela-link:hover {
-    border-color: var(--silver-bright);
+    border-color: var(--gold-bright);
     color: #ffffff;
-    box-shadow: 0 0 15px rgba(0, 136, 255, 0.4);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
 .btn-simulador {
-    background: var(--silver-badge);
-    color: #060b14;
-    border: 1px solid #e0ebf8;
-    padding: 0.55rem 1.4rem;
+    background: linear-gradient(180deg, #2b181c 0%, #130a0d 100%);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    color: #fca5a5;
+    padding: 0.55rem 1.2rem;
     font-size: 0.75rem;
     font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    text-decoration: none;
     border-radius: 2px;
-    box-shadow: 0 0 18px rgba(0, 136, 255, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    cursor: pointer;
     transition: all 0.25s ease;
     white-space: nowrap;
 }
 
 .btn-simulador:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
     transform: translateY(-1px);
-    box-shadow: 0 0 25px rgba(0, 136, 255, 0.9);
-    color: #000000;
 }
 
 .dica-mobile {
     display: none;
     text-align: center;
     padding: 0.5rem 1rem;
-    background: rgba(96, 165, 250, 0.08);
-    border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    background: rgba(212, 175, 55, 0.08);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--sula-blue-light);
+    color: var(--gold-bright);
 }
 
 /* PALCO DO BRACKET */
@@ -262,8 +274,8 @@ body::after {
 }
 
 .card-chave {
-    background: linear-gradient(180deg, #0e1726 0%, #060c15 100%);
-    border: 1px solid rgba(96, 165, 250, 0.25);
+    background: linear-gradient(180deg, #131720 0%, #090b0f 100%);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     border-radius: 3px;
     padding: 0.55rem 0.65rem;
     display: flex;
@@ -281,32 +293,32 @@ body::after {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.6) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.6) 50%, transparent 100%);
 }
 
 .card-chave.preenchido {
-    border-color: rgba(96, 165, 250, 0.5);
-    background: linear-gradient(180deg, #142236 0%, #08101c 100%);
-    box-shadow: 0 0 15px rgba(0, 136, 255, 0.2);
+    border-color: rgba(212, 175, 55, 0.5);
+    background: linear-gradient(180deg, #191f2b 0%, #0c0f15 100%);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
 .tag-fase {
     position: absolute;
     top: -9px;
     left: 8px;
-    background: var(--silver-badge);
-    color: #060b14;
+    background: var(--gold-badge);
+    color: #0b0e14;
     font-size: 0.68rem;
     font-weight: 900;
     padding: 0.15rem 0.55rem;
     border-radius: 2px;
     letter-spacing: 1.5px;
-    border: 1px solid #e0ebf8;
+    border: 1px solid #ffeaa3;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 .slot-time {
-    background: linear-gradient(180deg, #09101d 0%, #03070f 100%);
+    background: linear-gradient(180deg, #0d1016 0%, #05070a 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 2px;
@@ -340,9 +352,9 @@ body::after {
 }
 
 .slot-finalista {
-    background: linear-gradient(180deg, #121d2d 0%, #060a12 100%);
+    background: linear-gradient(180deg, #181e29 0%, #090c10 100%);
     border: 2px solid;
-    border-image: var(--silver-badge) 1;
+    border-image: var(--gold-badge) 1;
     padding: 0.85rem 1.5rem;
     font-size: 0.95rem;
     font-weight: 900;
@@ -351,7 +363,7 @@ body::after {
     color: #ffffff;
     min-width: 140px;
     text-align: center;
-    box-shadow: 0 0 25px rgba(0, 136, 255, 0.35), 0 10px 25px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.35), 0 10px 25px rgba(0, 0, 0, 0.9);
 }
 
 .emblema-final {
@@ -365,7 +377,7 @@ body::after {
     height: 140px;
     width: auto;
     object-fit: contain;
-    filter: drop-shadow(0 8px 25px rgba(0, 136, 255, 0.45));
+    filter: drop-shadow(0 8px 25px rgba(212, 175, 55, 0.45));
     margin-bottom: 0.6rem;
 }
 
@@ -374,8 +386,8 @@ body::after {
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--sula-blue-light);
-    border-top: 1px solid rgba(96, 165, 250, 0.4);
+    color: var(--gold-bright);
+    border-top: 1px solid rgba(212, 175, 55, 0.4);
     padding-top: 0.5rem;
     margin-top: 0.2rem;
 }
@@ -386,8 +398,8 @@ body::after {
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 8px;
-    color: var(--sula-blue-light);
-    text-shadow: 0 0 25px rgba(0, 136, 255, 0.6);
+    color: var(--gold-main);
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
     text-align: center;
 }
 
@@ -412,14 +424,13 @@ body::after {
         justify-content: space-between;
     }
 
-    .titulo-pagina {
-        font-size: 1.2rem;
-        letter-spacing: 3px;
+    .bloco-titulo-chave {
         order: 1;
         width: 100%;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.3rem;
     }
 
+    .titulo-pagina { font-size: 1.2rem; letter-spacing: 3px; }
     .link-voltar { order: 2; font-size: 0.7rem; padding: 0.4rem 0.7rem; }
     .botoes-cabecalho-chave { order: 3; gap: 0.4rem; }
     .btn-tabela-link { font-size: 0.68rem; padding: 0.4rem 0.6rem; }

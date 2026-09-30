@@ -3,70 +3,562 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Simulador de Placares | CONMEBOL Sul-Americana</title>
-    <!-- CACHE BUSTER ?v=2 -->
-    <link rel="stylesheet" href="assets/css/simulador-sulamericana.css?v=2">
+    <title>Simulador de Jogos | CONMEBOL Sudamericana</title>
+    <!-- CACHE BUSTER ?v=18 -->
+    <link rel="stylesheet" href="assets/css/simulador-sulamericana.css?v=18">
+        <!-- ESTILO DO PLAYER DE ÁUDIO -->
+    <link rel="stylesheet" href="assets/css/audio-player.css?v=12">
 </head>
-<body>
+<body class="tema-sulamericana">
 
-    <!-- CABEÇALHO -->
-    <header id="cabecalho">
-        <a href="chaveamento-sulamericana.html" class="link-voltar">&larr; Ver Chaveamento</a>
-        <div class="bloco-titulo">
-            <div class="emblema-topo">
-                <img src="https://www.ogol.com.br/img/logos/competicoes/269_imgbank_cs_20250311124354.png" alt="Logo Sul-Americana">
-            </div>
-            <h1>SIMULADOR DE JOGOS</h1>
-            <p>CONMEBOL Sul-Americana 2026</p>
+    <!-- CABEÇALHO COM FERRAMENTAS DE SIMULAÇÃO -->
+    <header class="cabecalho-torneio">
+        <nav class="nav-links-tabela">
+            <a href="chaveamento-sulamericana-simulador.html" class="btn-nav-tabela">&larr; Ver Chaveamento Simulado</a>
+            <a href="pagina-oficial/sulamericana-oficial.html" class="btn-nav-tabela">Tabela Oficial &rarr;</a>
+        </nav>
+        
+        <div class="emblema-topo-tabela">
+            <img src="https://www.ogol.com.br/img/logos/competicoes/269_imgbank_cs_20250311124354.png" alt="Logo Sul-Americana">
         </div>
-        <button type="button" id="btn-reset-simulacao" class="btn-reiniciar">Reiniciar Placares</button>
+        
+        <h1>CONMEBOL SUDAMERICANA</h1>
+        <h2>SIMULADOR DE MATA-MATA</h2>
+
+        <div class="barra-ferramentas-simulador">
+            <button type="button" id="btn-simular-oitavas" class="btn-acao-sim">⚡ Simular Oitavas</button>
+            <button type="button" id="btn-simular-tudo" class="btn-acao-sim destaque">⚡ Simular Tudo</button>
+            <button type="button" id="btn-reset-sim" class="btn-acao-sim perigo">🔄 Limpar Placares</button>
+        </div>
     </header>
 
-    <!-- NAVEGAÇÃO DE ABAS DE FASES -->
-    <nav class="nav-fases">
-        <button type="button" class="tab-fase ativa" data-fase="oitavas">Oitavas de Final</button>
-        <button type="button" class="tab-fase" data-fase="quartas">Quartas de Final</button>
-        <button type="button" class="tab-fase" data-fase="semis">Semifinais</button>
-        <button type="button" class="tab-fase" data-fase="final">Grande Final</button>
-    </nav>
+    <main class="quadro-competicao">
 
-    <!-- CONTEÚDO PRINCIPAL DO SIMULADOR -->
-    <main id="conteudo-principal">
-        <section class="secao-jogos">
-            <div class="topo-fase">
-                <h2 id="titulo-fase-ativa">Oitavas de Final (Ida e Volta)</h2>
-                <span class="regra-aviso">Sem gol fora. Empate no agregado vai aos pênaltis.</span>
+        <!-- ================= OITAVAS DE FINAL ================= -->
+        <section class="secao-fase">
+            <div class="divisor-fase-header">
+                <span class="marcador-prata"></span>
+                <h3 class="titulo-fase">OITAVAS DE FINAL</h3>
+                <span class="marcador-prata"></span>
             </div>
-
-            <form id="form-simulador">
-                <div id="container-confrontos-fase" class="grid-jogos"></div>
-
-                <div class="acoes-simulador">
-                    <button type="submit" id="btn-avancar-fase" class="btn-avancar-fase">
-                        Confirmar Resultados e Avançar &rarr;
-                    </button>
+            
+            <div class="container-linhas-confronto">
+                <!-- CONFRONTO A -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-A-ida">
+                        <div class="info-jogo">OITAVAS A &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time A1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time A2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-A-volta">
+                        <div class="info-jogo">OITAVAS A &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time A2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time A1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-A">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
+
+                <!-- CONFRONTO B -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-B-ida">
+                        <div class="info-jogo">OITAVAS B &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time B1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time B2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-B-volta">
+                        <div class="info-jogo">OITAVAS B &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time B2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time B1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-B">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFRONTO C -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-C-ida">
+                        <div class="info-jogo">OITAVAS C &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time C1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time C2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-C-volta">
+                        <div class="info-jogo">OITAVAS C &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time C2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time C1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-C">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFRONTO D -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-D-ida">
+                        <div class="info-jogo">OITAVAS D &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time D1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time D2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-D-volta">
+                        <div class="info-jogo">OITAVAS D &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time D2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time D1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-D">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFRONTO E -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-E-ida">
+                        <div class="info-jogo">OITAVAS E &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time E1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time E2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-E-volta">
+                        <div class="info-jogo">OITAVAS E &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time E2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time E1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-E">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFRONTO F -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-F-ida">
+                        <div class="info-jogo">OITAVAS F &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time F1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time F2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-F-volta">
+                        <div class="info-jogo">OITAVAS F &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time F2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time F1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-F">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFRONTO G -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-G-ida">
+                        <div class="info-jogo">OITAVAS G &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time G1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time G2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-G-volta">
+                        <div class="info-jogo">OITAVAS G &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time G2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time G1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-G">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFRONTO H -->
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="oitavas-H-ida">
+                        <div class="info-jogo">OITAVAS H &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time H1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time H2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="oitavas-H-volta">
+                        <div class="info-jogo">OITAVAS H &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Time H2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Time H1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-oitavas-H">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- MODAL DE CAMPEÃO -->
-        <div id="modal-campeao" class="modal-campeao oculto">
-            <div class="card-campeao-conteudo">
-                <span class="confetes">🎉 🥈 🎉</span>
-                <h2>LA GRAN CONQUISTA!</h2>
-                <p>O Grande Campeão da CONMEBOL Sul-Americana é:</p>
-                <div id="nome-time-campeao" class="destaque-campeao">CORINTHIANS</div>
-                <div class="botoes-modal">
-                    <a href="chaveamento-sulamericana.html" class="btn-ver-chave-final">Ver Chaveamento Campeão &rarr;</a>
+        <!-- ================= QUARTAS DE FINAL ================= -->
+        <section class="secao-fase">
+            <div class="divisor-fase-header">
+                <span class="marcador-prata"></span>
+                <h3 class="titulo-fase">QUARTAS DE FINAL</h3>
+                <span class="marcador-prata"></span>
+            </div>
+            
+            <div class="container-linhas-confronto">
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="quartas-1-ida">
+                        <div class="info-jogo">QUARTAS 1 &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. A</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. C</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="quartas-1-volta">
+                        <div class="info-jogo">QUARTAS 1 &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. C</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. A</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-quartas-1">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="quartas-2-ida">
+                        <div class="info-jogo">QUARTAS 2 &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. E</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. G</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="quartas-2-volta">
+                        <div class="info-jogo">QUARTAS 2 &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. G</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. E</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-quartas-2">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="quartas-3-ida">
+                        <div class="info-jogo">QUARTAS 3 &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. B</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. D</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="quartas-3-volta">
+                        <div class="info-jogo">QUARTAS 3 &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. D</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. B</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-quartas-3">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="quartas-4-ida">
+                        <div class="info-jogo">QUARTAS 4 &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. F</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. H</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="quartas-4-volta">
+                        <div class="info-jogo">QUARTAS 4 &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. H</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. F</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-quartas-4">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- ================= SEMIFINAL ================= -->
+        <section class="secao-fase">
+            <div class="divisor-fase-header">
+                <span class="marcador-prata"></span>
+                <h3 class="titulo-fase">SEMIFINAL</h3>
+                <span class="marcador-prata"></span>
+            </div>
+            
+            <div class="container-linhas-confronto">
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="semi-1-ida">
+                        <div class="info-jogo">SEMIFINAL 1 &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. Q1</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. Q2</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="semi-1-volta">
+                        <div class="info-jogo">SEMIFINAL 1 &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. Q2</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. Q1</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-semi-1">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="linha-duelo-duplo">
+                    <div class="card-jogo" id="semi-2-ida">
+                        <div class="info-jogo">SEMIFINAL 2 &bull; JOGO DE IDA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. Q3</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. Q4</span>
+                        </div>
+                    </div>
+                    <div class="card-jogo" id="semi-2-volta">
+                        <div class="info-jogo">SEMIFINAL 2 &bull; JOGO DE VOLTA</div>
+                        <div class="placar-jogo">
+                            <span class="time mandante">Venc. Q4</span>
+                            <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                            <span class="divisor-x">X</span>
+                            <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                            <span class="time visitante">Venc. Q3</span>
+                        </div>
+                        <div class="linha-penaltis-jogo oculto" id="pen-semi-2">
+                            <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                            <div class="placar-penaltis">
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                                <span class="divisor-pen">x</span>
+                                <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= GRANDE FINAL ================= -->
+        <section class="secao-fase secao-final">
+            <div class="divisor-fase-header">
+                <span class="marcador-prata"></span>
+                <h3 class="titulo-fase">GRANDE FINAL ÚNICA</h3>
+                <span class="marcador-prata"></span>
+            </div>
+            
+            <div class="bloco-final-unica">
+                <div class="card-jogo card-final-destaque" id="final-jogo">
+                    <div class="info-jogo">SÁB 24/10/2026 &bull; ESTÁDIO GRAN PARQUE CENTRAL</div>
+                    <div class="placar-jogo">
+                        <span class="time mandante">Venc. Semifinal 1</span>
+                        <input type="text" inputmode="numeric" class="gols gols-mandante" maxlength="2" placeholder="-">
+                        <span class="divisor-x final-vs">VS</span>
+                        <input type="text" inputmode="numeric" class="gols gols-visitante" maxlength="2" placeholder="-">
+                        <span class="time visitante">Venc. Semifinal 2</span>
+                    </div>
+                    <div class="linha-penaltis-jogo oculto" id="pen-final-jogo">
+                        <span class="label-penalti-tv">DECISÃO NOS PÊNALTIS:</span>
+                        <div class="placar-penaltis">
+                            <input type="text" inputmode="numeric" class="gols-penalti pen-mandante" maxlength="2" placeholder="0">
+                            <span class="divisor-pen">x</span>
+                            <input type="text" inputmode="numeric" class="gols-penalti pen-visitante" maxlength="2" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <!-- MODAL DE CAMPEÃO SULA -->
+    <div id="modal-campeao" class="modal-campeao oculto">
+        <div class="card-campeao-conteudo">
+            <span class="confetes">🥈</span>
+            <h2>LA GRAN CONQUISTA!</h2>
+            <p>O Grande Campeão da CONMEBOL Sul-Americana é:</p>
+            <div id="nome-time-campeao" class="destaque-campeao">CORINTHIANS</div>
+            <div class="botoes-modal">
+                <a href="chaveamento-sulamericana-simulador.html" class="btn-ver-chave-final">Ver Chaveamento Simulado &rarr;</a>
+            </div>
+        </div>
+    </div>
 
     <footer id="rodape">
         <p>CONMEBOL Sul-Americana &copy; Simulador de Placares PES</p>
     </footer>
 
-    <script src="assets/js/simulador-sulamericana.js"></script>
+    <script src="assets/js/simulador-sulamericana.js?v=18"></script>
+    <script src="assets/js/audio-player.js"></script>
 </body>
 </html>
