@@ -192,6 +192,20 @@ function atualizarConfrontoMataMata(prefixo, t1, t2) {
     }
 }
 
+// Função para você exportar os dados para o Portal Público
+function exportarDadosParaPortal() {
+    const dadosExportacao = {
+        sorteio: localStorage.getItem('resultado_sorteio_libertadores'),
+        jogos: localStorage.getItem('jogos_oficial_libertadores')
+    };
+
+    const blob = new Blob([JSON.stringify(dadosExportacao, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'dados-libertadores.json';
+    link.click();
+}
+
 function calcularVencedorMataMata(prefixo) {
     const placarIda = estadoLibertadores.placares ? estadoLibertadores.placares[`${prefixo}-ida`] : null;
     const placarVolta = estadoLibertadores.placares ? estadoLibertadores.placares[`${prefixo}-volta`] : null;
