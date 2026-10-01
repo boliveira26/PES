@@ -2,75 +2,55 @@
 // assets/js/apresentacao-libertadores.js - CERIMÔNIA OFICIAL DA LIBERTADORES
 // ==========================================================================
 
-// MAPA DE ESCUDOS ESTÁVEIS (WIKIMEDIA SPECIAL FILEPATH)
-const mapaEscudos = {
-    // POTE 1
-    'palmeiras': 'https://commons.wikimedia.org/wiki/Special:FilePath/Palmeiras_logo.svg',
-    'flamengo': 'https://commons.wikimedia.org/wiki/Special:FilePath/Flamengo_braz_logo.svg',
-    'riverplate': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_C_A_River_Plate.svg',
-    'fluminense': 'https://commons.wikimedia.org/wiki/Special:FilePath/Fluminense_FC_escudo.png',
-    'saopaulo': 'https://commons.wikimedia.org/wiki/Special:FilePath/Brasao_do_Sao_Paulo_Futebol_Clube.svg',
-    'atleticomg': 'https://commons.wikimedia.org/wiki/Special:FilePath/Clube_Atl%C3%A9tico_Mineiro_logo.svg',
-    'atleticomineiro': 'https://commons.wikimedia.org/wiki/Special:FilePath/Clube_Atl%C3%A9tico_Mineiro_logo.svg',
-    'gremio': 'https://commons.wikimedia.org/wiki/Special:FilePath/Gremio_logo.svg',
-    'bolivar': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club_Bol%C3%ADvar_logo.svg',
-
-    // POTE 2
-    'botafogo': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_Botafogo.svg',
-    'nacional': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Nacional_de_Football.svg',
-    'sanlorenzo': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_San_Lorenzo_de_Almagro.svg',
-    'penarol': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Pe%C3%B1arol.svg',
-    'talleres': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Talleres_de_C%C3%B3rdoba.svg',
-    'talleresdecordoba': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Talleres_de_C%C3%B3rdoba.svg',
-    'colocolo': 'https://commons.wikimedia.org/wiki/Special:FilePath/Colo-Colo_logo.svg',
-    'junior': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Atl%C3%A9tico_Junior.svg',
-    'juniorbarranquilla': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Atl%C3%A9tico_Junior.svg',
-    'thestrongest': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_The_Strongest.png',
-    'strongest': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_The_Strongest.png',
-
-    // EXTRAS / SULA
-    'bocajuniors': 'https://commons.wikimedia.org/wiki/Special:FilePath/Boca_escudo.png',
-    'cruzeiro': 'https://commons.wikimedia.org/wiki/Special:FilePath/Cruzeiro_Esporte_Clube_%28logo%29.svg',
-    'corinthians': 'https://commons.wikimedia.org/wiki/Special:FilePath/Sport_Club_Corinthians_Paulista_crest.svg',
-    'internacional': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_do_Sport_Club_Internacional.svg',
-    'athleticopr': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club_Athletico_Paranaense_2018.svg',
-    'athleticoparanaense': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club_Athletico_Paranaense_2018.svg',
-    'fortaleza': 'https://commons.wikimedia.org/wiki/Special:FilePath/Fortaleza_Esporte_Clube_logo.svg',
-    'lanus': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Lan%C3%BAs.svg',
-    'racing': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Racing_Club.svg',
-    'ldu': 'https://commons.wikimedia.org/wiki/Special:FilePath/LDU_Quito_logo.svg',
-    'lduquito': 'https://commons.wikimedia.org/wiki/Special:FilePath/LDU_Quito_logo.svg',
-    'rosariocentral': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Rosario_Central.svg',
-    'redbullbragantino': 'https://commons.wikimedia.org/wiki/Special:FilePath/Red_Bull_Bragantino.svg',
-    'bragantino': 'https://commons.wikimedia.org/wiki/Special:FilePath/Red_Bull_Bragantino.svg',
-    'libertad': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club_Libertad.svg',
-    'palestino': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club_Deportivo_Palestino_logo.svg'
+const ESCUDOS_OFICIAIS_LIBERTA = {
+    "Palmeiras": "https://logodetimes.com/times/palmeiras/logo-palmeiras-256.png",
+    "Flamengo": "https://logodetimes.com/times/flamengo/logo-flamengo-256.png",
+    "River Plate": "https://upload.wikimedia.org/wikipedia/commons/f/f1/River_Plate.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original",
+    "Fluminense": "https://logodetimes.com/times/fluminense/logo-fluminense-256.png",
+    "São Paulo": "https://logodetimes.com/times/sao-paulo/logo-sao-paulo-256.png",
+    "Atlético-MG": "https://logodetimes.com/times/atletico-mineiro/logo-atletico-mineiro-256.png",
+    "Atlético Mineiro": "https://logodetimes.com/times/atletico-mineiro/logo-atletico-mineiro-256.png",
+    "Grêmio": "https://logodetimes.com/times/gremio/logo-gremio-256.png",
+    "Bolívar": "https://logodetimes.com/times/bolivar/logo-bolivar-256.png",
+    "Universitario": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Escudo_del_Club_Universitario_de_Deportes.svg/3840px-Escudo_del_Club_Universitario_de_Deportes.svg.png",
+    "CRB": "https://logodetimes.com/times/crb/logo-crb-256.png",
+    "Junior Barranquilla": "https://logodetimes.com/times/junior-barranquilla/logo-junior-barranquilla-256.png",
+    "Olimpia": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_de_Olimpia_2022_PNG_HD.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original",
+    "Barcelona SC": "https://logodetimes.com/times/barcelona-de-guayaquil/logo-barcelona-de-guayaquil-256.png",
+    "Corinthians": "https://logodetimes.com/times/corinthians/logo-corinthians-256.png",
+    "Bahia": "https://logodetimes.com/times/bahia/logo-bahia-256.png",
+    "Atlético Nacional": "https://logodetimes.com/times/atletico-nacional/logo-atletico-nacional-256.png",
+    "Estudiantes": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Escudo_del_Club_Estudiantes_de_La_Plata.svg/1280px-Escudo_del_Club_Estudiantes_de_La_Plata.svg.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=thumbnail",
+    "Red Bull Bragantino": "https://logodetimes.com/times/red-bull-bragantino/logo-red-bull-bragantino-256.png",
+    "Colo-Colo": "https://upload.wikimedia.org/wikipedia/pt/e/e8/Colo-Colo_Futbol_Club.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original",
+    "Racing Club": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Escudo_de_Racing_Club_%282014%29.svg/1920px-Escudo_de_Racing_Club_%282014%29.svg.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=thumbnail",
+    "LDU Quito": "https://upload.wikimedia.org/wikipedia/commons/7/72/LDU_Escudo_Actualizado_2023.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original",
+    "Caracas": "https://upload.wikimedia.org/wikipedia/pt/f/f4/Caracas_FC.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original",
+    "Botafogo": "https://logodetimes.com/times/botafogo/logo-botafogo-256.png",
+    "Nacional": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Club_Nacional_de_Football%27s_logo.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original",
+    "San Lorenzo": "https://logodetimes.com/times/san-lorenzo/logo-san-lorenzo-256.png",
+    "Peñarol": "https://logodetimes.com/times/penarol/logo-penarol-256.png",
+    "Talleres": "https://logodetimes.com/times/talleres-de-cordoba/logo-talleres-de-cordoba-256.png",
+    "The Strongest": "https://assets.footylogos.com/logos/the-strongest/the-strongest-logo-footylogos.png"
 };
 
 const escudoPadraoLibertadores = 'https://www.ogol.com.br/img/logos/edicoes/130437_imgbank_.png';
 
-function normalizarChave(nome) {
-    if (!nome) return '';
-    return nome.toLowerCase()
-               .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-               .replace(/[^a-z0-9]/g, "");
-}
-
 function obterEscudoTime(nomeTime) {
-    const chave = normalizarChave(nomeTime);
-    return mapaEscudos[chave] || escudoPadraoLibertadores;
+    return ESCUDOS_OFICIAIS_LIBERTA[nomeTime] || escudoPadraoLibertadores;
 }
 
+// Times qualificados da sua simulação do PES
 const timesPadraoLibertadores = {
-    pote1: ['Palmeiras', 'Flamengo', 'River Plate', 'Fluminense', 'São Paulo', 'Atlético-MG', 'Grêmio', 'Bolívar'],
-    pote2: ['Botafogo', 'Nacional', 'San Lorenzo', 'Peñarol', 'Talleres', 'Colo-Colo', 'Junior Barranquilla', 'The Strongest']
+    pote1: ['Atlético-MG', 'Universitario', 'Junior Barranquilla', 'Barcelona SC', 'Bahia', 'Estudiantes', 'Colo-Colo', 'LDU Quito'],
+    pote2: ['Flamengo', 'CRB', 'Olimpia', 'Corinthians', 'Atlético Nacional', 'Red Bull Bragantino', 'Racing Club', 'Caracas']
 };
 
 let cenaAtual = 1;
 const totalCenas = 5;
 let autoPlayAtivo = false;
 let autoPlayTimer = null;
-const tempoPorCenaMs = 12000;
+const tempoPorCenaMs = 11000;
 
 // Controle de timeouts
 let timeoutsAnimacao = [];
@@ -122,11 +102,11 @@ function mostrarCena(numeroCena) {
     if (cenaAtual === 3) {
         animarRegrasSequenciais();
     } else if (cenaAtual === 4) {
-        iniciarApresentacaoPotesOficiais();
+        renderizarVisaoGeralPotes();
     }
 }
 
-// 2. ANIMAÇÃO SEQUENCIAL DOS CARDS DE REGRAS (CENA 3)
+// 2. ANIMAÇÃO SEQUENCIAL DAS REGRAS (CENA 3)
 function animarRegrasSequenciais() {
     const regras = document.querySelectorAll('.card-regra-info');
     regras.forEach(r => r.classList.remove('revelado'));
@@ -134,96 +114,37 @@ function animarRegrasSequenciais() {
     regras.forEach((regra, index) => {
         const t = setTimeout(() => {
             regra.classList.add('revelado');
-        }, 200 + (index * 250));
+        }, 150 + (index * 220));
         timeoutsAnimacao.push(t);
     });
 }
 
-// 3. APRESENTAÇÃO COMPLETA: POTE 1 SOLO -> POTE 2 SOLO -> VISÃO GERAL
-function iniciarApresentacaoPotesOficiais() {
+// 3. APRESENTAÇÃO SOLENE DOS POTES (CENA 4)
+function renderizarVisaoGeralPotes() {
     if (!palcoCenaPotes || cenaAtual !== 4) return;
 
     const dados = obterDadosPotes();
-    
-    const filaApresentacao = [
-        ...dados.pote1.map(time => ({ time, poteNome: 'POTE 1 • LÍDERES' })),
-        ...dados.pote2.map(time => ({ time, poteNome: 'POTE 2 • VICE-LÍDERES' }))
-    ];
-
-    let indexFila = 0;
-
-    function renderizarCardSolo(item) {
-        if (cenaAtual !== 4) return;
-
-        const escudoUrl = obterEscudoTime(item.time);
-
-        palcoCenaPotes.innerHTML = `
-            <div class="container-spotlight-solo">
-                <span class="tag-pote-solo">${item.poteNome}</span>
-                <div class="card-time-solo" id="card-solo-ativo">
-                    <div class="moldura-escudo-solo">
-                        <img src="${escudoUrl}" alt="${item.time}" onerror="this.onerror=null; this.src='${escudoPadraoLibertadores}';">
-                    </div>
-                    <h3 class="nome-time-solo">${item.time}</h3>
-                </div>
-            </div>
-        `;
-
-        const cardAtivo = document.getElementById('card-solo-ativo');
-        
-        const tEntrada = setTimeout(() => {
-            if (cardAtivo && cenaAtual === 4) cardAtivo.classList.add('visivel');
-        }, 50);
-        timeoutsAnimacao.push(tEntrada);
-
-        // Fica em exibição por 1.8 segundos
-        const tFadeOut = setTimeout(() => {
-            if (cenaAtual !== 4) return;
-
-            if (cardAtivo) cardAtivo.className = 'card-time-solo saindo';
-
-            // Aguarda 0.4s de transição e passa para o próximo time
-            const tProximo = setTimeout(() => {
-                indexFila++;
-                if (indexFila < filaApresentacao.length) {
-                    renderizarCardSolo(filaApresentacao[indexFila]);
-                } else {
-                    renderizarVisaoGeralPotes(dados);
-                }
-            }, 400);
-
-            timeoutsAnimacao.push(tProximo);
-        }, 1800);
-
-        timeoutsAnimacao.push(tFadeOut);
-    }
-
-    renderizarCardSolo(filaApresentacao[0]);
-}
-
-// 4. QUADRO FINAL COM OS DOIS POTES LADO A LADO
-function renderizarVisaoGeralPotes(dados) {
-    if (!palcoCenaPotes || cenaAtual !== 4) return;
 
     const htmlPote1 = dados.pote1.map(time => `
         <div class="item-time-quadro">
-            <img src="${obterEscudoTime(time)}" class="mini-escudo-quadro" alt="${time}" onerror="this.onerror=null; this.src='${escudoPadraoLibertadores}';">
+            <img src="${obterEscudoTime(time)}" class="mini-escudo-quadro" alt="${time}" onerror="this.src='${escudoPadraoLibertadores}';">
             <span class="nome-clube-quadro">${time}</span>
         </div>
     `).join('');
 
     const htmlPote2 = dados.pote2.map(time => `
         <div class="item-time-quadro">
-            <img src="${obterEscudoTime(time)}" class="mini-escudo-quadro" alt="${time}" onerror="this.onerror=null; this.src='${escudoPadraoLibertadores}';">
+            <img src="${obterEscudoTime(time)}" class="mini-escudo-quadro" alt="${time}" onerror="this.src='${escudoPadraoLibertadores}';">
             <span class="nome-clube-quadro">${time}</span>
         </div>
     `).join('');
 
     palcoCenaPotes.innerHTML = `
         <div class="container-potes-visao-geral">
-            <div class="cabecalho-slide" style="margin-bottom: 1.2rem;">
-                <h2 class="titulo-slide">COMPOSIÇÃO OFICIAL DOS POTES</h2>
-                <p class="subtitulo-slide">16 CLUBES CONFIRMADOS</p>
+            <div class="cabecalho-slide" style="margin-bottom: 1.4rem;">
+                <span class="tag-secao-slide">COMPOSIÇÃO OFICIAL</span>
+                <h2 class="titulo-slide">OS 16 CLUBES CLASSIFICADOS</h2>
+                <p class="subtitulo-slide">8 LÍDERES (POTE 1) &bull; 8 VICE-LÍDERES (POTE 2)</p>
             </div>
 
             <div class="grid-potes-duplo">
@@ -231,7 +152,7 @@ function renderizarVisaoGeralPotes(dados) {
                 <div class="coluna-pote-quadro">
                     <div class="barra-titulo-pote">
                         <span class="insignia-pote">POTE 1</span>
-                        <span class="status-pote">LÍDERES</span>
+                        <span class="status-pote">LÍDERES DE GRUPO</span>
                     </div>
                     <div class="lista-times-quadro">${htmlPote1}</div>
                 </div>
@@ -249,7 +170,7 @@ function renderizarVisaoGeralPotes(dados) {
     `;
 }
 
-// 5. CONTROLES DE NAVEGAÇÃO
+// 4. CONTROLES DE NAVEGAÇÃO
 if (btnAvancar) {
     btnAvancar.addEventListener('click', () => {
         if (cenaAtual < totalCenas) {
@@ -268,7 +189,7 @@ if (btnVoltar) {
     });
 }
 
-// 6. ATALHOS DO TECLADO
+// 5. ATALHOS DO TECLADO
 window.addEventListener('keydown', (e) => {
     if (e.code === 'Space' || e.key === 'ArrowRight') {
         e.preventDefault();
@@ -279,7 +200,7 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// 7. MODO AUTOMÁTICO
+// 6. MODO AUTOMÁTICO
 if (btnAutoPlay) {
     btnAutoPlay.addEventListener('click', () => {
         autoPlayAtivo = !autoPlayAtivo;

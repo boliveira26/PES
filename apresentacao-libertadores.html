@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Apresentação | CONMEBOL Libertadores</title>
-    <!-- CACHE BUSTER ?v=20 -->
-    <link rel="stylesheet" href="assets/css/apresentacao.css?v=20">
+    <title>Apresentação de Gala | CONMEBOL Libertadores</title>
+    
+    <!-- FONTE DIGITAL OFICIAL (UBUNTU) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- CSS DA CERIMÔNIA -->
+    <link rel="stylesheet" href="assets/css/apresentacao.css?v=35">
     <!-- ESTILO DO PLAYER DE ÁUDIO -->
     <link rel="stylesheet" href="assets/css/audio-player.css">
 </head>
-<body>
+<body class="cerimonia-gala-libertadores">
 
-    <!-- PAINEL SUPERIOR DE ETAPAS -->
+    <!-- PAINEL SUPERIOR DE ETAPAS DA CERIMÔNIA -->
     <header class="painel-cerimonia-topo">
         <div class="bloco-marca-topo">
             <span class="selo-oficial">CONMEBOL</span>
@@ -19,41 +25,45 @@
         </div>
         
         <div class="indicadores-cenas">
-            <div class="item-indicador ativo" id="ind-1"><span class="num-ind">01</span> ABERTURA</div>
-            <div class="item-indicador" id="ind-2"><span class="num-ind">02</span> SEDE</div>
-            <div class="item-indicador" id="ind-3"><span class="num-ind">03</span> REGRAS</div>
-            <div class="item-indicador" id="ind-4"><span class="num-ind">04</span> POTES</div>
-            <div class="item-indicador" id="ind-5"><span class="num-ind">05</span> SORTEIO</div>
+            <div class="item-indicador ativo" id="ind-1" onclick="mostrarCena(1)"><span class="num-ind">01</span> ABERTURA</div>
+            <div class="item-indicador" id="ind-2" onclick="mostrarCena(2)"><span class="num-ind">02</span> SEDE DA FINAL</div>
+            <div class="item-indicador" id="ind-3" onclick="mostrarCena(3)"><span class="num-ind">03</span> REGRAS</div>
+            <div class="item-indicador" id="ind-4" onclick="mostrarCena(4)"><span class="num-ind">04</span> POTES OFICIAIS</div>
+            <div class="item-indicador" id="ind-5" onclick="mostrarCena(5)"><span class="num-ind">05</span> SORTEIO</div>
         </div>
     </header>
 
-    <!-- PALCO PRINCIPAL -->
+    <!-- PALCO PRINCIPAL DE TRANSMISSÃO -->
     <main class="palco-apresentacao">
 
-        <!-- ================= CENA 1: ABERTURA ================= -->
+        <!-- ================= CENA 1: ABERTURA (A GLÓRIA ETERNA) ================= -->
         <section class="cena ativa" id="cena-1">
             <div class="conteudo-cena centro-impacto">
                 <div class="halo-dourado-abertura"></div>
                 <div class="emblema-abertura-3d">
-                    <img src="https://www.ogol.com.br/img/logos/edicoes/130437_imgbank_.png" alt="Taça Libertadores">
+                    <img src="https://www.ogol.com.br/img/logos/edicoes/130437_imgbank_.png" alt="Taça CONMEBOL Libertadores">
                 </div>
-                <h1 class="titulo-abertura">CONMEBOL LIBERTADORES</h1>
-                <h2 class="slogan-abertura">A GLÓRIA ETERNA</h2>
-                <span class="subtitulo-seco">SORTEIO DAS OITAVAS DE FINAL</span>
+                <div class="bloco-titulos-abertura">
+                    <h1 class="titulo-abertura">CONMEBOL LIBERTADORES</h1>
+                    <h2 class="slogan-abertura">A GLÓRIA ETERNA</h2>
+                    <p class="legado-abertura-txt">Não há comparação. Sem igual. Absoluto.</p>
+                </div>
+                <span class="badge-fase-abertura">CERIMÔNIA OFICIAL DE SORTEIO DAS OITAVAS DE FINAL</span>
             </div>
         </section>
 
-        <!-- ================= CENA 2: PALCO DA FINAL ================= -->
+        <!-- ================= CENA 2: PALCO DA GRANDE FINAL ================= -->
         <section class="cena" id="cena-2">
             <div class="conteudo-cena">
                 <div class="cabecalho-slide">
+                    <span class="tag-secao-slide">PALCO DA GRANDE DECISÃO</span>
                     <h2 class="titulo-slide">ESTÁDIO MARIO ALBERTO KEMPES</h2>
                     <p class="subtitulo-slide">CÓRDOBA &bull; ARGENTINA</p>
                 </div>
 
                 <div class="card-estadio-cinematografico">
                     <div class="moldura-foto-estadio">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Estadio_Mario_Alberto_Kempes_-_C%C3%B3rdoba_01.jpg/1280px-Estadio_Mario_Alberto_Kempes_-_C%C3%B3rdoba_01.jpg" alt="Estádio Mario Kempes">
+                        <img src="https://conteudo.imguol.com.br/c/esporte/70/2022/09/29/estadio-mario-alberto-kempes-em-cordoba-na-argentina-1664471496102_v2_615x300.jpg" alt="Estádio Mario Alberto Kempes">
                         <div class="gradiente-sombra-estadio"></div>
                         <span class="selo-final-unica">FINAL ÚNICA</span>
                     </div>
@@ -61,84 +71,132 @@
                     <div class="grid-ficha-estadio">
                         <div class="item-ficha">
                             <span class="label-ficha">CAPACIDADE</span>
-                            <strong class="valor-ficha">57.000</strong>
+                            <strong class="valor-ficha">57.000 ESPECTADORES</strong>
                         </div>
                         <div class="item-ficha destaque-ouro">
-                            <span class="label-ficha">DATA</span>
-                            <strong class="valor-ficha">31 OUT 2026</strong>
+                            <span class="label-ficha">DATA DA FINAL</span>
+                            <strong class="valor-ficha">31 DE OUTUBRO DE 2026</strong>
                         </div>
                         <div class="item-ficha">
-                            <span class="label-ficha">DECISÃO</span>
-                            <strong class="valor-ficha">CAMPO NEUTRO</strong>
+                            <span class="label-ficha">FORMATO</span>
+                            <strong class="valor-ficha">JOGO ÚNICO &bull; CAMPO NEUTRO</strong>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= CENA 3: REGRAS OBJETIVAS ================= -->
+        <!-- ================= CENA 3: REGRAS DO SORTEIO (INFOGRÁFICOS ANIMADOS DE TV) ================= -->
         <section class="cena" id="cena-3">
             <div class="conteudo-cena">
                 <div class="cabecalho-slide">
+                    <span class="tag-secao-slide">REGULAMENTO OFICIAL</span>
                     <h2 class="titulo-slide">REGRAS DO SORTEIO</h2>
-                    <p class="subtitulo-slide">CRITÉRIOS OFICIAIS DO CONFRONTO</p>
+                    <p class="subtitulo-slide">CRITÉRIOS OFICIAIS DO CHAVEAMENTO</p>
                 </div>
 
                 <div class="grid-cards-regras">
-                    <div class="card-regra-info">
+                    
+                    <!-- REGRA 1: CRUZAMENTO DE POTES -->
+                    <div class="card-regra-info" id="regra-card-1">
                         <div class="topo-card-regra">
                             <span class="badge-regra">01</span>
                             <h4>CRUZAMENTO</h4>
                         </div>
-                        <p>Pote 1 (1ºs colocados) enfrenta Pote 2 (2ºs colocados).</p>
+                        <div class="animacao-regra-box regra-cruzamento">
+                            <div class="pote-mini-badge p1">POTE 1</div>
+                            <div class="feixe-confronto-regra">
+                                <span class="linha-raio"></span>
+                                <span class="vs-cruzamento-tag">VS</span>
+                                <span class="linha-raio"></span>
+                            </div>
+                            <div class="pote-mini-badge p2">POTE 2</div>
+                        </div>
+                        <p>1ºs Colocados (Pote 1) enfrentam exclusivamente os 2ºs Colocados (Pote 2).</p>
                     </div>
 
-                    <div class="card-regra-info">
+                    <!-- REGRA 2: MANDO DE CAMPO -->
+                    <div class="card-regra-info" id="regra-card-2">
                         <div class="topo-card-regra">
                             <span class="badge-regra">02</span>
                             <h4>MANDO DE CAMPO</h4>
                         </div>
-                        <p>Clubes do Pote 1 decidem o jogo de volta em casa.</p>
+                        <div class="animacao-regra-box regra-mando">
+                            <div class="etapa-mando ida">
+                                <span class="tag-jogo-mando">JOGO 1 (IDA)</span>
+                                <span class="txt-mando">CASA DO POTE 2</span>
+                            </div>
+                            <span class="seta-mando-transicao">&rarr;</span>
+                            <div class="etapa-mando volta destaque-lider">
+                                <span class="tag-jogo-mando">JOGO 2 (VOLTA)</span>
+                                <span class="txt-mando">CASA DO LÍDER (POTE 1)</span>
+                            </div>
+                        </div>
+                        <p>Clubes do Pote 1 têm a vantagem de decidir a partida de volta em seus domínios.</p>
                     </div>
 
-                    <div class="card-regra-info">
+                    <!-- REGRA 3: SEM BLOQUEIOS DE PAÍS -->
+                    <div class="card-regra-info" id="regra-card-3">
                         <div class="topo-card-regra">
                             <span class="badge-regra">03</span>
                             <h4>BLOQUEIOS</h4>
                         </div>
-                        <p>Sem travas: confrontos entre clubes do mesmo país são permitidos.</p>
+                        <div class="animacao-regra-box regra-bloqueio">
+                            <div class="bloco-rival-liberado">
+                                <span class="icone-rival">⚽</span>
+                                <span class="txt-rival">MESMA FEDERAÇÃO</span>
+                            </div>
+                            <div class="status-bloqueio-tag liberado">
+                                <span class="icone-check">✓</span>
+                                <span>CLÁSSICOS PERMITIDOS</span>
+                            </div>
+                        </div>
+                        <p>Sem travas: confrontos entre equipes da mesma federação ou do mesmo grupo são totalmente permitidos.</p>
                     </div>
 
-                    <div class="card-regra-info">
+                    <!-- REGRA 4: ORDEM DE EXTRAÇÃO -->
+                    <div class="card-regra-info" id="regra-card-4">
                         <div class="topo-card-regra">
                             <span class="badge-regra">04</span>
-                            <h4>ORDEM</h4>
+                            <h4>ORDEM DE EXTRAÇÃO</h4>
                         </div>
-                        <p>Sorteia-se o Mandante (Pote 2) e depois o Visitante (Pote 1).</p>
+                        <div class="animacao-regra-box regra-ordem">
+                            <div class="passo-extracao passo-1">
+                                <span class="num-passo">1º</span>
+                                <span class="desc-passo">POTE 2 &bull; MANDANTE</span>
+                            </div>
+                            <span class="seta-ordem-passo">&rarr;</span>
+                            <div class="passo-extracao passo-2">
+                                <span class="num-passo">2º</span>
+                                <span class="desc-passo">POTE 1 &bull; VISITANTE</span>
+                            </div>
+                        </div>
+                        <p>Sorteia-se primeiro o mandante da ida (Pote 2) e em seguida o seu adversário (Pote 1).</p>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- ================= CENA 4: APRESENTAÇÃO DOS POTES (SOLO COM ESCUDO) ================= -->
+        <!-- ================= CENA 4: APRESENTAÇÃO DOS POTES ================= -->
         <section class="cena" id="cena-4">
             <div class="conteudo-cena" id="palco-cena-potes">
-                <!-- Preenchido via JS -->
+                <!-- Renderizado dinamicamente pelo JS com os 16 escudos em HD -->
             </div>
         </section>
 
-        <!-- ================= CENA 5: CLÍMAX ================= -->
+        <!-- ================= CENA 5: CLÍMAX (DISPARO DO SORTEIO) ================= -->
         <section class="cena" id="cena-5">
             <div class="conteudo-cena centro-impacto">
                 <div class="emblema-abertura-3d">
                     <img src="https://www.ogol.com.br/img/logos/edicoes/130437_imgbank_.png" alt="Taça Libertadores">
                 </div>
-                <h2 class="titulo-pronto">POTES PRONTOS</h2>
-                <p class="descricao-pronto">Iniciando o sorteio oficial das Oitavas de Final.</p>
+                <h2 class="titulo-pronto">TUDO PRONTO PARA O SORTEIO</h2>
+                <p class="descricao-pronto">Os 16 classificados aguardam a definição do caminho rumo à Glória Eterna.</p>
 
                 <div class="acoes-abertura-final">
                     <a href="libertadores.html" class="btn-iniciar-sorteio-live">
-                        SORTEAR OITAVAS DE FINAL &rarr;
+                        INICIAR SORTEIO OFICIAL &rarr;
                     </a>
                 </div>
             </div>
@@ -148,14 +206,14 @@
 
     <!-- BARRA DE CONTROLES INFERIOR -->
     <footer class="controles-cerimonia">
-        <button type="button" id="btn-voltar-cena" class="btn-ctrl" title="Voltar">◀</button>
+        <button type="button" id="btn-voltar-cena" class="btn-ctrl" title="Voltar Cena">◀</button>
         <button type="button" id="btn-auto-play" class="btn-ctrl-texto">MODO AUTOMÁTICO</button>
-        <button type="button" id="btn-avancar-cena" class="btn-ctrl-destaque" title="Avançar">AVANÇAR &rarr;</button>
-        <a href="libertadores.html" class="link-pular-intro">PULAR &rarr;</a>
+        <button type="button" id="btn-avancar-cena" class="btn-ctrl-destaque" title="Avançar Cena">AVANÇAR &rarr;</button>
+        <a href="libertadores.html" class="link-pular-intro">PULAR INTRO &rarr;</a>
     </footer>
 
-    <script src="assets/js/apresentacao-libertadores.js?v=20"></script>
-    <!-- SCRIPT GERENCIADOR DE ÁUDIO -->
+    <!-- SCRIPTS -->
+    <script src="assets/js/apresentacao-libertadores.js?v=35"></script>
     <script src="assets/js/audio-player.js"></script>
 </body>
 </html>
