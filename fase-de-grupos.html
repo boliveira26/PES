@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Painel de Controle | Fase de Grupos Libertadores</title>
+    <!-- CSS DA FASE DE GRUPOS -->
+    <link rel="stylesheet" href="assets/css/fase-de-grupos.css?v=10">
+    <!-- AUDIO PLAYER -->
+    <link rel="stylesheet" href="assets/css/audio-player.css?v=28">
+</head>
+<body class="dashboard-fullscreen-tv">
+
+    <!-- CABEÇALHO ADMINISTRATIVO -->
+    <header class="header-dashboard-tv">
+        <div style="display: flex; gap: 10px; position: absolute; top: 0; left: 0;">
+            <a href="index.html" class="btn-voltar-portal">&larr; Painel Principal</a>
+            <button type="button" class="btn-voltar-portal" style="background: var(--gold-badge); color: #000; border-color: #ffeaa3;" onclick="exportarDadosParaPortal()">📥 Exportar para o Portal</button>
+        </div>
+        
+        <div class="emblema-topo-tv">
+            <img src="https://www.ogol.com.br/img/logos/edicoes/130437_imgbank_.png" alt="Logo Libertadores">
+        </div>
+        
+        <h1>CONMEBOL LIBERTADORES</h1>
+        <h2>PAINEL DE CONTROLE &bull; FASE DE GRUPOS</h2>
+    </header>
+
+    <!-- PALCO DOS GRUPOS (LARGURA TOTAL) -->
+    <main class="dashboard-grid-full" id="grade-grupos-container">
+        <!-- Renderizado com campos de digitação interativos via JS -->
+    </main>
+
+    <!-- LEGENDA OFICIAL -->
+    <footer class="footer-legenda-tv">
+        <div class="item-legenda-tv">
+            <span class="box-legenda verde"></span>
+            <span class="txt-legenda">1º e 2º: Oitavas de Final (Libertadores)</span>
+        </div>
+        <div class="item-legenda-tv">
+            <span class="box-legenda vermelho"></span>
+            <span class="txt-legenda">3º e 4º: Copa Sul-Americana</span>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS ADMINISTRATIVOS -->
+    <script src="assets/js/fase-de-grupos-admin.js?v=10"></script>
+    <script src="assets/js/audio-player.js?v=28"></script>
+</body>
+</html>
