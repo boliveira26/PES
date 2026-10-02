@@ -15,6 +15,7 @@ const ESCUDOS_OFICIAIS_LIBERTA = {
     "Universitario": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Escudo_del_Club_Universitario_de_Deportes.svg/3840px-Escudo_del_Club_Universitario_de_Deportes.svg.png",
     "CRB": "https://logodetimes.com/times/crb/logo-crb-256.png",
     "Junior Barranquilla": "https://logodetimes.com/times/junior-barranquilla/logo-junior-barranquilla-256.png",
+    "Junior": "https://logodetimes.com/times/junior-barranquilla/logo-junior-barranquilla-256.png",
     "Olimpia": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_de_Olimpia_2022_PNG_HD.png?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original",
     "Barcelona SC": "https://logodetimes.com/times/barcelona-de-guayaquil/logo-barcelona-de-guayaquil-256.png",
     "Corinthians": "https://logodetimes.com/times/corinthians/logo-corinthians-256.png",
@@ -40,10 +41,28 @@ function obterEscudoTime(nomeTime) {
     return ESCUDOS_OFICIAIS_LIBERTA[nomeTime] || escudoPadraoLibertadores;
 }
 
-// Times qualificados da sua simulação do PES
+// OS 16 CLASSIFICADOS OFICIAIS DA SUA SIMULAÇÃO DO PES
 const timesPadraoLibertadores = {
-    pote1: ['Atlético-MG', 'Universitario', 'Junior Barranquilla', 'Barcelona SC', 'Bahia', 'Estudiantes', 'Colo-Colo', 'LDU Quito'],
-    pote2: ['Flamengo', 'CRB', 'Olimpia', 'Corinthians', 'Atlético Nacional', 'Red Bull Bragantino', 'Racing Club', 'Caracas']
+    pote1: [
+        'Atlético Mineiro', 
+        'Universitario', 
+        'Junior Barranquilla', 
+        'Barcelona SC', 
+        'Bahia', 
+        'Estudiantes', 
+        'Colo-Colo', 
+        'LDU Quito'
+    ],
+    pote2: [
+        'Flamengo', 
+        'CRB', 
+        'Olimpia', 
+        'Corinthians', 
+        'Atlético Nacional', 
+        'Red Bull Bragantino', 
+        'Racing Club', 
+        'Fluminense'
+    ]
 };
 
 let cenaAtual = 1;

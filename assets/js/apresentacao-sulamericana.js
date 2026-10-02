@@ -48,8 +48,26 @@ function obterEscudoTime(nomeTime) {
 }
 
 const timesPadraoSulamericana = {
-    pote1: ['Cruzeiro', 'Corinthians', 'Fortaleza', 'Athletico-PR', 'Lanús', 'Independiente Medellín', 'Racing', 'Sportivo Ameliano'],
-    pote2: ['Boca Juniors', 'Rosario Central', 'Internacional', 'Red Bull Bragantino', 'Libertad', 'Huachipato', 'LDU Quito', 'Palestino']
+    pote1: [
+        'Bolívar',
+        'Libertad',
+        'Jorge Wilstermann',
+        'Boca Juniors',
+        'Nacional',
+        'Peñarol',
+        'Mirassol',
+        'Caracas'
+    ],
+    pote2: [
+        'Sporting Cristal',
+        'River Plate',
+        'Palmeiras',
+        'Universidad Católica',
+        'Independiente del Valle',
+        'Cerro Porteño',
+        'Deportivo Táchira',
+        'The Strongest'
+    ]
 };
 
 let cenaAtual = 1;
